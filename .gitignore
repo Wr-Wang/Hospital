@@ -1,0 +1,19 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+*.DotSettings.user
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+## OS
+Thumbs.db
+Desktop.ini
