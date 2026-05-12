@@ -27,6 +27,8 @@ dotnet run --project src\Hospital.App\Hospital.App.csproj -c Release
 | [docs/WPF_ARCHITECTURE.md](docs/WPF_ARCHITECTURE.md) | WPF 分层、MVVM、导航契约 |
 | [docs/WPF_UI_INVENTORY.md](docs/WPF_UI_INVENTORY.md) | UI Key、RouteKey、权限码对照 |
 | [docs/WPF_UI_DECISIONS.md](docs/WPF_UI_DECISIONS.md) | 门诊 Tab、叫号大屏、重症波形等 UI 实施结论 |
+| [docs/DATABASE_SCHEMA_PLAN.md](docs/DATABASE_SCHEMA_PLAN.md) | 数据库表清单、分表设计与脚本索引（与 `database/` 同步） |
+| [database/README.md](database/README.md) | **SQL Server** 建库/建表脚本说明与执行顺序 |
 
 ## 解决方案结构
 
@@ -38,5 +40,6 @@ dotnet run --project src\Hospital.App\Hospital.App.csproj -c Release
 ## 下一步（建议）
 
 1. 在 `PRODUCT_SCOPE_CONFIRMATIONS.md` 中补充**医保首发省市**与接口厂商信息。  
-2. 实现 `IApiClient` 与后端 API 契约，按 `WPF_UI_INVENTORY` 逐路由注册真实 `UserControl`。  
-3. 增加登录窗体并将 `ApplicationContext` 与令牌从登录结果注入。
+2. 在 SQL Server 上按 [database/README.md](database/README.md) 顺序执行 `000`–`015` 与可选 `900_seed_minimal.sql`，验证建表与扩展属性。  
+3. 实现 `IApiClient` 与后端 API 契约，按 `WPF_UI_INVENTORY` 逐路由注册真实 `UserControl`。  
+4. 增加登录窗体并将 `ApplicationContext` 与令牌从登录结果注入。
