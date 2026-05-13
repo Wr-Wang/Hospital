@@ -1,7 +1,12 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace Hospital.App.Services;
 
-public sealed class ApplicationContext : IAppContext
+public sealed partial class ApplicationContext : ObservableObject, IAppContext
 {
-    public string? CurrentUserDisplayName { get; set; } = "演示用户";
-    public string? CampusName { get; set; } = "演示院区";
+    [ObservableProperty]
+    private string? currentUserDisplayName = "演示用户";
+
+    [ObservableProperty]
+    private string? campusName = "演示院区";
 }
