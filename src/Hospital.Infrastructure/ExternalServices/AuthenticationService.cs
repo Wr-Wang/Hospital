@@ -25,9 +25,14 @@ public class AuthenticationService : IAuthenticationService
                 new UserInfo(1, response.DisplayName ?? string.Empty, response.CampusName ?? string.Empty, response.Roles),
                 response.Token);
         }
+        catch (HttpRequestException ex) when (ex.StatusCode is null)
+        {
+            // Network error (server unreachable), let it propagate to LoginViewModel's handler
+            throw;
+        }
         catch (HttpRequestException)
         {
-            // HTTP 401: 登录失败，API 返回 401
+            // HTTP 401 (or other non-success): API rejected the login
             return new AuthenticationResult(false, "用户名或密码错误", null);
         }
     }
