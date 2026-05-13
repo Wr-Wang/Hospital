@@ -21,13 +21,15 @@ public class AuthenticationController : ControllerBase
 
         if (!result.IsSuccess)
         {
-            return BadRequest(new { message = result.ErrorMessage });
+            return Unauthorized(new { message = result.ErrorMessage });
         }
 
         return Ok(new
         {
+            token = result.Token,
             displayName = result.UserInfo?.DisplayName,
-            campusName = result.UserInfo?.CampusName
+            campusName = result.UserInfo?.CampusName,
+            roles = result.UserInfo?.Roles
         });
     }
 

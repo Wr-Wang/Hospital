@@ -31,7 +31,7 @@ dotnet run --project src/Hospital.App
 # 构建全部
 dotnet build
 
-# 测试账号：admin / password
+# 测试账号：admin / admin123 (系统管理员), doctor / doctor123 (门诊医生)
 ```
 
 ## 关键约定

@@ -20,14 +20,14 @@ public class AuthenticationService : IAuthenticationService
         {
             var response = await _apiClient.PostAsync<AuthenticationResponse>("Authentication/login", apiRequest);
 
-            // HTTP 200: 登录成功，API 返回 {displayName, campusName}
+            // HTTP 200: 登录成功，API 返回 {token, displayName, campusName, roles}
             return new AuthenticationResult(true, null,
-                new UserInfo(1, response.DisplayName ?? string.Empty, response.CampusName ?? string.Empty));
+                new UserInfo(1, response.DisplayName ?? string.Empty, response.CampusName ?? string.Empty, response.Roles),
+                response.Token);
         }
         catch (HttpRequestException)
         {
-            // HTTP 400: 登录失败，API 返回 {message: "..."}
-            // PostAsync 内的 EnsureSuccessStatusCode 已抛出，具体错误信息在 ex.Data 中
+            // HTTP 401: 登录失败，API 返回 401
             return new AuthenticationResult(false, "用户名或密码错误", null);
         }
     }

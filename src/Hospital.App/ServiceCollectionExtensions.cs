@@ -18,7 +18,10 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IApiClient, ApiClient>(client =>
         {
             client.BaseAddress = new Uri("http://localhost:5075/api/");
-        });
+        })
+        .AddHttpMessageHandler<AuthDelegatingHandler>();
+
+        services.AddTransient<AuthDelegatingHandler>();
 
         services.AddTransient<IAuthenticationService, AuthenticationService>();
         services.AddTransient<IAuthenticationApplicationService, AuthenticationApplicationService>();

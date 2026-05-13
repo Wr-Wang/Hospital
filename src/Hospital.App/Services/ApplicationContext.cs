@@ -9,4 +9,10 @@ public sealed partial class ApplicationContext : ObservableObject, IAppContext
 
     [ObservableProperty]
     private string? campusName = "演示院区";
+
+    [ObservableProperty]
+    private string? accessToken;
+
+    [ObservableProperty]
+    private string[]? roles;
 }
