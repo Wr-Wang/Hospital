@@ -1,20 +1,22 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Hospital.Application.Services;
 using Hospital.App.Services;
 
 namespace Hospital.App.ViewModels;
 
 public sealed partial class LoginViewModel : ObservableObject
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly IAuthenticationApplicationService _authenticationService;
     private readonly IAppContext _appContext;
 
     public event EventHandler? LoginSucceeded;
     public event EventHandler? RequestClose;
 
-    public LoginViewModel(IAuthenticationService authenticationService, IAppContext appContext)
+    public LoginViewModel(IAuthenticationApplicationService authenticationService, IAppContext appContext)
     {
         _authenticationService = authenticationService;
         _appContext = appContext;
@@ -40,16 +42,28 @@ public sealed partial class LoginViewModel : ObservableObject
 
         try
         {
-            var result = await _authenticationService.AuthenticateAsync(UserName ?? string.Empty, Password ?? string.Empty);
-            if (!result.Success)
+            var result = await _authenticationService.LoginAsync(UserName ?? string.Empty, Password ?? string.Empty);
+            if (!result.IsSuccess)
             {
                 ErrorMessage = result.ErrorMessage;
                 return;
             }
 
-            _appContext.CurrentUserDisplayName = result.DisplayName;
-            _appContext.CampusName = result.CampusName;
+            _appContext.CurrentUserDisplayName = result.UserInfo?.DisplayName;
+            _appContext.CampusName = result.UserInfo?.CampusName;
             LoginSucceeded?.Invoke(this, EventArgs.Empty);
+        }
+        catch (HttpRequestException ex)
+        {
+            ErrorMessage = $"无法连接到服务器: {ex.Message}";
+        }
+        catch (TaskCanceledException)
+        {
+            ErrorMessage = "登录请求超时，请检查网络或服务器状态";
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"登录失败: {ex.Message}";
         }
         finally
         {

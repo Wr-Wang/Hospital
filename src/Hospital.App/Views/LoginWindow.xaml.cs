@@ -6,6 +6,12 @@ namespace Hospital.App.Views;
 
 public partial class LoginWindow : Window
 {
+    public LoginWindow(LoginViewModel viewModel)
+        : this()
+    {
+        DataContext = viewModel;
+    }
+
     public LoginWindow()
     {
         InitializeComponent();

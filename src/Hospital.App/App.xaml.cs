@@ -1,49 +1,31 @@
 using System.Windows;
 using Hospital.App.Services;
-using Hospital.App.ViewModels;
-using Hospital.App.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital.App;
 
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-        var services = new ServiceCollection();
-        services.AddSingleton<IAppContext, ApplicationContext>();
-        services.AddSingleton<INavigationService, NavigationService>();
-        services.AddSingleton<IApiClient, ApiClient>();
-        services.AddSingleton<IAuthenticationService, AuthenticationService>();
-        var serviceProvider = services.BuildServiceProvider();
-
-        var authService = serviceProvider.GetRequiredService<IAuthenticationService>();
-        var appContext = serviceProvider.GetRequiredService<IAppContext>();
-        var navigation = serviceProvider.GetRequiredService<INavigationService>();
-
-        var mainWindow = new MainWindow();
-        MainWindow = mainWindow;
-        mainWindow.AttachNavigation(navigation);
-        mainWindow.DataContext = new MainWindowViewModel(navigation, appContext);
-
-        var loginWindow = new LoginWindow
+        try
         {
-            DataContext = new LoginViewModel(authService, appContext)
-        };
+            var serviceProvider = new ServiceCollection()
+                .AddHospitalAppServices()
+                .BuildServiceProvider();
 
-        var loginResult = loginWindow.ShowDialog();
-        if (loginResult != true)
-        {
-            Shutdown();
-            return;
+            var startup = serviceProvider.GetRequiredService<IStartupService>();
+            if (!startup.Run())
+            {
+                Shutdown();
+            }
         }
-
-        mainWindow.Show();
-        navigation.Navigate("shell.home");
-        ShutdownMode = ShutdownMode.OnMainWindowClose;
+        catch (Exception ex)
+        {
+            MessageBox.Show($"应用程序启动失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            Shutdown();
+        }
     }
 }

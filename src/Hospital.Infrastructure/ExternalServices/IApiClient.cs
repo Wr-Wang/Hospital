@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Hospital.App.Services;
+namespace Hospital.Infrastructure.ExternalServices;
 
 public interface IApiClient
 {

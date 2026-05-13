@@ -1,17 +1,15 @@
 using System.Windows;
 using Hospital.App.Services;
+using Hospital.App.ViewModels;
 
 namespace Hospital.App;
 
 public partial class MainWindow : Window
 {
-    public MainWindow()
+    public MainWindow(MainWindowViewModel viewModel, INavigationService navigation)
     {
         InitializeComponent();
-    }
-
-    public void AttachNavigation(INavigationService navigation)
-    {
+        DataContext = viewModel;
         navigation.Attach(ShellContentHost);
     }
 }
