@@ -16,6 +16,14 @@ builder.Services.AddSwaggerGen();
 // Register DDD services
 builder.Services.AddSingleton<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientApplicationService, PatientApplicationService>();
+builder.Services.AddSingleton<ICampusRepository, CampusRepository>();
+builder.Services.AddScoped<ICampusApplicationService, CampusApplicationService>();
+builder.Services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IDepartmentApplicationService, DepartmentApplicationService>();
+builder.Services.AddSingleton<IStaffRepository, StaffRepository>();
+builder.Services.AddScoped<IStaffApplicationService, StaffApplicationService>();
+builder.Services.AddSingleton<IDictionaryRepository, DictionaryRepository>();
+builder.Services.AddScoped<IDictionaryApplicationService, DictionaryApplicationService>();
 
 // Register auth services
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
