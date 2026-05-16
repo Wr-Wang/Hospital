@@ -22,9 +22,7 @@ public class PatientController : ControllerBase
     {
         var patient = await _patientService.GetByIdAsync(id);
         if (patient is null)
-        {
             return NotFound();
-        }
 
         return Ok(patient);
     }
@@ -34,11 +32,46 @@ public class PatientController : ControllerBase
     {
         var patient = await _patientService.GetByPatientNoAsync(patientNo);
         if (patient is null)
-        {
             return NotFound();
-        }
 
         return Ok(patient);
+    }
+
+    [HttpGet("by-idcard/{idCard}")]
+    public async Task<IActionResult> GetByIdCard(string idCard)
+    {
+        var patient = await _patientService.GetByIdCardAsync(idCard);
+        if (patient is null)
+            return NotFound();
+
+        return Ok(patient);
+    }
+
+    [HttpPost("suspect-duplicates")]
+    public async Task<IActionResult> GetSuspectDuplicates([FromBody] SuspectDuplicateRequest request)
+    {
+        var patients = await _patientService.GetSuspectDuplicatesAsync(request.Name, request.Phone);
+        return Ok(patients);
+    }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> Search(
+        [FromQuery] string? keyword,
+        [FromQuery] int page = 1,
+        [FromQuery] int size = 20)
+    {
+        var result = await _patientService.SearchAsync(keyword, page, size);
+        return Ok(result);
+    }
+
+    [HttpGet("{id}/profile")]
+    public async Task<IActionResult> GetProfile(long id)
+    {
+        var profile = await _patientService.GetProfileAsync(id);
+        if (profile is null)
+            return NotFound();
+
+        return Ok(profile);
     }
 
     [HttpPost]
@@ -65,5 +98,6 @@ public record CreatePatientRequest(
     string? BirthDate,
     string? Phone,
     string? AllergiesText,
-    string? IdCard
-);
+    string? IdCard);
+
+public record SuspectDuplicateRequest(string Name, string? Phone);

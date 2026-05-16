@@ -7,10 +7,10 @@ public class IdCard : IEquatable<IdCard>
     public IdCard(string number)
     {
         if (string.IsNullOrWhiteSpace(number))
-            throw new ArgumentException("ID card number cannot be empty", nameof(number));
+            throw new ArgumentException("身份证号不能为空", nameof(number));
 
         if (!IsValidIdCard(number))
-            throw new ArgumentException("Invalid ID card format", nameof(number));
+            throw new ArgumentException("身份证号格式不正确（应为 18 位）", nameof(number));
 
         Number = number;
     }

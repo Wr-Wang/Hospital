@@ -1,0 +1,144 @@
+<UserControl x:Class="Hospital.App.Views.PatientSearchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32,28,32,32">
+            <!-- Header -->
+            <Border Padding="32,28" CornerRadius="12">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#14B8A6" Offset="0.0" />
+                        <GradientStop Color="#0D9488" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel>
+                    <TextBlock FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource WhiteBrush}"
+                               Text="患者检索" />
+                    <TextBlock Margin="0,8,0,0" FontSize="14"
+                               Foreground="{StaticResource BlueAccentBrush}"
+                               Text="按姓名、身份证号、手机号等条件模糊搜索患者信息" />
+                </StackPanel>
+            </Border>
+
+            <!-- Search bar -->
+            <Border Style="{StaticResource CardStyle}" Margin="0,16,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource FormTextBoxStyle}"
+                             Text="{Binding Keyword, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Grid.Column="1"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Margin="12,0,0,0"
+                            Width="100"
+                            Command="{Binding SearchCommand}"
+                            Content="搜索" />
+                </Grid>
+            </Border>
+
+            <!-- Error message -->
+            <Border Style="{StaticResource ErrorBannerStyle}"
+                    Margin="0,12,0,0"
+                    Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}">
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="{StaticResource Red700Brush}" FontSize="13" />
+            </Border>
+
+            <!-- Results -->
+            <Border Style="{StaticResource CardStyle}" Margin="0,16,0,0"
+                    Visibility="{Binding Patients.Count, Converter={StaticResource StringToVisibilityConverter}, FallbackValue=Collapsed}">
+                <StackPanel>
+                    <TextBlock FontSize="14" Foreground="{StaticResource Gray500Brush}"
+                               Margin="0,0,0,12">
+                        <Run Text="共找到" />
+                        <Run Text="{Binding TotalCount}" FontWeight="SemiBold" />
+                        <Run Text="条结果" />
+                    </TextBlock>
+
+                    <!-- Result list -->
+                    <ItemsControl ItemsSource="{Binding Patients}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="12,10" Margin="0,0,0,6"
+                                        CornerRadius="6"
+                                        Background="{StaticResource Gray50Brush}"
+                                        Cursor="Hand">
+                                    <Border.InputBindings>
+                                        <MouseBinding Gesture="LeftClick"
+                                                      Command="{Binding DataContext.SelectPatientCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                      CommandParameter="{Binding}" />
+                                    </Border.InputBindings>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <!-- Avatar -->
+                                        <Border Grid.Column="0" Width="40" Height="40"
+                                                CornerRadius="20"
+                                                Background="{StaticResource BluePrimaryBrush}"
+                                                VerticalAlignment="Center">
+                                            <TextBlock Text="👤"
+                                                       FontSize="18"
+                                                       Foreground="{StaticResource WhiteBrush}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <!-- Info -->
+                                        <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="15" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource Gray900Brush}" />
+                                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                                <TextBlock Text="{Binding Gender}" FontSize="12"
+                                                           Foreground="{StaticResource Gray500Brush}" />
+                                                <TextBlock Text=" | " FontSize="12"
+                                                           Foreground="{StaticResource Gray300Brush}" />
+                                                <TextBlock Text="{Binding IdCard}" FontSize="12"
+                                                           Foreground="{StaticResource Gray500Brush}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <!-- Patient No -->
+                                        <TextBlock Grid.Column="2" Text="{Binding PatientNo}"
+                                                   FontSize="12" Foreground="{StaticResource Gray400Brush}"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Pagination -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="0,12,0,0">
+                        <Button Content="上一页"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Command="{Binding PreviousPageCommand}"
+                                IsEnabled="{Binding HasPrevious}"
+                                Margin="0,0,8,0" />
+                        <TextBlock VerticalAlignment="Center" FontSize="13"
+                                   Foreground="{StaticResource Gray500Brush}"
+                                   Margin="0,0,8,0">
+                            <Run Text="{Binding Page}" />
+                            <Run Text="/" />
+                            <Run Text="{Binding TotalPages}" />
+                        </TextBlock>
+                        <Button Content="下一页"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding NextPageCommand}"
+                                IsEnabled="{Binding HasNext}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

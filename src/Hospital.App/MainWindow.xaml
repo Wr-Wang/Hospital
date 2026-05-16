@@ -93,44 +93,43 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Navigation items (ListBox for built-in selection) -->
-                <ScrollViewer Grid.Row="1"
-                              VerticalScrollBarVisibility="Auto"
-                              Margin="0,8,0,0">
-                    <ListBox ItemsSource="{Binding MenuItems}"
-                             SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             ItemContainerStyle="{StaticResource NavListBoxItemStyle}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <TextBlock Text="{Binding Icon}"
-                                               FontSize="18"
-                                               VerticalAlignment="Center"
-                                               DockPanel.Dock="Left" />
-                                    <TextBlock Text="{Binding Title}"
-                                               FontSize="15"
-                                               VerticalAlignment="Center"
-                                               Margin="12,0,0,0"
-                                               DockPanel.Dock="Left">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Foreground" Value="{StaticResource NavTextBrush}" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                        <Setter Property="Foreground" Value="{StaticResource NavTextSelectedBrush}" />
-                                                        <Setter Property="FontWeight" Value="SemiBold" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </DockPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
+                <!-- Navigation items (ListBox with built-in scrolling) -->
+                <ListBox Grid.Row="1"
+                         ItemsSource="{Binding MenuItems}"
+                         SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Margin="0,8,0,0"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         ItemContainerStyle="{StaticResource NavListBoxItemStyle}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding Icon}"
+                                           FontSize="18"
+                                           VerticalAlignment="Center"
+                                           DockPanel.Dock="Left" />
+                                <TextBlock Text="{Binding Title}"
+                                           FontSize="15"
+                                           VerticalAlignment="Center"
+                                           Margin="12,0,0,0"
+                                           DockPanel.Dock="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="{StaticResource NavTextBrush}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource NavTextSelectedBrush}" />
+                                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
                 <!-- Logout button -->
                 <Border Grid.Row="2"

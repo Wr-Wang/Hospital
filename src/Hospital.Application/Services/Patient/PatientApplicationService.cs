@@ -26,6 +26,46 @@ public sealed class PatientApplicationService : IPatientApplicationService
         return MapToDto(patient);
     }
 
+    public async Task<PatientDto?> GetByIdCardAsync(string idCard)
+    {
+        var patient = await _patientRepository.GetByIdCardAsync(idCard);
+        return MapToDto(patient);
+    }
+
+    public async Task<List<PatientDto>> GetSuspectDuplicatesAsync(string name, string? phone)
+    {
+        var patients = await _patientRepository.GetSuspectDuplicatesAsync(name, phone);
+        return patients.Select(p => MapToDto(p)!).ToList();
+    }
+
+    public async Task<PatientSearchResultDto> SearchAsync(string? keyword, int page, int size)
+    {
+        var (items, totalCount) = await _patientRepository.SearchAsync(keyword, page, size);
+        return new PatientSearchResultDto(
+            items.Select(p => MapToDto(p)!).ToList(),
+            totalCount,
+            page,
+            size);
+    }
+
+    public async Task<PatientProfileDto?> GetProfileAsync(long id)
+    {
+        var patient = await _patientRepository.GetByIdAsync(id);
+        if (patient is null) return null;
+
+        // 目前返回基本信息，就诊历史待后续模块对接后补充
+        return new PatientProfileDto(
+            patient.Id,
+            patient.PatientNo,
+            patient.Name,
+            patient.Gender?.ToString(),
+            patient.BirthDate?.ToString("yyyy-MM-dd"),
+            patient.Phone?.Value,
+            patient.AllergiesText,
+            patient.IdCard?.Number,
+            new List<VisitSummaryDto>());
+    }
+
     public async Task<long> CreateAsync(CreatePatientDto request)
     {
         Gender? gender = request.Gender != null ? Enum.Parse<Gender>(request.Gender) : null;

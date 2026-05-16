@@ -1,4 +1,5 @@
 using System.Windows;
+using Hospital.Application.Constants;
 using Hospital.App.Views;
 
 namespace Hospital.App.Services;
@@ -32,7 +33,7 @@ public sealed class AppStartup : IStartupService
         try
         {
             _mainWindow.Show();
-            _navigation.Navigate("shell.home");
+            _navigation.Navigate(RouteKeys.Home);
         }
         catch (Exception ex)
         {

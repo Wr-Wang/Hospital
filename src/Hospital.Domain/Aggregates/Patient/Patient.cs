@@ -53,10 +53,10 @@ public class Patient : AggregateRoot
     public void AddIdentifier(string idType, string idValue, bool isPrimary)
     {
         if (_identifiers.Any(i => i.IdType == idType && i.IdValue == idValue))
-            throw new InvalidOperationException("Identifier already exists");
+            throw new InvalidOperationException("标识符已存在");
 
         if (isPrimary && _identifiers.Any(i => i.IsPrimary))
-            throw new InvalidOperationException("Only one primary identifier allowed");
+            throw new InvalidOperationException("只允许设置一个主标识符");
 
         var identifier = new PatientIdentifier(idType, idValue, isPrimary);
         _identifiers.Add(identifier);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Hospital.Application.Constants;
 using Hospital.App.Services;
 
 namespace Hospital.App.ViewModels;
@@ -15,24 +16,24 @@ public partial class MainWindowViewModel : ObservableObject
         _navigation = navigation;
         AppContext = appContext;
 
-        MenuItems.Add(new NavMenuItem("首 页", "shell.home", "🏠"));
-        MenuItems.Add(new NavMenuItem("患者建档", "pat.register", "👤"));
-        MenuItems.Add(new NavMenuItem("患者检索", "pat.search", "🔍"));
-        MenuItems.Add(new NavMenuItem("排班号表", "opd.schedule", "📅"));
-        MenuItems.Add(new NavMenuItem("挂号工作台", "opd.register", "📋"));
-        MenuItems.Add(new NavMenuItem("门诊医生站", "opd.encounter", "🩺"));
-        MenuItems.Add(new NavMenuItem("发药工作台", "pha.dispense", "💊"));
-        MenuItems.Add(new NavMenuItem("收费工作台", "fin.cash", "💰"));
+        MenuItems.Add(new NavMenuItem("首 页", RouteKeys.Home, "🏠"));
+        MenuItems.Add(new NavMenuItem("患者建档", RouteKeys.PatientRegister, "👤"));
+        MenuItems.Add(new NavMenuItem("患者检索", RouteKeys.PatientSearch, "🔍"));
+        MenuItems.Add(new NavMenuItem("排班号表", RouteKeys.Schedule, "📅"));
+        MenuItems.Add(new NavMenuItem("挂号工作台", RouteKeys.RegisterWorkbench, "📋"));
+        MenuItems.Add(new NavMenuItem("门诊医生站", RouteKeys.Encounter, "🩺"));
+        MenuItems.Add(new NavMenuItem("发药工作台", RouteKeys.Dispense, "💊"));
+        MenuItems.Add(new NavMenuItem("收费工作台", RouteKeys.Cashier, "💰"));
 
         MenuItems.Add(new NavMenuItem("", "", "")); // separator
 
-        MenuItems.Add(new NavMenuItem("院区管理", "mdm.campus", "🏢"));
-        MenuItems.Add(new NavMenuItem("科室维护", "mdm.dept", "🏛️"));
-        MenuItems.Add(new NavMenuItem("人员档案", "mdm.staff", "👥"));
-        MenuItems.Add(new NavMenuItem("字典管理", "mdm.dict", "📖"));
-        MenuItems.Add(new NavMenuItem("用户与角色", "sys.userrole", "🔐"));
+        MenuItems.Add(new NavMenuItem("院区管理", RouteKeys.Campus, "🏢"));
+        MenuItems.Add(new NavMenuItem("科室维护", RouteKeys.Department, "🏛️"));
+        MenuItems.Add(new NavMenuItem("人员档案", RouteKeys.Staff, "👥"));
+        MenuItems.Add(new NavMenuItem("字典管理", RouteKeys.Dictionary, "📖"));
+        MenuItems.Add(new NavMenuItem("用户与角色", RouteKeys.UserRole, "🔐"));
 
-        // Auto-select first item
+        // 默认选中首页
         SelectedMenuItem = MenuItems[0];
     }
 

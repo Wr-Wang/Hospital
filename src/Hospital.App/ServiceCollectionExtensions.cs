@@ -26,10 +26,20 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IAuthenticationService, AuthenticationService>();
         services.AddTransient<IAuthenticationApplicationService, AuthenticationApplicationService>();
 
+        services.AddTransient<IPatientApplicationService, PatientService>();
+
         services.AddTransient<LoginViewModel>();
+        services.AddTransient<PatientRegisterViewModel>();
+        services.AddTransient<PatientSearchViewModel>();
+        services.AddTransient<Patient360ViewModel>();
         services.AddTransient<LoginWindow>();
         services.AddTransient<MainWindowViewModel>();
         services.AddSingleton<MainWindow>();
+
+        // Views
+        services.AddTransient<Views.PatientRegisterView>();
+        services.AddTransient<Views.PatientSearchView>();
+        services.AddTransient<Views.Patient360View>();
 
         return services;
     }

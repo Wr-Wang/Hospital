@@ -1,4 +1,5 @@
 using System.Net.Http;
+using Hospital.Application.Constants;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -18,7 +19,7 @@ public class AuthenticationService : IAuthenticationService
         var apiRequest = new ApiAuthenticationRequest(request.Username, request.Password);
         try
         {
-            var response = await _apiClient.PostAsync<AuthenticationResponse>("Authentication/login", apiRequest);
+            var response = await _apiClient.PostAsync<AuthenticationResponse>(ApiRoutes.AuthenticationLogin, apiRequest);
 
             // HTTP 200: 登录成功，API 返回 {token, displayName, campusName, roles}
             return new AuthenticationResult(true, null,

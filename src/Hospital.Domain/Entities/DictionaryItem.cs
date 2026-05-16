@@ -2,21 +2,28 @@ namespace Hospital.Domain.Entities;
 
 public class DictionaryItem : Entity
 {
+    /// <summary>所属字典类型 ID</summary>
     public long TypeId { get; private set; }
+    /// <summary>字典项编码，同类型内唯一</summary>
     public string Code { get; private set; }
+    /// <summary>字典项名称（展示值）</summary>
     public string Name { get; private set; }
+    /// <summary>上级字典项 ID（支持树形字典）</summary>
     public long? ParentId { get; private set; }
+    /// <summary>排序号</summary>
     public int SortOrder { get; private set; }
+    /// <summary>启用状态</summary>
     public bool IsActive { get; private set; } = true;
 
-    // Navigation
+    // 导航属性
     public DictionaryType? Type { get; private set; }
 
+    // EF Core 无参构造
     private DictionaryItem()
     {
         Code = default!;
         Name = default!;
-    } // For EF Core
+    }
 
     public DictionaryItem(long typeId, string code, string name, long? parentId, int sortOrder)
     {

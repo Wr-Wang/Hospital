@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Hospital.Application.Constants;
 using Hospital.Application.DTOs;
 using Microsoft.IdentityModel.Tokens;
 
@@ -30,8 +31,8 @@ public sealed class JwtTokenService
         {
             new(ClaimTypes.NameIdentifier, userInfo.Id.ToString()),
             new(ClaimTypes.Name, userInfo.DisplayName),
-            new("campus_name", userInfo.CampusName),
-            new("permissions", string.Join(",", permissions)),
+            new(JwtClaims.CampusName, userInfo.CampusName),
+            new(JwtClaims.Permissions, string.Join(",", permissions)),
         };
 
         if (userInfo.Roles is not null)
