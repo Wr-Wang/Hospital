@@ -60,12 +60,3 @@ public sealed record CreateRegistrationDto(
     long DeptId,
     long CampusId,
     string SlotName);
-
-public sealed record EncounterDto(
-    long Id,
-    long PatientId,
-    long DoctorId,
-    long DeptId,
-    long CampusId,
-    long RegistrationId,
-    string Status);

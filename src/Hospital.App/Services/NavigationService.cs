@@ -54,11 +54,7 @@ public sealed class NavigationService : INavigationService
         Register(RouteKeys.RegisterWorkbench, () => CreateView<RegisterWorkbenchView, RegisterWorkbenchViewModel>());
 
         // M5 门诊
-        Register(RouteKeys.Encounter, () => new PagePlaceholderView
-        {
-            Title = "门诊医生站",
-            Description = "结构化病历书写、诊断开立、处方开立、检验检查申请"
-        });
+        Register(RouteKeys.Encounter, () => CreateView<EncounterWorkbenchView, EncounterWorkbenchViewModel>());
 
         // M6 发药
         Register(RouteKeys.Dispense, () => new PagePlaceholderView

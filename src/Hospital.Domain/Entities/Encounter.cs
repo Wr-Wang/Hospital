@@ -1,10 +1,12 @@
+using Hospital.Domain.Enums;
+
 namespace Hospital.Domain.Entities;
 
-/// <summary>就诊记录实体（基础版），挂号时创建，Phase 5/6 扩展为完整模块</summary>
+/// <summary>就诊记录实体，支持待诊→就诊中→已完成状态流转</summary>
 public class Encounter : Entity
 {
     // EF Core
-    private Encounter() { Status = default!; }
+    private Encounter() { }
 
     public Encounter(long patientId, long doctorId, long deptId, long campusId, long registrationId)
     {
@@ -13,7 +15,7 @@ public class Encounter : Entity
         DeptId = deptId;
         CampusId = campusId;
         RegistrationId = registrationId;
-        Status = "待就诊";
+        Status = EncounterStatus.待诊;
     }
 
     public long PatientId { get; private set; }
@@ -21,5 +23,27 @@ public class Encounter : Entity
     public long DeptId { get; private set; }
     public long CampusId { get; private set; }
     public long RegistrationId { get; private set; }
-    public string Status { get; set; }
+    public EncounterStatus Status { get; private set; }
+    public DateTime? StartTime { get; private set; }
+    public DateTime? EndTime { get; private set; }
+
+    /// <summary>开始接诊</summary>
+    public void StartConsultation()
+    {
+        if (Status != EncounterStatus.待诊)
+            throw new InvalidOperationException("仅待诊状态的记录可以开始接诊");
+
+        Status = EncounterStatus.就诊中;
+        StartTime = DateTime.Now;
+    }
+
+    /// <summary>完成接诊</summary>
+    public void CompleteConsultation()
+    {
+        if (Status != EncounterStatus.就诊中)
+            throw new InvalidOperationException("仅就诊中状态的记录可以完成接诊");
+
+        Status = EncounterStatus.已完成;
+        EndTime = DateTime.Now;
+    }
 }

@@ -73,6 +73,53 @@ public static class ApiRoutes
             $"registration/by-doctor/{doctorId}?date={date}";
         public static string Void(long id) => $"registration/{id}/void";
     }
+
+    public static class Encounter
+    {
+        public const string Base = "encounter";
+        public static string Queue(long doctorId, string date) =>
+            $"encounter/queue?doctorId={doctorId}&date={date}";
+        public static string StartConsultation(long id) => $"encounter/{id}/start";
+        public static string CompleteConsultation(long id) => $"encounter/{id}/complete";
+    }
+
+    public static class MedicalRecord
+    {
+        public const string Base = "medical-record";
+        public static string ByEncounter(long encounterId) => $"medical-record/by-encounter/{encounterId}";
+        public static string Save(long encounterId) => $"medical-record/{encounterId}";
+    }
+
+    public static class Diagnosis
+    {
+        public const string Base = "diagnosis";
+        public static string ByEncounter(long encounterId) => $"diagnosis/by-encounter/{encounterId}";
+        public static string ById(long id) => $"diagnosis/{id}";
+    }
+
+    public static class Prescription
+    {
+        public const string Base = "prescription";
+        public static string ByEncounter(long encounterId) => $"prescription/by-encounter/{encounterId}";
+        public static string ById(long id) => $"prescription/{id}";
+        public static string Void(long id) => $"prescription/{id}/void";
+    }
+
+    public static class LabOrder
+    {
+        public const string Base = "lab-order";
+        public static string ByEncounter(long encounterId) => $"lab-order/by-encounter/{encounterId}";
+        public static string ById(long id) => $"lab-order/{id}";
+        public static string Cancel(long id) => $"lab-order/{id}/cancel";
+    }
+
+    public static class RadOrder
+    {
+        public const string Base = "rad-order";
+        public static string ByEncounter(long encounterId) => $"rad-order/by-encounter/{encounterId}";
+        public static string ById(long id) => $"rad-order/{id}";
+        public static string Cancel(long id) => $"rad-order/{id}/cancel";
+    }
 }
 
 /// <summary>JWT Token 声明键名常量</summary>

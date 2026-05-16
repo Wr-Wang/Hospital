@@ -32,6 +32,18 @@ builder.Services.AddSingleton<IRegistrationRepository, RegistrationRepository>()
 builder.Services.AddSingleton<IEncounterRepository, EncounterRepository>();
 builder.Services.AddScoped<IRegistrationApplicationService, RegistrationApplicationService>();
 
+// Register Encounter, MedicalRecord, Diagnosis, Prescription, LabOrder services
+builder.Services.AddScoped<IEncounterApplicationService, EncounterApplicationService>();
+builder.Services.AddSingleton<IMedicalRecordRepository, MedicalRecordRepository>();
+builder.Services.AddScoped<IMedicalRecordApplicationService, MedicalRecordApplicationService>();
+builder.Services.AddSingleton<IDiagnosisRepository, DiagnosisRepository>();
+builder.Services.AddScoped<IDiagnosisApplicationService, DiagnosisApplicationService>();
+builder.Services.AddSingleton<IPrescriptionRepository, PrescriptionRepository>();
+builder.Services.AddScoped<IPrescriptionApplicationService, PrescriptionApplicationService>();
+builder.Services.AddSingleton<ILabOrderRepository, LabOrderRepository>();
+builder.Services.AddScoped<ILabOrderApplicationService, LabOrderApplicationService>();
+builder.Services.AddSingleton<IRadOrderRepository, RadOrderRepository>();
+
 // Register auth services
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"]!;

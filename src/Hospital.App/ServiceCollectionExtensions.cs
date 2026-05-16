@@ -38,6 +38,13 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IScheduleApplicationService, ScheduleService>();
         services.AddSingleton<IRegistrationApplicationService, RegistrationService>();
 
+        // Encounter services (Outpatient Doctor Station)
+        services.AddSingleton<IEncounterApplicationService, EncounterService>();
+        services.AddSingleton<IMedicalRecordApplicationService, MedicalRecordService>();
+        services.AddSingleton<IDiagnosisApplicationService, DiagnosisService>();
+        services.AddSingleton<IPrescriptionApplicationService, PrescriptionService>();
+        services.AddSingleton<ILabOrderApplicationService, LabOrderService>();
+
         // ViewModels
         services.AddTransient<LoginViewModel>();
         services.AddTransient<MainWindowViewModel>();
@@ -46,6 +53,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<Patient360ViewModel>();
         services.AddTransient<ScheduleViewModel>();
         services.AddTransient<RegisterWorkbenchViewModel>();
+        services.AddTransient<EncounterWorkbenchViewModel>();
 
         // Windows
         services.AddTransient<LoginWindow>();
@@ -57,6 +65,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<Patient360View>();
         services.AddTransient<ScheduleView>();
         services.AddTransient<RegisterWorkbenchView>();
+        services.AddTransient<EncounterWorkbenchView>();
 
         return services;
     }
