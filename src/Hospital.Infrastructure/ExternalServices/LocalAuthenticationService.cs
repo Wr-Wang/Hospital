@@ -22,7 +22,7 @@ public sealed class LocalAuthenticationService : IAuthenticationService
             return Task.FromResult(new AuthenticationResult(false, "用户名或密码错误", null));
         }
 
-        var userInfo = new UserInfo(user.Id, user.DisplayName, user.CampusName, user.Roles);
+        var userInfo = new UserInfo(user.Id, user.DisplayName, user.CampusName, user.Roles, user.Permissions);
         var token = _tokenService.GenerateToken(userInfo, user.Permissions);
 
         return Task.FromResult(new AuthenticationResult(true, null, userInfo, token));

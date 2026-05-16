@@ -53,6 +53,7 @@ public sealed partial class LoginViewModel : ObservableObject
             _appContext.CampusName = result.UserInfo?.CampusName;
             _appContext.AccessToken = result.Token;
             _appContext.Roles = result.UserInfo?.Roles;
+            _appContext.Permissions = result.UserInfo?.Permissions;
             LoginSucceeded?.Invoke(this, EventArgs.Empty);
         }
         catch (HttpRequestException ex)

@@ -12,7 +12,11 @@ public sealed class LocalUserStore
             DisplayName = "系统管理员",
             CampusName = "总院区",
             Roles = new[] { "ADMIN" },
-            Permissions = new[] { "sys.shell.use", "mdm.campus.manage", "opd.register.work" }
+            Permissions = new[] { "sys.shell.use", "sys.security.manage",
+                "mdm.campus.manage", "mdm.dept.manage", "mdm.staff.manage", "mdm.dict.manage",
+                "pat.register", "pat.search",
+                "opd.schedule", "opd.register", "opd.encounter",
+                "pha.dispense", "fin.cash" }
         },
         new LocalUser
         {
@@ -22,8 +26,38 @@ public sealed class LocalUserStore
             DisplayName = "张医生",
             CampusName = "总院区",
             Roles = new[] { "DOCTOR" },
-            Permissions = new[] { "sys.shell.use", "opd.register.work" }
-        }
+            Permissions = new[] { "sys.shell.use", "pat.search", "opd.encounter", "opd.schedule" }
+        },
+        new LocalUser
+        {
+            Id = 3,
+            LoginName = "reg",
+            Password = "reg123",
+            DisplayName = "李挂号",
+            CampusName = "总院区",
+            Roles = new[] { "REGISTRATION" },
+            Permissions = new[] { "sys.shell.use", "pat.register", "pat.search", "opd.schedule", "opd.register" }
+        },
+        new LocalUser
+        {
+            Id = 4,
+            LoginName = "pharm",
+            Password = "pharm123",
+            DisplayName = "王药房",
+            CampusName = "总院区",
+            Roles = new[] { "PHARMACY" },
+            Permissions = new[] { "sys.shell.use", "pha.dispense" }
+        },
+        new LocalUser
+        {
+            Id = 5,
+            LoginName = "cash",
+            Password = "cash123",
+            DisplayName = "赵收费",
+            CampusName = "总院区",
+            Roles = new[] { "CASHIER" },
+            Permissions = new[] { "sys.shell.use", "fin.cash" }
+        },
     };
 
     public LocalUser? FindByLoginName(string loginName)

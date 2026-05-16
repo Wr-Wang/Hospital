@@ -104,7 +104,7 @@
                          ItemContainerStyle="{StaticResource NavListBoxItemStyle}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel>
+                            <DockPanel Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <TextBlock Text="{Binding Icon}"
                                            FontSize="18"
                                            VerticalAlignment="Center"

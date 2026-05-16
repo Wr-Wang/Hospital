@@ -49,6 +49,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ICashierApplicationService, CashierService>();
         services.AddSingleton<IDispenseApplicationService, DispenseService>();
 
+        // UserRole services
+        services.AddSingleton<IUserRoleApplicationService, UserRoleService>();
+
         // ViewModels
         services.AddTransient<LoginViewModel>();
         services.AddTransient<MainWindowViewModel>();
@@ -60,6 +63,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<EncounterWorkbenchViewModel>();
         services.AddTransient<CashierWorkbenchViewModel>();
         services.AddTransient<DispenseWorkbenchViewModel>();
+        services.AddTransient<UserRoleViewModel>();
 
         // Windows
         services.AddTransient<LoginWindow>();
@@ -74,6 +78,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<EncounterWorkbenchView>();
         services.AddTransient<CashierWorkbenchView>();
         services.AddTransient<DispenseWorkbenchView>();
+        services.AddTransient<UserRoleView>();
 
         return services;
     }

@@ -135,6 +135,18 @@ public static class ApiRoutes
         public static string DispenseItem(long id) => $"dispense/{id}/dispense";
         public static string ReturnItem(long id) => $"dispense/{id}/return";
     }
+
+    public static class User
+    {
+        public const string Base = "user";
+        public static string ById(long id) => $"user/{id}";
+    }
+
+    public static class Role
+    {
+        public const string Base = "role";
+        public static string ById(long id) => $"role/{id}";
+    }
 }
 
 /// <summary>JWT Token 声明键名常量</summary>

@@ -15,4 +15,7 @@ public sealed partial class ApplicationContext : ObservableObject, IAppContext
 
     [ObservableProperty]
     private string[]? roles;
+
+    [ObservableProperty]
+    private string[]? permissions;
 }

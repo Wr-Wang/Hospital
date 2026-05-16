@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Hospital.Application.Constants;
@@ -10,6 +12,23 @@ namespace Hospital.App.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
     private readonly INavigationService _navigation;
+
+    /// <summary>路由键 → 所需权限 映射</summary>
+    private static readonly Dictionary<string, string> RouteKeyPermissionMap = new()
+    {
+        [RouteKeys.PatientRegister] = Permissions.PatientRegister,
+        [RouteKeys.PatientSearch] = Permissions.PatientSearch,
+        [RouteKeys.Schedule] = Permissions.Schedule,
+        [RouteKeys.RegisterWorkbench] = Permissions.RegisterWork,
+        [RouteKeys.Encounter] = Permissions.Encounter,
+        [RouteKeys.Dispense] = Permissions.Dispense,
+        [RouteKeys.Cashier] = Permissions.Cashier,
+        [RouteKeys.Campus] = Permissions.CampusManage,
+        [RouteKeys.Department] = Permissions.DeptManage,
+        [RouteKeys.Staff] = Permissions.StaffManage,
+        [RouteKeys.Dictionary] = Permissions.DictManage,
+        [RouteKeys.UserRole] = Permissions.SecurityManage,
+    };
 
     public MainWindowViewModel(INavigationService navigation, IAppContext appContext)
     {
@@ -33,6 +52,8 @@ public partial class MainWindowViewModel : ObservableObject
         MenuItems.Add(new NavMenuItem("字典管理", RouteKeys.Dictionary, "📖"));
         MenuItems.Add(new NavMenuItem("用户与角色", RouteKeys.UserRole, "🔐"));
 
+        ApplyPermissionFilter();
+
         // 默认选中首页
         SelectedMenuItem = MenuItems[0];
     }
@@ -45,6 +66,27 @@ public partial class MainWindowViewModel : ObservableObject
     private NavMenuItem? selectedMenuItem;
 
     public event EventHandler? LogoutRequested;
+
+    /// <summary>根据当前用户权限过滤菜单项</summary>
+    private void ApplyPermissionFilter()
+    {
+        var userPermissions = AppContext.Permissions;
+        if (userPermissions is null)
+            return;
+
+        var permissionSet = new HashSet<string>(userPermissions, StringComparer.OrdinalIgnoreCase);
+
+        foreach (var item in MenuItems)
+        {
+            if (string.IsNullOrEmpty(item.RouteKey))
+                continue;
+
+            if (RouteKeyPermissionMap.TryGetValue(item.RouteKey, out var required))
+            {
+                item.IsVisible = permissionSet.Contains(required);
+            }
+        }
+    }
 
     partial void OnSelectedMenuItemChanged(NavMenuItem? value)
     {
@@ -87,4 +129,7 @@ public sealed partial class NavMenuItem : ObservableObject
 
     [ObservableProperty]
     private bool isSelected;
+
+    [ObservableProperty]
+    private bool isVisible = true;
 }

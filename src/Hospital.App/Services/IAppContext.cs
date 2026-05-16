@@ -8,4 +8,5 @@ public interface IAppContext : INotifyPropertyChanged
     string? CampusName { get; set; }
     string? AccessToken { get; set; }
     string[]? Roles { get; set; }
+    string[]? Permissions { get; set; }
 }

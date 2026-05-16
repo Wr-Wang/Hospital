@@ -63,11 +63,7 @@ public sealed class NavigationService : INavigationService
         Register(RouteKeys.Cashier, () => CreateView<CashierWorkbenchView, CashierWorkbenchViewModel>());
 
         // M13 系统
-        Register(RouteKeys.UserRole, () => new PagePlaceholderView
-        {
-            Title = "用户与角色",
-            Description = "管理用户账号、角色权限配置、审计日志查询"
-        });
+        Register(RouteKeys.UserRole, () => CreateView<UserRoleView, UserRoleViewModel>());
     }
 
     public void Attach(ContentControl host)
