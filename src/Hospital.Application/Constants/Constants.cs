@@ -50,6 +50,29 @@ public static class ApiRoutes
             $"patient/search?keyword={keyword}&page={page}&size={size}";
         public static string Profile(long id) => $"patient/{id}/profile";
     }
+
+    public static class Schedule
+    {
+        public const string Base = "schedule";
+        public static string ById(long id) => $"schedule/{id}";
+        public static string ByDoctor(long doctorId) => $"schedule/by-doctor/{doctorId}";
+        public static string ByDept(long deptId, string? date) => $"schedule/by-dept/{deptId}?date={date}";
+        public static string Available(long deptId, long? doctorId, string date) =>
+            $"schedule/available?deptId={deptId}&doctorId={doctorId}&date={date}";
+        public static string Publish(long id) => $"schedule/{id}/publish";
+        public static string Deactivate(long id) => $"schedule/{id}/deactivate";
+        public static string SlotQuota(long id) => $"schedule/{id}/slot-quota";
+    }
+
+    public static class Registration
+    {
+        public const string Base = "registration";
+        public static string ById(long id) => $"registration/{id}";
+        public static string ByPatient(long patientId) => $"registration/by-patient/{patientId}";
+        public static string ByDoctor(long doctorId, string? date) =>
+            $"registration/by-doctor/{doctorId}?date={date}";
+        public static string Void(long id) => $"registration/{id}/void";
+    }
 }
 
 /// <summary>JWT Token 声明键名常量</summary>

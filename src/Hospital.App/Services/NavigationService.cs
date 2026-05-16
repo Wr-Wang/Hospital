@@ -50,16 +50,8 @@ public sealed class NavigationService : INavigationService
         });
 
         // M3 挂号
-        Register(RouteKeys.Schedule, () => new PagePlaceholderView
-        {
-            Title = "排班号表",
-            Description = "管理医生排班与号源发布，支持停诊替诊操作"
-        });
-        Register(RouteKeys.RegisterWorkbench, () => new PagePlaceholderView
-        {
-            Title = "挂号工作台",
-            Description = "窗口快速挂号、退号改签，支持按科室和医生筛选号源"
-        });
+        Register(RouteKeys.Schedule, () => CreateView<ScheduleView, ScheduleViewModel>());
+        Register(RouteKeys.RegisterWorkbench, () => CreateView<RegisterWorkbenchView, RegisterWorkbenchViewModel>());
 
         // M5 门诊
         Register(RouteKeys.Encounter, () => new PagePlaceholderView

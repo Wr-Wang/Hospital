@@ -25,6 +25,13 @@ builder.Services.AddScoped<IStaffApplicationService, StaffApplicationService>();
 builder.Services.AddSingleton<IDictionaryRepository, DictionaryRepository>();
 builder.Services.AddScoped<IDictionaryApplicationService, DictionaryApplicationService>();
 
+// Register Schedule and Registration services
+builder.Services.AddSingleton<IScheduleRepository, ScheduleRepository>();
+builder.Services.AddScoped<IScheduleApplicationService, ScheduleApplicationService>();
+builder.Services.AddSingleton<IRegistrationRepository, RegistrationRepository>();
+builder.Services.AddSingleton<IEncounterRepository, EncounterRepository>();
+builder.Services.AddScoped<IRegistrationApplicationService, RegistrationApplicationService>();
+
 // Register auth services
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"]!;
