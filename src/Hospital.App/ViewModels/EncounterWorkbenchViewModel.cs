@@ -164,8 +164,14 @@ public sealed partial class EncounterWorkbenchViewModel : ObservableObject
             var doctorId = 1L;
             QueueItems = await _encounterService.GetQueueAsync(doctorId, TodayDate);
         }
-        catch
+        catch (HttpRequestException ex)
         {
+            ErrorMessage = $"加载队列失败: {ex.Message}";
+            QueueItems = new();
+        }
+        catch (TaskCanceledException)
+        {
+            ErrorMessage = "加载队列超时，请重试";
             QueueItems = new();
         }
     }
@@ -277,7 +283,11 @@ public sealed partial class EncounterWorkbenchViewModel : ObservableObject
                 ClearMedicalRecord();
             }
         }
-        catch
+        catch (HttpRequestException)
+        {
+            ClearMedicalRecord();
+        }
+        catch (TaskCanceledException)
         {
             ClearMedicalRecord();
         }
@@ -341,7 +351,11 @@ public sealed partial class EncounterWorkbenchViewModel : ObservableObject
         {
             Diagnoses = await _diagnosisService.GetByEncounterAsync(_currentEncounterId);
         }
-        catch
+        catch (HttpRequestException)
+        {
+            Diagnoses = new();
+        }
+        catch (TaskCanceledException)
         {
             Diagnoses = new();
         }
@@ -389,7 +403,11 @@ public sealed partial class EncounterWorkbenchViewModel : ObservableObject
         {
             Prescriptions = await _prescriptionService.GetByEncounterAsync(_currentEncounterId);
         }
-        catch
+        catch (HttpRequestException)
+        {
+            Prescriptions = new();
+        }
+        catch (TaskCanceledException)
         {
             Prescriptions = new();
         }
@@ -466,7 +484,11 @@ public sealed partial class EncounterWorkbenchViewModel : ObservableObject
         {
             LabOrders = await _labOrderService.GetByEncounterAsync(_currentEncounterId);
         }
-        catch
+        catch (HttpRequestException)
+        {
+            LabOrders = new();
+        }
+        catch (TaskCanceledException)
         {
             LabOrders = new();
         }

@@ -25,10 +25,12 @@ public class EncounterRepository : IEncounterRepository
 
     public Task<List<Encounter>> GetByDateAsync(long doctorId, DateOnly date)
     {
-        // In-memory: filter encounters whose Id roughly corresponds to the date
-        // For a real implementation this would use EF Core date filtering
+        // Filter encounters belonging to the given doctor and approximate date.
+        // In a real EF Core implementation this would use a proper date column.
+        var dayStart = date.DayNumber * 1000L;
+        var dayEnd = dayStart + 999;
         return Task.FromResult(_encounters
-            .Where(e => e.DoctorId == doctorId)
+            .Where(e => e.DoctorId == doctorId && e.Id >= dayStart && e.Id <= dayEnd)
             .ToList());
     }
 

@@ -22,7 +22,7 @@ public class PrescriptionRepository : IPrescriptionRepository
 
         // Assign IDs to items
         var itemId = 1;
-        foreach (var item in prescription.Items)
+        foreach (var item in prescription.Items ?? Array.Empty<PrescriptionItem>())
         {
             item.GetType().GetProperty("Id")?.SetValue(item, itemId++);
         }

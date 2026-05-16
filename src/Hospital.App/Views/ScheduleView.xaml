@@ -30,10 +30,8 @@
             </Border>
 
             <!-- ===== Error Banner ===== -->
-            <Border Margin="0,16,0,0" Padding="10,8" CornerRadius="6"
-                    Background="{StaticResource Red50Brush}"
-                    BorderBrush="{StaticResource Red200Brush}"
-                    BorderThickness="1"
+            <Border Margin="0,16,0,0"
+                    Style="{StaticResource ErrorBannerStyle}"
                     Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}, FallbackValue=Collapsed}">
                 <TextBlock Text="{Binding ErrorMessage}"
                            FontSize="13"
@@ -43,8 +41,7 @@
 
             <!-- ===== Filter Section ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -252,8 +249,8 @@
                                                         <TextBlock Margin="0,4,0,0" FontSize="12"
                                                                    Foreground="{StaticResource Gray500Brush}">
                                                             <Run Text="总" /><Run Text="{Binding TotalQuota}" />
-                                                            <Run Text=" 已约" /><Run Text="{Binding BookedQuota}" Foreground="#D97706" />
-                                                            <Run Text=" 余" /><Run Text="{Binding AvailableQuota}" Foreground="#059669" />
+                                                            <Run Text=" 已约" /><Run Text="{Binding BookedQuota}" Foreground="{StaticResource Amber600Brush}" />
+                                                            <Run Text=" 余" /><Run Text="{Binding AvailableQuota}" Foreground="{StaticResource Green600Brush}" />
                                                         </TextBlock>
                                                     </StackPanel>
                                                 </Border>

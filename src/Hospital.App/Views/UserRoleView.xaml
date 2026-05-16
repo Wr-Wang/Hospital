@@ -29,10 +29,8 @@
             </Border>
 
             <!-- ===== Error Banner ===== -->
-            <Border Margin="0,16,0,0" Padding="10,8" CornerRadius="6"
-                    Background="{StaticResource Red50Brush}"
-                    BorderBrush="{StaticResource Red200Brush}"
-                    BorderThickness="1"
+            <Border Margin="0,16,0,0"
+                    Style="{StaticResource ErrorBannerStyle}"
                     Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}, FallbackValue=Collapsed}">
                 <TextBlock Text="{Binding ErrorMessage}"
                            FontSize="13" Foreground="{StaticResource Red700Brush}"
@@ -41,8 +39,7 @@
 
             <!-- ===== TabControl ===== -->
             <Border Margin="0,16,0,0" Padding="0" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}"
                             Padding="0" Margin="0"
                             Background="Transparent"

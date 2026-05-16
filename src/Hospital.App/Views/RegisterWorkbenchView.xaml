@@ -31,10 +31,8 @@
             </Border>
 
             <!-- ===== Error / Success Banners ===== -->
-            <Border Margin="0,16,0,0" Padding="10,8" CornerRadius="6"
-                    Background="{StaticResource Red50Brush}"
-                    BorderBrush="{StaticResource Red200Brush}"
-                    BorderThickness="1"
+            <Border Margin="0,16,0,0"
+                    Style="{StaticResource ErrorBannerStyle}"
                     Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}, FallbackValue=Collapsed}">
                 <TextBlock Text="{Binding ErrorMessage}"
                            FontSize="13" Foreground="{StaticResource Red700Brush}"
@@ -43,7 +41,7 @@
 
             <Border Margin="0,12,0,0" Padding="10,8" CornerRadius="6"
                     Background="{StaticResource Green50Brush}"
-                    BorderBrush="#A7F3D0" BorderThickness="1"
+                    BorderBrush="{StaticResource Green200Brush}" BorderThickness="1"
                     Visibility="{Binding IsSuccess, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
                 <TextBlock Text="挂号成功！" FontSize="13"
                            Foreground="{StaticResource Green800Brush}" FontWeight="SemiBold" />
@@ -51,8 +49,7 @@
 
             <!-- ===== Step 1: Department + Doctor ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <StackPanel>
                     <TextBlock FontSize="16" FontWeight="SemiBold"
                                Foreground="{StaticResource Gray900Brush}"
@@ -84,8 +81,7 @@
 
             <!-- ===== Step 2: Available Schedules ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <StackPanel>
                     <TextBlock FontSize="16" FontWeight="SemiBold"
                                Foreground="{StaticResource Gray900Brush}"
@@ -153,8 +149,7 @@
 
             <!-- ===== Step 3: Patient Search ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <StackPanel>
                     <TextBlock FontSize="16" FontWeight="SemiBold"
                                Foreground="{StaticResource Gray900Brush}"
@@ -230,8 +225,7 @@
 
             <!-- ===== Step 4: Confirm ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <StackPanel>
                     <TextBlock FontSize="16" FontWeight="SemiBold"
                                Foreground="{StaticResource Gray900Brush}"
@@ -293,8 +287,7 @@
 
             <!-- ===== Today's Registrations ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions>

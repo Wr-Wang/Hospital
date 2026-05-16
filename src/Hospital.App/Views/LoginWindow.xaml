@@ -12,8 +12,6 @@
         FontFamily="Microsoft YaHei, SimHei, sans-serif"
         Background="{StaticResource Gray50Brush}">
     <Window.Resources>
-        <conv:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
-        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
 
     <Grid Background="{StaticResource Gray50Brush}">

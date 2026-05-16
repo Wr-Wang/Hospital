@@ -92,9 +92,13 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
                 ShowDuplicateWarning = false;
             }
         }
-        catch
+        catch (HttpRequestException)
         {
-            // 查重失败时静默处理，不影响用户填写
+            // 网络错误时静默处理，不影响用户填写
+        }
+        catch (TaskCanceledException)
+        {
+            // 超时时静默处理
         }
     }
 

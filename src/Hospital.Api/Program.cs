@@ -1,4 +1,5 @@
 using System.Text;
+using Hospital.Api.Middleware;
 using Hospital.Application.Services;
 using Hospital.Application.Repositories;
 using Hospital.Infrastructure.Repositories;
@@ -98,6 +99,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 

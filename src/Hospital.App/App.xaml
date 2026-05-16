@@ -34,6 +34,7 @@
 
             <!-- Semantic palette -->
             <SolidColorBrush x:Key="Green600Brush" Color="#059669" />
+            <SolidColorBrush x:Key="Green200Brush" Color="#A7F3D0" />
             <SolidColorBrush x:Key="Green50Brush" Color="#F0FDF4" />
             <SolidColorBrush x:Key="Green800Brush" Color="#166534" />
             <SolidColorBrush x:Key="Amber600Brush" Color="#D97706" />

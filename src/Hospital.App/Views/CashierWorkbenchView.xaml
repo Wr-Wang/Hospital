@@ -23,16 +23,14 @@
                                Foreground="{StaticResource WhiteBrush}"
                                Text="收费工作台" />
                     <TextBlock Margin="0,8,0,0" FontSize="14"
-                               Foreground="#FDE68A"
+                               Foreground="{StaticResource BlueAccentBrush}"
                                Text="门诊费用收取、退费处理、发票打印" />
                 </StackPanel>
             </Border>
 
             <!-- ===== Error Banner ===== -->
-            <Border Margin="0,16,0,0" Padding="10,8" CornerRadius="6"
-                    Background="{StaticResource Red50Brush}"
-                    BorderBrush="{StaticResource Red200Brush}"
-                    BorderThickness="1"
+            <Border Margin="0,16,0,0"
+                    Style="{StaticResource ErrorBannerStyle}"
                     Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}, FallbackValue=Collapsed}">
                 <TextBlock Text="{Binding ErrorMessage}"
                            FontSize="13" Foreground="{StaticResource Red700Brush}"
@@ -42,7 +40,7 @@
             <!-- ===== Success Banner ===== -->
             <Border Margin="0,8,0,0" Padding="10,8" CornerRadius="6"
                     Background="{StaticResource Green50Brush}"
-                    BorderBrush="#A7F3D0" BorderThickness="1"
+                    BorderBrush="{StaticResource Green200Brush}" BorderThickness="1"
                     Visibility="{Binding IsSuccess, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
                 <TextBlock Text="缴费成功！" FontSize="13"
                            Foreground="{StaticResource Green800Brush}" FontWeight="SemiBold" />
@@ -50,8 +48,7 @@
 
             <!-- ===== Step 1: Patient Search ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <StackPanel>
                     <TextBlock FontSize="16" FontWeight="SemiBold"
                                Foreground="{StaticResource Gray900Brush}"
@@ -88,8 +85,8 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" Width="40" Height="40" CornerRadius="20"
-                                                Background="#FEF3C7" Margin="0,0,12,0">
-                                            <TextBlock FontSize="18" Foreground="#92400E"
+                                                Background="{StaticResource BlueSubtleBrush}" Margin="0,0,12,0">
+                                            <TextBlock FontSize="18" Foreground="{StaticResource WhiteBrush}"
                                                        HorizontalAlignment="Center" VerticalAlignment="Center"
                                                        Text="💰" />
                                         </Border>
@@ -108,10 +105,10 @@
                     </ItemsControl>
 
                     <Border Margin="0,8,0,0" Padding="12,10" CornerRadius="6"
-                            Background="#FEF3C7"
+                            Background="{StaticResource BlueSubtleBrush}"
                             Visibility="{Binding SelectedPatientInfo, Converter={StaticResource StringToVisibilityConverter}, FallbackValue=Collapsed}">
                         <TextBlock FontSize="14" FontWeight="SemiBold"
-                                   Foreground="#92400E"
+                                   Foreground="{StaticResource BluePrimaryBrush}"
                                    Text="{Binding SelectedPatientInfo}" />
                     </Border>
                 </StackPanel>
@@ -119,8 +116,7 @@
 
             <!-- ===== Step 2: Pending Items ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
-                    Background="{StaticResource WhiteBrush}"
-                    Effect="{StaticResource CardShadowEffect}">
+                    Background="{StaticResource WhiteBrush}">
                 <StackPanel>
                     <TextBlock FontSize="16" FontWeight="SemiBold"
                                Foreground="{StaticResource Gray900Brush}"
@@ -157,10 +153,10 @@
                                                        Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}" />
                                         </Border>
                                         <Border Grid.Column="1" Padding="6,3" CornerRadius="4"
-                                                Background="#DBEAFE" Margin="0,0,12,0"
+                                                Background="{StaticResource BlueSubtleBrush}" Margin="0,0,12,0"
                                                 VerticalAlignment="Center">
                                             <TextBlock FontSize="12" FontWeight="SemiBold"
-                                                       Foreground="#1D4ED8"
+                                                       Foreground="{StaticResource BluePrimaryBrush}"
                                                        Text="{Binding ItemType}" />
                                         </Border>
                                         <TextBlock Grid.Column="2" FontSize="14"
