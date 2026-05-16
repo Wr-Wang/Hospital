@@ -7,15 +7,9 @@
         MinHeight="600"
         Title="医院管理系统"
         FontFamily="Microsoft YaHei, SimHei, sans-serif"
-        Background="#F0F2F5">
+        Background="{StaticResource Gray50Brush}">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="SidebarBg" Color="#1E40AF" />
-        <SolidColorBrush x:Key="NavItemBgSelected" Color="#2563EB" />
-        <SolidColorBrush x:Key="NavItemBgHover" Color="#2563EB" />
-        <SolidColorBrush x:Key="NavText" Color="#E0E7FF" />
-        <SolidColorBrush x:Key="NavTextSelected" Color="#FFFFFF" />
-
         <Style x:Key="NavListBoxItemStyle" TargetType="ListBoxItem">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
@@ -40,10 +34,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="itemBorder" Property="Background" Value="{StaticResource NavItemBgHover}" />
+                                <Setter TargetName="itemBorder" Property="Background" Value="{StaticResource BluePrimaryBrush}" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="itemBorder" Property="Background" Value="{StaticResource NavItemBgSelected}" />
+                                <Setter TargetName="itemBorder" Property="Background" Value="{StaticResource BluePrimaryBrush}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -59,7 +53,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- ==================== Sidebar ==================== -->
-        <Border Grid.Column="0" Background="{StaticResource SidebarBg}">
+        <Border Grid.Column="0" Background="{StaticResource BlueDeepBrush}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -70,17 +64,17 @@
                 <!-- User profile section -->
                 <Border Grid.Row="0"
                         Padding="20,24,20,20"
-                        BorderBrush="#2563EB"
+                        BorderBrush="{StaticResource BluePrimaryBrush}"
                         BorderThickness="0,0,0,1">
                     <StackPanel>
                         <Border Width="56"
                                 Height="56"
-                                Background="#3B82F6"
+                                Background="{StaticResource BlueLightBrush}"
                                 CornerRadius="28"
                                 HorizontalAlignment="Center">
                             <TextBlock FontSize="22"
                                        FontWeight="Bold"
-                                       Foreground="#FFFFFF"
+                                       Foreground="{StaticResource WhiteBrush}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Text="{Binding AppContext.CurrentUserDisplayName, StringFormat={}{0}}" />
@@ -88,12 +82,12 @@
                         <TextBlock Margin="0,12,0,0"
                                    FontSize="16"
                                    FontWeight="SemiBold"
-                                   Foreground="#FFFFFF"
+                                   Foreground="{StaticResource WhiteBrush}"
                                    Text="{Binding AppContext.CurrentUserDisplayName}"
                                    HorizontalAlignment="Center" />
                         <TextBlock Margin="0,4,0,0"
                                    FontSize="12"
-                                   Foreground="#93C5FD"
+                                   Foreground="{StaticResource BlueAccentBrush}"
                                    Text="{Binding AppContext.CampusName}"
                                    HorizontalAlignment="Center" />
                     </StackPanel>
@@ -122,10 +116,10 @@
                                                DockPanel.Dock="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
-                                                <Setter Property="Foreground" Value="{StaticResource NavText}" />
+                                                <Setter Property="Foreground" Value="{StaticResource NavTextBrush}" />
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                        <Setter Property="Foreground" Value="{StaticResource NavTextSelected}" />
+                                                        <Setter Property="Foreground" Value="{StaticResource NavTextSelectedBrush}" />
                                                         <Setter Property="FontWeight" Value="SemiBold" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -141,13 +135,13 @@
                 <!-- Logout button -->
                 <Border Grid.Row="2"
                         Padding="16,12"
-                        BorderBrush="#2563EB"
+                        BorderBrush="{StaticResource BluePrimaryBrush}"
                         BorderThickness="0,1,0,0">
                     <Button HorizontalContentAlignment="Left"
                             Padding="16,10"
                             Background="Transparent"
                             BorderThickness="0"
-                            Foreground="#93C5FD"
+                            Foreground="{StaticResource BlueTintBrush}"
                             FontSize="14"
                             Cursor="Hand"
                             Command="{Binding LogoutCommand}">
@@ -176,27 +170,27 @@
             <!-- Top bar -->
             <Border Grid.Row="0"
                     Padding="24,14,24,14"
-                    Background="#FFFFFF"
-                    BorderBrush="#E5E7EB"
+                    Background="{StaticResource WhiteBrush}"
+                    BorderBrush="{StaticResource Gray200Brush}"
                     BorderThickness="0,0,0,1">
                 <DockPanel LastChildFill="False">
                     <TextBlock DockPanel.Dock="Left"
                                VerticalAlignment="Center"
                                FontSize="13"
-                               Foreground="#6B7280">
+                               Foreground="{StaticResource Gray500Brush}">
                         <Run Text="{Binding AppContext.CampusName}" />
                         <Run Text="—" />
                         <Run Text="医院管理系统" />
                     </TextBlock>
                     <StackPanel DockPanel.Dock="Right"
                                 Orientation="Horizontal">
-                        <Border Background="#EEF2FF"
+                        <Border Background="{StaticResource BlueSubtleBrush}"
                                 Padding="8,4,10,4"
                                 CornerRadius="4"
                                 Margin="0,0,12,0">
                             <TextBlock Text="{Binding AppContext.CurrentUserDisplayName}"
                                        FontSize="13"
-                                       Foreground="#2563EB"
+                                       Foreground="{StaticResource BluePrimaryBrush}"
                                        VerticalAlignment="Center" />
                         </Border>
                     </StackPanel>

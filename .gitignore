@@ -14,6 +14,9 @@ TestResults/
 *.coverage
 *.coveragexml
 
+## C# Dev Kit cache
+*.lscache
+
 ## OS
 Thumbs.db
 Desktop.ini

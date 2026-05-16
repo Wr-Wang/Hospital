@@ -15,11 +15,11 @@
                 <StackPanel>
                     <TextBlock FontSize="24"
                                FontWeight="Bold"
-                               Foreground="#FFFFFF"
+                               Foreground="{StaticResource WhiteBrush}"
                                Text="欢迎使用医院管理系统" />
                     <TextBlock Margin="0,8,0,0"
                                FontSize="14"
-                               Foreground="#BFDBFE"
+                               Foreground="{StaticResource BlueAccentBrush}"
                                TextWrapping="Wrap"
                                Text="本系统提供院区管理、挂号工作台等功能模块，请通过左侧菜单导航使用。" />
                 </StackPanel>
@@ -34,51 +34,48 @@
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Column="0"
-                        Background="#FFFFFF"
-                        CornerRadius="10"
-                        Padding="20,16"
-                        Margin="0,0,8,0">
+                        Style="{StaticResource CardStyle}"
+                        Margin="0,0,8,0"
+                        Padding="20,16">
                     <StackPanel>
                         <TextBlock FontSize="13"
-                                   Foreground="#6B7280"
+                                   Foreground="{StaticResource Gray500Brush}"
                                    Text="今日挂号" />
                         <TextBlock FontSize="28"
                                    FontWeight="Bold"
-                                   Foreground="#2563EB"
+                                   Foreground="{StaticResource BluePrimaryBrush}"
                                    Margin="0,8,0,0"
                                    Text="—" />
                     </StackPanel>
                 </Border>
 
                 <Border Grid.Column="1"
-                        Background="#FFFFFF"
-                        CornerRadius="10"
-                        Padding="20,16"
-                        Margin="8,0,8,0">
+                        Style="{StaticResource CardStyle}"
+                        Margin="8,0,8,0"
+                        Padding="20,16">
                     <StackPanel>
                         <TextBlock FontSize="13"
-                                   Foreground="#6B7280"
+                                   Foreground="{StaticResource Gray500Brush}"
                                    Text="院区总数" />
                         <TextBlock FontSize="28"
                                    FontWeight="Bold"
-                                   Foreground="#059669"
+                                   Foreground="{StaticResource Green600Brush}"
                                    Margin="0,8,0,0"
                                    Text="—" />
                     </StackPanel>
                 </Border>
 
                 <Border Grid.Column="2"
-                        Background="#FFFFFF"
-                        CornerRadius="10"
-                        Padding="20,16"
-                        Margin="8,0,0,0">
+                        Style="{StaticResource CardStyle}"
+                        Margin="8,0,0,0"
+                        Padding="20,16">
                     <StackPanel>
                         <TextBlock FontSize="13"
-                                   Foreground="#6B7280"
+                                   Foreground="{StaticResource Gray500Brush}"
                                    Text="当前用户" />
                         <TextBlock FontSize="28"
                                    FontWeight="Bold"
-                                   Foreground="#D97706"
+                                   Foreground="{StaticResource Amber600Brush}"
                                    Margin="0,8,0,0"
                                    Text="{Binding AppContext.CurrentUserDisplayName}" />
                     </StackPanel>
@@ -86,14 +83,12 @@
             </Grid>
 
             <!-- Quick links -->
-            <Border Background="#FFFFFF"
-                    CornerRadius="10"
-                    Padding="24,20"
+            <Border Style="{StaticResource CardStyle}"
                     Margin="0,24,0,0">
                 <StackPanel>
                     <TextBlock FontSize="16"
                                FontWeight="SemiBold"
-                               Foreground="#111827"
+                               Foreground="{StaticResource Gray900Brush}"
                                Text="功能导航" />
                     <Grid Margin="0,16,0,0">
                         <Grid.ColumnDefinitions>
@@ -103,7 +98,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Border Grid.Column="0"
-                                Background="#F0FDF4"
+                                Background="{StaticResource Green50Brush}"
                                 CornerRadius="8"
                                 Padding="16,14"
                                 Margin="0,0,8,0">
@@ -112,17 +107,17 @@
                                 <TextBlock Margin="0,8,0,0"
                                            FontSize="14"
                                            FontWeight="SemiBold"
-                                           Foreground="#166534"
+                                           Foreground="{StaticResource Green800Brush}"
                                            Text="院区管理" />
                                 <TextBlock Margin="0,4,0,0"
                                            FontSize="12"
-                                           Foreground="#6B7280"
+                                           Foreground="{StaticResource Gray500Brush}"
                                            Text="维护院区基础信息" />
                             </StackPanel>
                         </Border>
 
                         <Border Grid.Column="1"
-                                Background="#EFF6FF"
+                                Background="{StaticResource BlueSubtleBrush}"
                                 CornerRadius="8"
                                 Padding="16,14"
                                 Margin="8,0,8,0">
@@ -131,17 +126,17 @@
                                 <TextBlock Margin="0,8,0,0"
                                            FontSize="14"
                                            FontWeight="SemiBold"
-                                           Foreground="#1E40AF"
+                                           Foreground="{StaticResource BlueDeepBrush}"
                                            Text="挂号工作台" />
                                 <TextBlock Margin="0,4,0,0"
                                            FontSize="12"
-                                           Foreground="#6B7280"
+                                           Foreground="{StaticResource Gray500Brush}"
                                            Text="患者挂号与登记" />
                             </StackPanel>
                         </Border>
 
                         <Border Grid.Column="2"
-                                Background="#FEF2F2"
+                                Background="{StaticResource Red50Brush}"
                                 CornerRadius="8"
                                 Padding="16,14"
                                 Margin="8,0,0,0">
@@ -150,11 +145,11 @@
                                 <TextBlock Margin="0,8,0,0"
                                            FontSize="14"
                                            FontWeight="SemiBold"
-                                           Foreground="#991B1B"
+                                           Foreground="{StaticResource Red800Brush}"
                                            Text="系统设置" />
                                 <TextBlock Margin="0,4,0,0"
                                            FontSize="12"
-                                           Foreground="#6B7280"
+                                           Foreground="{StaticResource Gray500Brush}"
                                            Text="系统参数配置" />
                             </StackPanel>
                         </Border>
