@@ -8,8 +8,8 @@
                     CornerRadius="12">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#2563EB" Offset="0.0" />
-                        <GradientStop Color="#1D4ED8" Offset="1.0" />
+                        <GradientStop Color="#14B8A6" Offset="0.0" />
+                        <GradientStop Color="#0D9488" Offset="1.0" />
                     </LinearGradientBrush>
                 </Border.Background>
                 <StackPanel>

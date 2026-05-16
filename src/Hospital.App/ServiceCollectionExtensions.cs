@@ -26,8 +26,6 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IAuthenticationService, AuthenticationService>();
         services.AddTransient<IAuthenticationApplicationService, AuthenticationApplicationService>();
 
-        services.AddSingleton<IStartupService, AppStartup>();
-
         services.AddTransient<LoginViewModel>();
         services.AddTransient<LoginWindow>();
         services.AddTransient<MainWindowViewModel>();

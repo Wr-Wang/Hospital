@@ -7,14 +7,14 @@
             <!-- DESIGN TOKENS — 遵循 DESIGN.md 色板定义                          -->
             <!-- ================================================================== -->
 
-            <!-- Primary palette -->
-            <SolidColorBrush x:Key="BlueDeepBrush" Color="#1E40AF" />
-            <SolidColorBrush x:Key="BluePrimaryBrush" Color="#2563EB" />
-            <SolidColorBrush x:Key="BlueHoverBrush" Color="#1D4ED8" />
-            <SolidColorBrush x:Key="BlueLightBrush" Color="#3B82F6" />
-            <SolidColorBrush x:Key="BlueTintBrush" Color="#93C5FD" />
-            <SolidColorBrush x:Key="BlueSubtleBrush" Color="#EEF2FF" />
-            <SolidColorBrush x:Key="BlueAccentBrush" Color="#BFDBFE" />
+            <!-- Primary palette — Teal (医疗青绿) -->
+            <SolidColorBrush x:Key="BlueDeepBrush" Color="#0F766E" />
+            <SolidColorBrush x:Key="BluePrimaryBrush" Color="#14B8A6" />
+            <SolidColorBrush x:Key="BlueHoverBrush" Color="#0D9488" />
+            <SolidColorBrush x:Key="BlueLightBrush" Color="#2DD4BF" />
+            <SolidColorBrush x:Key="BlueTintBrush" Color="#99F6E4" />
+            <SolidColorBrush x:Key="BlueSubtleBrush" Color="#CCFBF1" />
+            <SolidColorBrush x:Key="BlueAccentBrush" Color="#CCFBF1" />
 
             <!-- Neutral palette -->
             <SolidColorBrush x:Key="Gray900Brush" Color="#111827" />
@@ -38,7 +38,7 @@
             <SolidColorBrush x:Key="Red800Brush" Color="#991B1B" />
 
             <!-- Navigation specific -->
-            <SolidColorBrush x:Key="NavTextBrush" Color="#E0E7FF" />
+            <SolidColorBrush x:Key="NavTextBrush" Color="#CCFBF1" />
             <SolidColorBrush x:Key="NavTextSelectedBrush" Color="#FFFFFF" />
 
             <!-- ================================================================== -->
