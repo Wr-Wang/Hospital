@@ -19,7 +19,7 @@ public sealed partial class Patient360ViewModel : ObservableObject
         _patientService = patientService;
     }
 
-    // =====  PatientBanner 头部展示字段 =====
+    // ===== 患者头部展示字段 =====
 
     [ObservableProperty]
     private string? patientName;
@@ -89,7 +89,7 @@ public sealed partial class Patient360ViewModel : ObservableObject
                 return;
             }
 
-            // 更新 PatientBanner 信息
+            // 更新患者信息
             PatientName = profile.Name;
             PatientInfo = $"{profile.Gender ?? AppConstants.NullDisplay}{AppConstants.Separator}{profile.BirthDate ?? AppConstants.NullDisplay}{AppConstants.Separator}{profile.Phone ?? AppConstants.NullDisplay}";
             PatientIdLabel = $"病历号: {profile.PatientNo} | 身份证: {profile.IdCard ?? AppConstants.NullDisplay}";

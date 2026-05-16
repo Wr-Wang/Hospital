@@ -127,8 +127,9 @@ public sealed partial class CashierWorkbenchViewModel : ObservableObject
             HasItems = PendingItems.Count > 0;
             SelectedCount = 0;
         }
-        catch
+        catch (Exception ex)
         {
+            ErrorMessage = $"加载待收费项目失败: {ex.Message}";
             PendingItems = new();
             HasItems = false;
         }

@@ -325,7 +325,7 @@
                                                                                         BorderBrush="{StaticResource Gray300Brush}" BorderThickness="1"
                                                                                         Background="{StaticResource WhiteBrush}" Margin="0,0,8,0">
                                                                                     <TextBlock Text="✓" FontSize="10"
-                                                                                               Foreground="{StaticResource WhiteBrush}"
+                                                                                               Foreground="{StaticResource Green600Brush}"
                                                                                                HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                                                 </Border>
                                                                                 <TextBlock FontSize="12"

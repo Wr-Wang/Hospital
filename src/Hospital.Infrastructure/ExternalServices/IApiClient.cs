@@ -9,5 +9,6 @@ public interface IApiClient
     Task<TResponse> PostAsync<TResponse>(string route, object payload);
     Task PutAsync(string route, object payload);
     Task PatchAsync(string route);
+    Task PatchAsync(string route, object payload);
     Task DeleteAsync(string route);
 }

@@ -21,33 +21,18 @@ public sealed class NavigationService : INavigationService
         _services = services;
 
         // Dashboard
-        Register(RouteKeys.Home, () => new HomePlaceholderView());
+        Register(RouteKeys.Home, () => CreateView<HomePlaceholderView, HomePlaceholderViewModel>());
 
         // M2 患者
         Register(RouteKeys.PatientRegister, () => CreateView<PatientRegisterView, PatientRegisterViewModel>());
         Register(RouteKeys.PatientSearch, () => CreateView<PatientSearchView, PatientSearchViewModel>());
+        Register(RouteKeys.Patient360, () => CreateView<Patient360View, Patient360ViewModel>());
 
         // M1 主数据
-        Register(RouteKeys.Campus, () => new PagePlaceholderView
-        {
-            Title = "院区管理",
-            Description = "维护集团下属各院区基础信息，支持多院区统一管理"
-        });
-        Register(RouteKeys.Department, () => new PagePlaceholderView
-        {
-            Title = "科室维护",
-            Description = "管理院区科室树结构，支持科室新增、编辑、停用"
-        });
-        Register(RouteKeys.Staff, () => new PagePlaceholderView
-        {
-            Title = "人员档案",
-            Description = "维护医护人员档案与执业信息，资质到期自动预警"
-        });
-        Register(RouteKeys.Dictionary, () => new PagePlaceholderView
-        {
-            Title = "字典管理",
-            Description = "维护 ICD 诊断编码、收费项目、药品目录等系统字典"
-        });
+        Register(RouteKeys.Campus, () => CreateView<CampusView, CampusViewModel>());
+        Register(RouteKeys.Department, () => CreateView<DepartmentView, DepartmentViewModel>());
+        Register(RouteKeys.Staff, () => CreateView<StaffView, StaffListViewModel>());
+        Register(RouteKeys.Dictionary, () => CreateView<DictionaryView, DictionaryViewModel>());
 
         // M3 挂号
         Register(RouteKeys.Schedule, () => CreateView<ScheduleView, ScheduleViewModel>());

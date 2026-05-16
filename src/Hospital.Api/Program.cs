@@ -49,6 +49,12 @@ builder.Services.AddSingleton<IRadOrderRepository, RadOrderRepository>();
 builder.Services.AddScoped<ICashierApplicationService, CashierApplicationService>();
 builder.Services.AddScoped<IDispenseApplicationService, DispenseApplicationService>();
 
+// Register Billing, Dispense, AuditLog repositories
+builder.Services.AddSingleton<IBillingRepository, BillingRepository>();
+builder.Services.AddSingleton<IDispenseRepository, DispenseRepository>();
+builder.Services.AddSingleton<IDrugInventoryRepository, DrugInventoryRepository>();
+builder.Services.AddSingleton<IAuditLogRepository, AuditLogRepository>();
+
 // Register User and Role services
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRoleRepository, RoleRepository>();

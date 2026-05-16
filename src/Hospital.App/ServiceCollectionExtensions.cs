@@ -2,6 +2,7 @@ using System;
 using Hospital.App.Services;
 using Hospital.App.ViewModels;
 using Hospital.App.Views;
+using Hospital.App.Views.Placeholder;
 using Hospital.Application.Services;
 using Hospital.Infrastructure.ExternalServices;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,8 +32,10 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IPatientApplicationService, PatientService>();
 
         // MDM services (WPF HTTP implementations)
+        services.AddTransient<ICampusApplicationService, CampusService>();
         services.AddTransient<IDepartmentApplicationService, DepartmentService>();
         services.AddTransient<IStaffApplicationService, StaffService>();
+        services.AddTransient<IDictionaryApplicationService, DictionaryService>();
 
         // Registration services (Schedule + Registration)
         services.AddSingleton<IScheduleApplicationService, ScheduleService>();
@@ -64,6 +67,11 @@ public static class ServiceCollectionExtensions
         services.AddTransient<CashierWorkbenchViewModel>();
         services.AddTransient<DispenseWorkbenchViewModel>();
         services.AddTransient<UserRoleViewModel>();
+        services.AddTransient<CampusViewModel>();
+        services.AddTransient<DepartmentViewModel>();
+        services.AddTransient<StaffListViewModel>();
+        services.AddTransient<DictionaryViewModel>();
+        services.AddTransient<HomePlaceholderViewModel>();
 
         // Windows
         services.AddTransient<LoginWindow>();
@@ -79,6 +87,11 @@ public static class ServiceCollectionExtensions
         services.AddTransient<CashierWorkbenchView>();
         services.AddTransient<DispenseWorkbenchView>();
         services.AddTransient<UserRoleView>();
+        services.AddTransient<CampusView>();
+        services.AddTransient<DepartmentView>();
+        services.AddTransient<StaffView>();
+        services.AddTransient<DictionaryView>();
+        services.AddTransient<HomePlaceholderView>();
 
         return services;
     }

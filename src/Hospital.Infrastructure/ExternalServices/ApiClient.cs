@@ -50,6 +50,12 @@ public sealed class ApiClient : IApiClient
         response.EnsureSuccessStatusCode();
     }
 
+    public async Task PatchAsync(string route, object payload)
+    {
+        var response = await _httpClient.PatchAsJsonAsync(route, payload);
+        response.EnsureSuccessStatusCode();
+    }
+
     public async Task DeleteAsync(string route)
     {
         var response = await _httpClient.DeleteAsync(route);

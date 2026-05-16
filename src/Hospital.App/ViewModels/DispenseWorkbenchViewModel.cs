@@ -111,8 +111,9 @@ public sealed partial class DispenseWorkbenchViewModel : ObservableObject
             PaidPrescriptions = await _dispenseService.GetPaidPrescriptionsAsync(_selectedPatientId);
             HasPrescriptions = PaidPrescriptions.Count > 0;
         }
-        catch
+        catch (Exception ex)
         {
+            ErrorMessage = $"加载已缴费处方失败: {ex.Message}";
             PaidPrescriptions = new();
             HasPrescriptions = false;
         }
