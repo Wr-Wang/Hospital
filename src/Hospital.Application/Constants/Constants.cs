@@ -120,6 +120,21 @@ public static class ApiRoutes
         public static string ById(long id) => $"rad-order/{id}";
         public static string Cancel(long id) => $"rad-order/{id}/cancel";
     }
+
+    public static class Cashier
+    {
+        public const string Base = "cashier";
+        public static string PendingItems(long patientId) => $"cashier/pending-items/{patientId}";
+        public const string Pay = "cashier/pay";
+    }
+
+    public static class Dispense
+    {
+        public const string Base = "dispense";
+        public static string PaidPrescriptions(long patientId) => $"dispense/paid-prescriptions/{patientId}";
+        public static string DispenseItem(long id) => $"dispense/{id}/dispense";
+        public static string ReturnItem(long id) => $"dispense/{id}/return";
+    }
 }
 
 /// <summary>JWT Token 声明键名常量</summary>

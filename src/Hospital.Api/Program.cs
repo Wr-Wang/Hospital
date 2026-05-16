@@ -44,6 +44,10 @@ builder.Services.AddSingleton<ILabOrderRepository, LabOrderRepository>();
 builder.Services.AddScoped<ILabOrderApplicationService, LabOrderApplicationService>();
 builder.Services.AddSingleton<IRadOrderRepository, RadOrderRepository>();
 
+// Register Cashier and Dispense services
+builder.Services.AddScoped<ICashierApplicationService, CashierApplicationService>();
+builder.Services.AddScoped<IDispenseApplicationService, DispenseApplicationService>();
+
 // Register auth services
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"]!;

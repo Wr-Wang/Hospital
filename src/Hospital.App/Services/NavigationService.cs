@@ -57,18 +57,10 @@ public sealed class NavigationService : INavigationService
         Register(RouteKeys.Encounter, () => CreateView<EncounterWorkbenchView, EncounterWorkbenchViewModel>());
 
         // M6 发药
-        Register(RouteKeys.Dispense, () => new PagePlaceholderView
-        {
-            Title = "发药工作台",
-            Description = "门诊处方审核、发药、退药，管控药双人核对"
-        });
+        Register(RouteKeys.Dispense, () => CreateView<DispenseWorkbenchView, DispenseWorkbenchViewModel>());
 
         // M11 收费
-        Register(RouteKeys.Cashier, () => new PagePlaceholderView
-        {
-            Title = "收费工作台",
-            Description = "门诊费用收取、退费处理、发票打印"
-        });
+        Register(RouteKeys.Cashier, () => CreateView<CashierWorkbenchView, CashierWorkbenchViewModel>());
 
         // M13 系统
         Register(RouteKeys.UserRole, () => new PagePlaceholderView

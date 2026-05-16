@@ -21,6 +21,15 @@ public class RadOrder : Entity
     public string ItemName { get; private set; } = string.Empty;
     public OrderStatus Status { get; private set; }
 
+    /// <summary>缴费</summary>
+    public void Pay()
+    {
+        if (Status != OrderStatus.已开立)
+            throw new InvalidOperationException("仅已开立状态的检查可以缴费");
+
+        Status = OrderStatus.已缴费;
+    }
+
     /// <summary>取消申请</summary>
     public void Cancel()
     {

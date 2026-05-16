@@ -45,6 +45,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IPrescriptionApplicationService, PrescriptionService>();
         services.AddSingleton<ILabOrderApplicationService, LabOrderService>();
 
+        // Cashier and Dispense services
+        services.AddSingleton<ICashierApplicationService, CashierService>();
+        services.AddSingleton<IDispenseApplicationService, DispenseService>();
+
         // ViewModels
         services.AddTransient<LoginViewModel>();
         services.AddTransient<MainWindowViewModel>();
@@ -54,6 +58,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ScheduleViewModel>();
         services.AddTransient<RegisterWorkbenchViewModel>();
         services.AddTransient<EncounterWorkbenchViewModel>();
+        services.AddTransient<CashierWorkbenchViewModel>();
+        services.AddTransient<DispenseWorkbenchViewModel>();
 
         // Windows
         services.AddTransient<LoginWindow>();
@@ -66,6 +72,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ScheduleView>();
         services.AddTransient<RegisterWorkbenchView>();
         services.AddTransient<EncounterWorkbenchView>();
+        services.AddTransient<CashierWorkbenchView>();
+        services.AddTransient<DispenseWorkbenchView>();
 
         return services;
     }

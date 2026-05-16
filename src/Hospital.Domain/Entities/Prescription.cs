@@ -27,6 +27,24 @@ public class Prescription : AggregateRoot
         _items.Add(item);
     }
 
+    /// <summary>缴费</summary>
+    public void Pay()
+    {
+        if (Status != PrescriptionStatus.待缴费)
+            throw new InvalidOperationException("仅待缴费状态的处方可以缴费");
+
+        Status = PrescriptionStatus.已缴费;
+    }
+
+    /// <summary>发药</summary>
+    public void Dispense()
+    {
+        if (Status != PrescriptionStatus.已缴费)
+            throw new InvalidOperationException("仅已缴费状态的处方可以发药");
+
+        Status = PrescriptionStatus.已发药;
+    }
+
     /// <summary>作废处方</summary>
     public void Void()
     {
