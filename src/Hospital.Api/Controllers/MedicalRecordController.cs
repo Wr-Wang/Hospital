@@ -6,6 +6,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>病历管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/medical-record")]
@@ -18,6 +19,7 @@ public class MedicalRecordController : ControllerBase
         _recordService = recordService;
     }
 
+    /// <summary>根据就诊 ID 获取病历</summary>
     [HttpGet("by-encounter/{encounterId:long}")]
     public async Task<IActionResult> GetByEncounter(long encounterId)
     {
@@ -26,6 +28,7 @@ public class MedicalRecordController : ControllerBase
         return Ok(dto);
     }
 
+    /// <summary>保存病历</summary>
     [HttpPost("{encounterId:long}")]
     public async Task<IActionResult> Save(long encounterId, [FromBody] SaveMedicalRecordDto dto)
     {

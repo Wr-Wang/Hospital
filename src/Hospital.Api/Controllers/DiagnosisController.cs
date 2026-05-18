@@ -6,6 +6,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>诊断管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -18,6 +19,7 @@ public class DiagnosisController : ControllerBase
         _diagnosisService = diagnosisService;
     }
 
+    /// <summary>根据就诊 ID 获取诊断</summary>
     [HttpGet("by-encounter/{encounterId:long}")]
     public async Task<IActionResult> GetByEncounter(long encounterId)
     {
@@ -25,6 +27,7 @@ public class DiagnosisController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>添加诊断</summary>
     [HttpPost]
     public async Task<IActionResult> Add(long encounterId, [FromBody] CreateDiagnosisDto dto)
     {
@@ -32,6 +35,7 @@ public class DiagnosisController : ControllerBase
         return CreatedAtAction(null, new { id }, new { id });
     }
 
+    /// <summary>移除诊断</summary>
     [HttpDelete("{id:long}")]
     public async Task<IActionResult> Remove(long id)
     {

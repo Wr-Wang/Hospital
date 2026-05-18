@@ -6,6 +6,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>收费管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -18,6 +19,7 @@ public class CashierController : ControllerBase
         _cashierService = cashierService;
     }
 
+    /// <summary>获取待缴费项目</summary>
     [HttpGet("pending-items/{patientId:long}")]
     public async Task<IActionResult> GetPendingItems(long patientId)
     {
@@ -25,6 +27,7 @@ public class CashierController : ControllerBase
         return Ok(items);
     }
 
+    /// <summary>缴费结算</summary>
     [HttpPost("pay")]
     public async Task<IActionResult> Pay([FromBody] PayRequestDto dto)
     {

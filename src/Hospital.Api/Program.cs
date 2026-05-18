@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using Hospital.Api.Middleware;
 using Hospital.Application.Services;
@@ -12,7 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+        c.IncludeXmlComments(xmlPath);
+});
 
 // Register DDD services
 builder.Services.AddSingleton<IPatientRepository, PatientRepository>();

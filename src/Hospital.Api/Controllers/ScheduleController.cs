@@ -7,6 +7,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>排班管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -19,6 +20,7 @@ public class ScheduleController : ControllerBase
         _scheduleService = scheduleService;
     }
 
+    /// <summary>根据 ID 获取排班</summary>
     [HttpGet("{id:long}")]
     public async Task<IActionResult> GetById(long id)
     {
@@ -27,6 +29,7 @@ public class ScheduleController : ControllerBase
         return Ok(dto);
     }
 
+    /// <summary>根据医生获取排班</summary>
     [HttpGet("by-doctor/{doctorId:long}")]
     public async Task<IActionResult> GetByDoctor(long doctorId)
     {
@@ -34,6 +37,7 @@ public class ScheduleController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>根据科室获取排班</summary>
     [HttpGet("by-dept/{deptId:long}")]
     public async Task<IActionResult> GetByDept(long deptId, [FromQuery] string? date)
     {
@@ -41,6 +45,7 @@ public class ScheduleController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>获取可用排班</summary>
     [HttpGet("available")]
     public async Task<IActionResult> GetAvailable(
         [FromQuery] long deptId,
@@ -51,6 +56,7 @@ public class ScheduleController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>新建排班</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateScheduleRequest request)
     {
@@ -65,6 +71,7 @@ public class ScheduleController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id }, new { id });
     }
 
+    /// <summary>发布排班</summary>
     [HttpPatch("{id:long}/publish")]
     public async Task<IActionResult> Publish(long id)
     {
@@ -72,6 +79,7 @@ public class ScheduleController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>停用排班</summary>
     [HttpPatch("{id:long}/deactivate")]
     public async Task<IActionResult> Deactivate(long id)
     {
@@ -79,6 +87,7 @@ public class ScheduleController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>更新排班时段配额</summary>
     [HttpPut("{id:long}/slot-quota")]
     public async Task<IActionResult> UpdateSlotQuota(long id, [FromBody] UpdateScheduleSlotQuotaRequest request)
     {

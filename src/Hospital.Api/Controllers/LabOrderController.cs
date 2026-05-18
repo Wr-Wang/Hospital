@@ -6,6 +6,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>检验单管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/lab-order")]
@@ -18,6 +19,7 @@ public class LabOrderController : ControllerBase
         _labOrderService = labOrderService;
     }
 
+    /// <summary>根据就诊 ID 获取检验单</summary>
     [HttpGet("by-encounter/{encounterId:long}")]
     public async Task<IActionResult> GetByEncounter(long encounterId)
     {
@@ -25,6 +27,7 @@ public class LabOrderController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>创建检验单</summary>
     [HttpPost]
     public async Task<IActionResult> Create(long encounterId, [FromBody] CreateLabOrderDto dto)
     {
@@ -32,6 +35,7 @@ public class LabOrderController : ControllerBase
         return CreatedAtAction(null, new { id }, new { id });
     }
 
+    /// <summary>取消检验单</summary>
     [HttpPatch("{id:long}/cancel")]
     public async Task<IActionResult> Cancel(long id)
     {

@@ -6,6 +6,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>用户管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -18,6 +19,7 @@ public class UserController : ControllerBase
         _userRoleService = userRoleService;
     }
 
+    /// <summary>获取全部用户</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -25,6 +27,7 @@ public class UserController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>新建用户</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateUserDto dto)
     {
@@ -32,6 +35,7 @@ public class UserController : ControllerBase
         return CreatedAtAction(null, new { id }, new { id });
     }
 
+    /// <summary>更新用户</summary>
     [HttpPut("{id:long}")]
     public async Task<IActionResult> Update(long id, [FromBody] UpdateUserDto dto)
     {

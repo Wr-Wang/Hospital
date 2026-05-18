@@ -6,6 +6,7 @@ using Hospital.Application.Repositories;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>操作审计日志</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -18,6 +19,7 @@ public class AuditLogController : ControllerBase
         _auditLogRepository = auditLogRepository;
     }
 
+    /// <summary>获取全部审计日志</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -25,6 +27,7 @@ public class AuditLogController : ControllerBase
         return Ok(logs);
     }
 
+    /// <summary>根据 ID 获取审计日志</summary>
     [HttpGet("{id:long}")]
     public async Task<IActionResult> GetById(long id)
     {
@@ -35,6 +38,7 @@ public class AuditLogController : ControllerBase
         return Ok(log);
     }
 
+    /// <summary>根据用户获取审计日志</summary>
     [HttpGet("by-user/{userId:long}")]
     public async Task<IActionResult> GetByUser(long userId)
     {
@@ -42,6 +46,7 @@ public class AuditLogController : ControllerBase
         return Ok(logs);
     }
 
+    /// <summary>根据实体获取审计日志</summary>
     [HttpGet("by-entity")]
     public async Task<IActionResult> GetByEntity([FromQuery] string entityType, [FromQuery] long entityId)
     {
@@ -49,6 +54,7 @@ public class AuditLogController : ControllerBase
         return Ok(logs);
     }
 
+    /// <summary>根据日期范围获取审计日志</summary>
     [HttpGet("by-date")]
     public async Task<IActionResult> GetByDate([FromQuery] DateTime from, [FromQuery] DateTime to)
     {

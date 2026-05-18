@@ -6,6 +6,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>处方管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -18,6 +19,7 @@ public class PrescriptionController : ControllerBase
         _prescriptionService = prescriptionService;
     }
 
+    /// <summary>根据就诊 ID 获取处方</summary>
     [HttpGet("by-encounter/{encounterId:long}")]
     public async Task<IActionResult> GetByEncounter(long encounterId)
     {
@@ -25,6 +27,7 @@ public class PrescriptionController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>创建处方</summary>
     [HttpPost]
     public async Task<IActionResult> Create(long encounterId, long doctorId, [FromBody] CreatePrescriptionDto dto)
     {
@@ -32,6 +35,7 @@ public class PrescriptionController : ControllerBase
         return CreatedAtAction(null, new { id }, new { id });
     }
 
+    /// <summary>作废处方</summary>
     [HttpPatch("{id:long}/void")]
     public async Task<IActionResult> Void(long id)
     {

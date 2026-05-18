@@ -6,6 +6,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>角色管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -18,6 +19,7 @@ public class RoleController : ControllerBase
         _userRoleService = userRoleService;
     }
 
+    /// <summary>获取全部角色</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -25,6 +27,7 @@ public class RoleController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>新建角色</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateRoleDto dto)
     {
@@ -32,6 +35,7 @@ public class RoleController : ControllerBase
         return CreatedAtAction(null, new { id }, new { id });
     }
 
+    /// <summary>更新角色</summary>
     [HttpPut("{id:long}")]
     public async Task<IActionResult> Update(long id, [FromBody] UpdateRoleDto dto)
     {
@@ -39,6 +43,7 @@ public class RoleController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>删除角色</summary>
     [HttpDelete("{id:long}")]
     public async Task<IActionResult> Delete(long id)
     {

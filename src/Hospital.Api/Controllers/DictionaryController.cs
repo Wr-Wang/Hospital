@@ -5,6 +5,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>字典管理（字典类型 + 字典项）</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -17,16 +18,16 @@ public class DictionaryController : ControllerBase
         _dictionaryService = dictionaryService;
     }
 
-    // ===== 字典类型 =====
 
-    [HttpGet("types")]
+
+    /// <summary>获取全部字典类型</summary>    [HttpGet("types")]
     public async Task<IActionResult> GetAllTypes()
     {
         var types = await _dictionaryService.GetAllTypesAsync();
         return Ok(types);
     }
 
-    [HttpGet("types/{id:long}")]
+    /// <summary>根据 ID 获取字典类型</summary>    [HttpGet("types/{id:long}")]
     public async Task<IActionResult> GetTypeById(long id)
     {
         var type = await _dictionaryService.GetTypeByIdAsync(id);
@@ -35,7 +36,7 @@ public class DictionaryController : ControllerBase
         return Ok(type);
     }
 
-    [HttpPost("types")]
+    /// <summary>新建字典类型</summary>    [HttpPost("types")]
     public async Task<IActionResult> CreateType([FromBody] CreateDictionaryTypeRequest request)
     {
         var dto = new CreateDictionaryTypeDto(request.Code, request.Name, request.Description);
@@ -43,7 +44,7 @@ public class DictionaryController : ControllerBase
         return CreatedAtAction(nameof(GetTypeById), new { id }, new { id });
     }
 
-    [HttpPut("types/{id:long}")]
+    /// <summary>更新字典类型</summary>    [HttpPut("types/{id:long}")]
     public async Task<IActionResult> UpdateType(long id, [FromBody] UpdateDictionaryTypeRequest request)
     {
         var dto = new UpdateDictionaryTypeDto(request.Name, request.Description);
@@ -51,37 +52,37 @@ public class DictionaryController : ControllerBase
         return NoContent();
     }
 
-    [HttpPatch("types/{id:long}/activate")]
+    /// <summary>启用字典类型</summary>    [HttpPatch("types/{id:long}/activate")]
     public async Task<IActionResult> ActivateType(long id)
     {
         await _dictionaryService.ActivateTypeAsync(id);
         return NoContent();
     }
 
-    [HttpPatch("types/{id:long}/deactivate")]
+    /// <summary>停用字典类型</summary>    [HttpPatch("types/{id:long}/deactivate")]
     public async Task<IActionResult> DeactivateType(long id)
     {
         await _dictionaryService.DeactivateTypeAsync(id);
         return NoContent();
     }
 
-    // ===== 字典项 =====
 
-    [HttpGet("types/{typeId:long}/items")]
+
+    /// <summary>根据类型 ID 获取字典项</summary>    [HttpGet("types/{typeId:long}/items")]
     public async Task<IActionResult> GetItemsByType(long typeId)
     {
         var items = await _dictionaryService.GetItemsByTypeIdAsync(typeId);
         return Ok(items);
     }
 
-    [HttpGet("types/by-code/{typeCode}/items")]
+    /// <summary>根据类型编码获取字典项</summary>    [HttpGet("types/by-code/{typeCode}/items")]
     public async Task<IActionResult> GetItemsByTypeCode(string typeCode)
     {
         var items = await _dictionaryService.GetItemsByTypeCodeAsync(typeCode);
         return Ok(items);
     }
 
-    [HttpPost("items")]
+    /// <summary>新建字典项</summary>    [HttpPost("items")]
     public async Task<IActionResult> CreateItem([FromBody] CreateDictionaryItemRequest request)
     {
         var dto = new CreateDictionaryItemDto(request.TypeId, request.Code, request.Name, request.ParentId, request.SortOrder);
@@ -89,7 +90,7 @@ public class DictionaryController : ControllerBase
         return CreatedAtAction(nameof(GetItemsByType), new { typeId = request.TypeId }, new { id });
     }
 
-    [HttpPut("items/{id:long}")]
+    /// <summary>更新字典项</summary>    [HttpPut("items/{id:long}")]
     public async Task<IActionResult> UpdateItem(long id, [FromBody] UpdateDictionaryItemRequest request)
     {
         var dto = new UpdateDictionaryItemDto(request.Name, request.ParentId, request.SortOrder);
@@ -97,14 +98,14 @@ public class DictionaryController : ControllerBase
         return NoContent();
     }
 
-    [HttpPatch("items/{id:long}/activate")]
+    /// <summary>启用字典项</summary>    [HttpPatch("items/{id:long}/activate")]
     public async Task<IActionResult> ActivateItem(long id)
     {
         await _dictionaryService.ActivateItemAsync(id);
         return NoContent();
     }
 
-    [HttpPatch("items/{id:long}/deactivate")]
+    /// <summary>停用字典项</summary>    [HttpPatch("items/{id:long}/deactivate")]
     public async Task<IActionResult> DeactivateItem(long id)
     {
         await _dictionaryService.DeactivateItemAsync(id);

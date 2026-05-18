@@ -5,6 +5,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>科室管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -17,6 +18,7 @@ public class DepartmentController : ControllerBase
         _departmentService = departmentService;
     }
 
+    /// <summary>获取全部科室列表（平面）</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -24,6 +26,7 @@ public class DepartmentController : ControllerBase
         return Ok(departments);
     }
 
+    /// <summary>获取指定院区的科室树形结构</summary>
     [HttpGet("tree/{campusId:long}")]
     public async Task<IActionResult> GetTree(long campusId)
     {
@@ -31,6 +34,7 @@ public class DepartmentController : ControllerBase
         return Ok(tree);
     }
 
+    /// <summary>根据 ID 获取科室详情</summary>
     [HttpGet("{id:long}")]
     public async Task<IActionResult> GetById(long id)
     {
@@ -41,6 +45,7 @@ public class DepartmentController : ControllerBase
         return Ok(department);
     }
 
+    /// <summary>新建科室</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateDepartmentRequest request)
     {
@@ -49,6 +54,7 @@ public class DepartmentController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id }, new { id });
     }
 
+    /// <summary>更新科室信息</summary>
     [HttpPut("{id:long}")]
     public async Task<IActionResult> Update(long id, [FromBody] UpdateDepartmentRequest request)
     {
@@ -57,6 +63,7 @@ public class DepartmentController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>启用科室</summary>
     [HttpPatch("{id:long}/activate")]
     public async Task<IActionResult> Activate(long id)
     {
@@ -64,6 +71,7 @@ public class DepartmentController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>停用科室</summary>
     [HttpPatch("{id:long}/deactivate")]
     public async Task<IActionResult> Deactivate(long id)
     {

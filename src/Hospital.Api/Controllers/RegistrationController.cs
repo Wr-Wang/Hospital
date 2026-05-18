@@ -7,6 +7,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>挂号管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -19,6 +20,7 @@ public class RegistrationController : ControllerBase
         _registrationService = registrationService;
     }
 
+    /// <summary>根据 ID 获取挂号记录</summary>
     [HttpGet("{id:long}")]
     public async Task<IActionResult> GetById(long id)
     {
@@ -27,6 +29,7 @@ public class RegistrationController : ControllerBase
         return Ok(dto);
     }
 
+    /// <summary>获取患者的就诊历史</summary>
     [HttpGet("by-patient/{patientId:long}")]
     public async Task<IActionResult> GetByPatient(long patientId)
     {
@@ -34,6 +37,7 @@ public class RegistrationController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>获取医生的挂号列表</summary>
     [HttpGet("by-doctor/{doctorId:long}")]
     public async Task<IActionResult> GetByDoctor(long doctorId, [FromQuery] string? date)
     {
@@ -41,6 +45,7 @@ public class RegistrationController : ControllerBase
         return Ok(list);
     }
 
+    /// <summary>新建挂号</summary>
     [HttpPost]
     public async Task<IActionResult> Register([FromBody] CreateRegistrationRequest request)
     {
@@ -52,6 +57,7 @@ public class RegistrationController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id }, new { id });
     }
 
+    /// <summary>作废挂号</summary>
     [HttpPatch("{id:long}/void")]
     public async Task<IActionResult> Void(long id)
     {

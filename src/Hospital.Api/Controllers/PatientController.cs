@@ -5,6 +5,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>患者管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -17,7 +18,7 @@ public class PatientController : ControllerBase
         _patientService = patientService;
     }
 
-    [HttpGet("{id}")]
+    /// <summary>根据 ID 获取患者</summary>    [HttpGet("{id}")]
     public async Task<IActionResult> GetById(long id)
     {
         var patient = await _patientService.GetByIdAsync(id);
@@ -27,7 +28,7 @@ public class PatientController : ControllerBase
         return Ok(patient);
     }
 
-    [HttpGet("by-patient-no/{patientNo}")]
+    /// <summary>根据病历号获取患者</summary>    [HttpGet("by-patient-no/{patientNo}")]
     public async Task<IActionResult> GetByPatientNo(string patientNo)
     {
         var patient = await _patientService.GetByPatientNoAsync(patientNo);
@@ -37,7 +38,7 @@ public class PatientController : ControllerBase
         return Ok(patient);
     }
 
-    [HttpGet("by-idcard/{idCard}")]
+    /// <summary>根据身份证号获取患者</summary>    [HttpGet("by-idcard/{idCard}")]
     public async Task<IActionResult> GetByIdCard(string idCard)
     {
         var patient = await _patientService.GetByIdCardAsync(idCard);
@@ -47,14 +48,14 @@ public class PatientController : ControllerBase
         return Ok(patient);
     }
 
-    [HttpPost("suspect-duplicates")]
+    /// <summary>查询疑似重复患者</summary>    [HttpPost("suspect-duplicates")]
     public async Task<IActionResult> GetSuspectDuplicates([FromBody] SuspectDuplicateRequest request)
     {
         var patients = await _patientService.GetSuspectDuplicatesAsync(request.Name, request.Phone);
         return Ok(patients);
     }
 
-    [HttpGet("search")]
+    /// <summary>搜索患者（分页）</summary>    [HttpGet("search")]
     public async Task<IActionResult> Search(
         [FromQuery] string? keyword,
         [FromQuery] int page = 1,
@@ -64,7 +65,7 @@ public class PatientController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id}/profile")]
+    /// <summary>获取患者详细档案</summary>    [HttpGet("{id}/profile")]
     public async Task<IActionResult> GetProfile(long id)
     {
         var profile = await _patientService.GetProfileAsync(id);
@@ -74,6 +75,7 @@ public class PatientController : ControllerBase
         return Ok(profile);
     }
 
+    /// <summary>新建患者</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePatientRequest request)
     {

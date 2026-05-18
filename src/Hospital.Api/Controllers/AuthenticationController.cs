@@ -3,6 +3,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>用户认证（登录/注销）</summary>
 [ApiController]
 [Route("api/[controller]")]
 public class AuthenticationController : ControllerBase
@@ -14,6 +15,7 @@ public class AuthenticationController : ControllerBase
         _authenticationService = authenticationService;
     }
 
+    /// <summary>用户登录，返回 JWT Token</summary>
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
@@ -33,6 +35,7 @@ public class AuthenticationController : ControllerBase
         });
     }
 
+    /// <summary>用户注销</summary>
     [HttpPost("logout")]
     public async Task<IActionResult> Logout()
     {
@@ -45,4 +48,4 @@ public class LoginRequest
 {
     public string Username { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-}
+}

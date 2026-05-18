@@ -5,6 +5,7 @@ using Hospital.Application.Services;
 
 namespace Hospital.Api.Controllers;
 
+/// <summary>人员管理</summary>
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -17,6 +18,7 @@ public class StaffController : ControllerBase
         _staffService = staffService;
     }
 
+    /// <summary>获取全部人员列表</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -24,6 +26,7 @@ public class StaffController : ControllerBase
         return Ok(staffList);
     }
 
+    /// <summary>根据院区获取人员列表</summary>
     [HttpGet("by-campus/{campusId:long}")]
     public async Task<IActionResult> GetByCampus(long campusId)
     {
@@ -31,6 +34,7 @@ public class StaffController : ControllerBase
         return Ok(staffList);
     }
 
+    /// <summary>根据科室获取人员列表</summary>
     [HttpGet("by-dept/{deptId:long}")]
     public async Task<IActionResult> GetByDepartment(long deptId)
     {
@@ -38,6 +42,7 @@ public class StaffController : ControllerBase
         return Ok(staffList);
     }
 
+    /// <summary>根据 ID 获取人员详情</summary>
     [HttpGet("{id:long}")]
     public async Task<IActionResult> GetById(long id)
     {
