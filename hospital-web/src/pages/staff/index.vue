@@ -58,7 +58,7 @@
           <n-select v-model:value="form.deptId" :options="deptOptionsForForm" placeholder="选择科室" />
         </n-form-item>
         <n-form-item path="licenseType" label="执业类型">
-          <n-input v-model:value="form.licenseType" placeholder="如：临床、中医、口腔" />
+          <n-select v-model:value="form.licenseType" :options="licenseTypeOptions" placeholder="选择执业类型" />
         </n-form-item>
         <n-form-item path="licenseNo" label="执业证号">
           <n-input v-model:value="form.licenseNo" placeholder="执业证书编号" />
@@ -101,8 +101,15 @@ const filterCampusId = ref<number | null>(null)
 const filterDeptId = ref<number | null>(null)
 
 const genderOptions: SelectOption[] = [
-  { label: '男', value: '男' },
-  { label: '女', value: '女' },
+  { label: '男', value: 'Male' },
+  { label: '女', value: 'Female' },
+]
+
+const licenseTypeOptions: SelectOption[] = [
+  { label: '执业医师', value: '执业医师' },
+  { label: '执业护士', value: '执业护士' },
+  { label: '药师', value: '药师' },
+  { label: '医技', value: '医技' },
 ]
 
 const form = reactive({
@@ -153,7 +160,14 @@ function getDeptName(deptId: number): string {
 const columns: DataTableColumns<StaffDto> = [
   { title: '编码', key: 'code', width: 100 },
   { title: '姓名', key: 'name', width: 100 },
-  { title: '性别', key: 'gender', width: 60 },
+  {
+    title: '性别',
+    key: 'gender',
+    width: 60,
+    render(row) {
+      return row.gender === 'Male' ? '男' : row.gender === 'Female' ? '女' : row.gender
+    },
+  },
   { title: '电话', key: 'phone', width: 130 },
   {
     title: '所属科室',

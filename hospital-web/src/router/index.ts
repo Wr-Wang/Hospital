@@ -2,6 +2,21 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
+// 路由级权限映射
+const routePermissions: Record<string, string> = {
+  Dashboard: 'sys.shell.use',
+  Campus: 'mdm.campus.manage',
+  Department: 'mdm.dept.manage',
+  Staff: 'mdm.staff.manage',
+  Dictionary: 'mdm.dict.manage',
+  PatientCreate: 'pat.register',
+  PatientSearch: 'pat.search',
+  PatientDetail: 'pat.search',
+  Schedule: 'opd.schedule',
+  Users: 'sys.security.manage',
+  Roles: 'sys.security.manage',
+}
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/login',
@@ -44,7 +59,7 @@ const router = createRouter({
   routes,
 })
 
-// 导航守卫：未登录跳转登录页
+// 导航守卫：未登录跳转登录页 + 无权限跳转 403
 router.beforeEach((to) => {
   if (to.meta.requiresAuth === false) return true
 
@@ -52,6 +67,16 @@ router.beforeEach((to) => {
   if (!auth.isLoggedIn) {
     return `/login?redirect=${encodeURIComponent(to.fullPath)}`
   }
+
+  // 权限检查
+  const name = to.name as string | undefined
+  if (name) {
+    const requiredPerm = routePermissions[name]
+    if (requiredPerm && !auth.hasPermission(requiredPerm)) {
+      return '/dashboard'
+    }
+  }
+
   return true
 })
 
