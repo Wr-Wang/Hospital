@@ -112,8 +112,32 @@ public class DictionaryController : ControllerBase
     }
 }
 
-// Request records
-public record CreateDictionaryTypeRequest(string Code, string Name, string? Description);
-public record UpdateDictionaryTypeRequest(string Name, string? Description);
-public record CreateDictionaryItemRequest(long TypeId, string Code, string Name, long? ParentId, int SortOrder);
-public record UpdateDictionaryItemRequest(string Name, long? ParentId, int SortOrder);
+// Request DTOs
+public class CreateDictionaryTypeRequest
+{
+    public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+}
+
+public class UpdateDictionaryTypeRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+}
+
+public class CreateDictionaryItemRequest
+{
+    public long TypeId { get; set; }
+    public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public long? ParentId { get; set; }
+    public int SortOrder { get; set; }
+}
+
+public class UpdateDictionaryItemRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public long? ParentId { get; set; }
+    public int SortOrder { get; set; }
+}

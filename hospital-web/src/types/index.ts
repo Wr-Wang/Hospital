@@ -65,7 +65,7 @@ export interface CreateDepartmentDto {
   name: string
   campusId: number
   type: string
-  parentId?: number
+  parentId?: number | null
 }
 
 // ===== 人员 =====

@@ -72,5 +72,18 @@ public class DepartmentController : ControllerBase
     }
 }
 
-public record CreateDepartmentRequest(string Code, string Name, long CampusId, string Type, long? ParentId);
-public record UpdateDepartmentRequest(string Name, string Type, long? ParentId);
+public class CreateDepartmentRequest
+{
+    public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public long CampusId { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public long? ParentId { get; set; }
+}
+
+public class UpdateDepartmentRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public long? ParentId { get; set; }
+}

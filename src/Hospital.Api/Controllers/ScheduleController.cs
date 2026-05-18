@@ -88,19 +88,27 @@ public class ScheduleController : ControllerBase
     }
 }
 
-// ===== Request Records =====
+// ===== Request DTOs =====
 
-public record CreateScheduleRequest(
-    long DoctorId,
-    long DeptId,
-    long CampusId,
-    string ScheduleDate,
-    List<CreateScheduleSlotRequest> Slots);
+public class CreateScheduleRequest
+{
+    public long DoctorId { get; set; }
+    public long DeptId { get; set; }
+    public long CampusId { get; set; }
+    public string ScheduleDate { get; set; } = string.Empty;
+    public List<CreateScheduleSlotRequest> Slots { get; set; } = new();
+}
 
-public record CreateScheduleSlotRequest(
-    string SlotName,
-    string StartTime,
-    string EndTime,
-    int TotalQuota);
+public class CreateScheduleSlotRequest
+{
+    public string SlotName { get; set; } = string.Empty;
+    public string StartTime { get; set; } = string.Empty;
+    public string EndTime { get; set; } = string.Empty;
+    public int TotalQuota { get; set; }
+}
 
-public record UpdateScheduleSlotQuotaRequest(string SlotName, int TotalQuota);
+public class UpdateScheduleSlotQuotaRequest
+{
+    public string SlotName { get; set; } = string.Empty;
+    public int TotalQuota { get; set; }
+}

@@ -72,5 +72,17 @@ public class CampusController : ControllerBase
     }
 }
 
-public record CreateCampusRequest(string Code, string Name, string? Address, string? Phone);
-public record UpdateCampusRequest(string Name, string? Address, string? Phone);
+public class CreateCampusRequest
+{
+    public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string? Address { get; set; }
+    public string? Phone { get; set; }
+}
+
+public class UpdateCampusRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string? Address { get; set; }
+    public string? Phone { get; set; }
+}

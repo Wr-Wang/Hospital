@@ -90,11 +90,30 @@ public class StaffController : ControllerBase
     }
 }
 
-public record CreateStaffRequest(
-    string Code, string Name, string Gender, string? Phone,
-    long CampusId, long DeptId, string LicenseType,
-    string LicenseNo, DateTime? LicenseExpiry);
+public class CreateStaffRequest
+{
+    public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Gender { get; set; } = string.Empty;
+    public string? Phone { get; set; }
+    public long CampusId { get; set; }
+    public long DeptId { get; set; }
+    public string LicenseType { get; set; } = string.Empty;
+    public string LicenseNo { get; set; } = string.Empty;
+    public DateTime? LicenseExpiry { get; set; }
+}
 
-public record UpdateStaffRequest(string Name, string Gender, string? Phone, long DeptId);
+public class UpdateStaffRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string Gender { get; set; } = string.Empty;
+    public string? Phone { get; set; }
+    public long DeptId { get; set; }
+}
 
-public record UpdateStaffLicenseRequest(string LicenseType, string LicenseNo, DateTime? LicenseExpiry);
+public class UpdateStaffLicenseRequest
+{
+    public string LicenseType { get; set; } = string.Empty;
+    public string LicenseNo { get; set; } = string.Empty;
+    public DateTime? LicenseExpiry { get; set; }
+}

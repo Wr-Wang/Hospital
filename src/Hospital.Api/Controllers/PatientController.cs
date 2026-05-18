@@ -91,13 +91,19 @@ public class PatientController : ControllerBase
     }
 }
 
-public record CreatePatientRequest(
-    string PatientNo,
-    string Name,
-    string? Gender,
-    string? BirthDate,
-    string? Phone,
-    string? AllergiesText,
-    string? IdCard);
+public class CreatePatientRequest
+{
+    public string PatientNo { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string? Gender { get; set; }
+    public string? BirthDate { get; set; }
+    public string? Phone { get; set; }
+    public string? AllergiesText { get; set; }
+    public string? IdCard { get; set; }
+}
 
-public record SuspectDuplicateRequest(string Name, string? Phone);
+public class SuspectDuplicateRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string? Phone { get; set; }
+}

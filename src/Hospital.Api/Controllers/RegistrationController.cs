@@ -60,12 +60,14 @@ public class RegistrationController : ControllerBase
     }
 }
 
-// ===== Request Records =====
+// ===== Request DTOs =====
 
-public record CreateRegistrationRequest(
-    long PatientId,
-    long ScheduleId,
-    long DoctorId,
-    long DeptId,
-    long CampusId,
-    string SlotName);
+public class CreateRegistrationRequest
+{
+    public long PatientId { get; set; }
+    public long ScheduleId { get; set; }
+    public long DoctorId { get; set; }
+    public long DeptId { get; set; }
+    public long CampusId { get; set; }
+    public string SlotName { get; set; } = string.Empty;
+}
