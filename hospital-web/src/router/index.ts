@@ -24,6 +24,7 @@ const routes: RouteRecordRaw[] = [
       // 患者
       { path: 'patient/create', name: 'PatientCreate', component: () => import('../pages/patient/create.vue') },
       { path: 'patient/search', name: 'PatientSearch', component: () => import('../pages/patient/search.vue') },
+      { path: 'patient/detail/:id', name: 'PatientDetail', component: () => import('../pages/patient/detail.vue') },
       // 排班
       { path: 'schedule', name: 'Schedule', component: () => import('../pages/schedule/index.vue') },
       // 系统

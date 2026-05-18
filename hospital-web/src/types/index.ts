@@ -137,6 +137,18 @@ export interface CreatePatientDto {
   idCard?: string
 }
 
+export interface PatientProfileDto extends PatientDto {
+  recentVisits: VisitSummaryDto[]
+}
+
+export interface VisitSummaryDto {
+  id: number
+  date: string
+  deptName: string
+  doctorName?: string
+  diagnosis?: string
+}
+
 export interface PatientSearchResultDto {
   items: PatientDto[]
   totalCount: number
