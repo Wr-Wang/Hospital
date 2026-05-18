@@ -237,6 +237,18 @@ export interface CreateRoleDto {
   permissions: string[]
 }
 
+export interface UpdateUserDto {
+  password?: string
+  displayName?: string
+  isActive?: boolean
+  roles?: string[]
+}
+
+export interface UpdateRoleDto {
+  description?: string
+  permissions?: string[]
+}
+
 // ===== 通用 =====
 export interface PageResult<T> {
   items: T[]
