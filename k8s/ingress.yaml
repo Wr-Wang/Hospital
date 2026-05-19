@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hospital-ingress
+  namespace: hospital
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: hospital.local
+      http:
+        paths:
+          # /api/* 路由到后端 API（保留 /api 前缀，Controller Route 为 api/[controller]）
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: hospital-api
+                port:
+                  number: 8080
+          # 其余请求路由到前端 SPA
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hospital-web
+                port:
+                  number: 80

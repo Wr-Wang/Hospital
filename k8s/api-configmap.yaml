@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hospital-api-config
+  namespace: hospital
+data:
+  ASPNETCORE_ENVIRONMENT: "Production"
+  ASPNETCORE_URLS: "http://+:8080"
+  # 连接字符串（密码与 Secret 中 SA_PASSWORD 保持一致）
+  ConnectionStrings__DefaultConnection: "Server=hospital-sqlserver;Database=Hospital;User Id=sa;Password=Hospital@2024;TrustServerCertificate=True"

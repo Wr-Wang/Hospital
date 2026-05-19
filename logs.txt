@@ -1,0 +1,672 @@
+
+==> 审计日志 <==
+┌─────────┬───────────────────────────────────────────────────────────────────────────────────────────────┬──────────┬───────────────────────────────┬─────────┬─────────────────────┬─────────────────────┐
+│ COMMAND │                                             ARGS                                              │ PROFILE  │             USER              │ VERSION │     START TIME      │      END TIME       │
+├─────────┼───────────────────────────────────────────────────────────────────────────────────────────────┼──────────┼───────────────────────────────┼─────────┼─────────────────────┼─────────────────────┤
+│ start   │ --driver=docker --cpus=4 --memory=8192 --kubernetes-version=v1.28.3                           │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 14:26 CST │                     │
+│ start   │ --driver=docker --cpus=4 --memory=4096 --kubernetes-version=v1.28.3                           │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 14:26 CST │                     │
+│ start   │ --driver=docker --cpus=2 --memory=3072 --kubernetes-version=v1.28.3                           │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 14:26 CST │                     │
+│ start   │ --driver=docker --cpus=2 --memory=3072 --image-mirror-country=cn --kubernetes-version=v1.28.3 │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 14:30 CST │                     │
+│ delete  │                                                                                               │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 14:41 CST │ 19 May 26 14:41 CST │
+│ start   │ --driver=docker --cpus=2 --memory=3072 --kubernetes-version=v1.28.3                           │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 14:51 CST │ 19 May 26 15:01 CST │
+│ start   │ --cpus 4 --memory 8192                                                                        │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 19:14 CST │                     │
+│ start   │ --cpus 4 --memory 4096                                                                        │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 19:15 CST │                     │
+│ start   │ --cpus 4 --memory 3072                                                                        │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 19:15 CST │ 19 May 26 19:16 CST │
+│ addons  │ enable ingress                                                                                │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 19:18 CST │                     │
+│ image   │ load hospital-api:latest                                                                      │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 19:30 CST │ 19 May 26 19:32 CST │
+│ image   │ load hospital-web:latest                                                                      │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 19:32 CST │ 19 May 26 19:33 CST │
+│ addons  │ disable ingress                                                                               │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 19:51 CST │ 19 May 26 19:51 CST │
+│ image   │ load hospital-api:latest                                                                      │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 20:32 CST │ 19 May 26 20:33 CST │
+│ image   │ ls --format table                                                                             │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 20:48 CST │ 19 May 26 21:03 CST │
+│ start   │                                                                                               │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 21:14 CST │                     │
+│ stop    │                                                                                               │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 22:31 CST │                     │
+│ delete  │                                                                                               │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 22:38 CST │ 19 May 26 22:39 CST │
+│ start   │                                                                                               │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 22:39 CST │                     │
+│ start   │ --memory=3072                                                                                 │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 22:43 CST │                     │
+│ start   │ --memory=3072                                                                                 │ minikube │ WIN-0NTKT9CH96O\Administrator │ v1.38.1 │ 19 May 26 23:02 CST │                     │
+└─────────┴───────────────────────────────────────────────────────────────────────────────────────────────┴──────────┴───────────────────────────────┴─────────┴─────────────────────┴─────────────────────┘
+
+
+==> 上次启动 <==
+Log file created at: 2026/05/19 23:02:10
+Running on machine: WIN-0NTKT9CH96O
+Binary: Built with gc go1.25.5 for windows/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0519 23:02:10.666220    9456 out.go:360] Setting OutFile to fd 1712 ...
+I0519 23:02:10.678120    9456 out.go:413] isatty.IsTerminal(1712) = false
+I0519 23:02:10.678120    9456 out.go:374] Setting ErrFile to fd 440...
+I0519 23:02:10.678120    9456 out.go:413] isatty.IsTerminal(440) = false
+I0519 23:02:10.695187    9456 out.go:368] Setting JSON to false
+I0519 23:02:10.696241    9456 start.go:134] hostinfo: {"hostname":"WIN-0NTKT9CH96O","uptime":14123,"bootTime":1779188807,"procs":267,"os":"windows","platform":"Microsoft Windows 11 Pro","platformFamily":"Standalone Workstation","platformVersion":"24H2","kernelVersion":"10.0.26100.8246 Build 26100.8246","kernelArch":"x86_64","virtualizationSystem":"","virtualizationRole":"","hostId":"1f3caa7f-3621-44d1-b510-2d6048dd751f"}
+W0519 23:02:10.696241    9456 start.go:142] gopshost.Virtualization returned error: not implemented yet
+I0519 23:02:10.699537    9456 out.go:179] * Microsoft Windows 11 Pro 24H2 上的 minikube v1.38.1
+I0519 23:02:10.701779    9456 notify.go:220] Checking for updates...
+I0519 23:02:10.702839    9456 config.go:183] Loaded profile config "minikube": Driver=docker, ContainerRuntime=docker, KubernetesVersion=v1.35.1
+I0519 23:02:10.703377    9456 driver.go:422] Setting default libvirt URI to qemu:///system
+I0519 23:02:10.916110    9456 docker.go:125] docker version: linux-29.4.3:Docker Desktop 4.73.1 (226574)
+I0519 23:02:10.919890    9456 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0519 23:02:11.656500    9456 info.go:266] docker info: {ID:8b075adc-456a-442d-859d-169af30dab92 Containers:34 ContainersRunning:31 ContainersPaused:0 ContainersStopped:3 Images:20 Driver:overlayfs DriverStatus:[[driver-type io.containerd.snapshotter.v1]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:false BridgeNfIP6Tables:false Debug:false NFd:159 OomKillDisable:false NGoroutines:180 SystemTime:2026-05-19 15:02:11.416103876 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:14 KernelVersion:6.6.114.1-microsoft-standard-WSL2 OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[::1/128 127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[https://your-aliyun-id.mirror.aliyuncs.com/ https://docker.m.daocloud.io/ https://docker.1ms.run/ https://docker.xuanyuan.me/ https://dockerproxy.com/] Secure:true Official:true}} Mirrors:[https://your-aliyun-id.mirror.aliyuncs.com/ https://docker.m.daocloud.io/ https://docker.1ms.run/ https://docker.xuanyuan.me/ https://dockerproxy.com/]} NCPU:8 MemTotal:4051812352 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[com.docker.desktop.address=npipe://\\.\pipe\docker_cli] ExperimentalBuild:false ServerVersion:29.4.3 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:77c84241c7cbdd9b4eca2591793e3d4f4317c590 Expected:} RuncCommit:{ID:v1.3.5-0-g488fc13e Expected:} InitCommit:{ID:de40ad0 Expected:} SecurityOptions:[name=seccomp,profile=builtin name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:agent Path:C:\Program Files\Docker\cli-plugins\docker-agent.exe SchemaVersion:0.1.0 ShortDescription:Docker AI Agent Runner Vendor:Docker Inc. Version:v1.54.0] map[Name:ai Path:C:\Program Files\Docker\cli-plugins\docker-ai.exe SchemaVersion:0.1.0 ShortDescription:Docker AI Agent - Ask Gordon Vendor:Docker Inc. Version:v1.20.2] map[Name:buildx Path:C:\Program Files\Docker\cli-plugins\docker-buildx.exe SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.33.0-desktop.1] map[Name:compose Path:C:\Program Files\Docker\cli-plugins\docker-compose.exe SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v5.1.3] map[Name:debug Path:C:\Program Files\Docker\cli-plugins\docker-debug.exe SchemaVersion:0.1.0 ShortDescription:Get a shell into any image or container Vendor:Docker Inc. Version:0.0.47] map[Name:desktop Path:C:\Program Files\Docker\cli-plugins\docker-desktop.exe SchemaVersion:0.1.0 ShortDescription:Docker Desktop commands Vendor:Docker Inc. Version:v0.3.0] map[Name:dhi Path:C:\Program Files\Docker\cli-plugins\docker-dhi.exe SchemaVersion:0.1.0 ShortDescription:CLI for managing Docker Hardened Images Vendor:Docker Inc. Version:v0.0.3] map[Name:extension Path:C:\Program Files\Docker\cli-plugins\docker-extension.exe SchemaVersion:0.1.0 ShortDescription:Manages Docker extensions Vendor:Docker Inc. Version:v0.2.31] map[Name:init Path:C:\Program Files\Docker\cli-plugins\docker-init.exe SchemaVersion:0.1.0 ShortDescription:Creates Docker-related starter files for your project Vendor:Docker Inc. Version:v1.4.0] map[Name:mcp Path:C:\Program Files\Docker\cli-plugins\docker-mcp.exe SchemaVersion:0.1.0 ShortDescription:Docker MCP Plugin Vendor:Docker Inc. Version:v0.42.0] map[Name:model Path:C:\Program Files\Docker\cli-plugins\docker-model.exe SchemaVersion:0.1.0 ShortDescription:Docker Model Runner Vendor:Docker Inc. Version:v1.1.37] map[Name:offload Path:C:\Program Files\Docker\cli-plugins\docker-offload.exe SchemaVersion:0.1.0 ShortDescription:Docker Offload Vendor:Docker Inc. Version:v0.5.85] map[Hidden:true Name:pass Path:C:\Program Files\Docker\cli-plugins\docker-pass.exe SchemaVersion:0.1.0 ShortDescription:Docker Pass Secrets Manager Plugin (beta) Vendor:Docker Inc. Version:v0.0.25] map[Name:sandbox Path:C:\Program Files\Docker\cli-plugins\docker-sandbox.exe SchemaVersion:0.1.0 ShortDescription:Docker Sandbox Vendor:Docker Inc. Version:v0.12.0] map[Name:sbom Path:C:\Program Files\Docker\cli-plugins\docker-sbom.exe SchemaVersion:0.1.0 ShortDescription:View the packaged-based Software Bill Of Materials (SBOM) for an image URL:https://github.com/docker/sbom-cli-plugin Vendor:Anchore Inc. Version:0.6.0] map[Name:scout Path:C:\Program Files\Docker\cli-plugins\docker-scout.exe SchemaVersion:0.1.0 ShortDescription:Docker Scout Vendor:Docker Inc. Version:v1.20.4]] Warnings:<nil>}}
+I0519 23:02:11.661384    9456 out.go:179] * 根据现有的配置文件使用 docker 驱动程序
+I0519 23:02:11.663585    9456 start.go:310] selected driver: docker
+I0519 23:02:11.663585    9456 start.go:935] validating driver "docker" against &{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO: KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.50 Memory:3072 CPUs:2 DiskSize:20000 Driver:docker HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:8443 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.35.1 ClusterName:minikube Namespace:default APIServerHAVIP: APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin:cni FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI:} Nodes:[{Name: IP: Port:8443 KubernetesVersion:v1.35.1 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s MountString: Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false DisableCoreDNSLog:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP: SSHAuthSock: SSHAgentPID:0 GPUs: AutoPauseInterval:1m0s Rosetta:false}
+I0519 23:02:11.663585    9456 start.go:946] status for docker: {Installed:true Healthy:true Running:false NeedsImprovement:false Error:<nil> Reason: Fix: Doc: Version:}
+I0519 23:02:11.669716    9456 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0519 23:02:12.259976    9456 info.go:266] docker info: {ID:8b075adc-456a-442d-859d-169af30dab92 Containers:34 ContainersRunning:31 ContainersPaused:0 ContainersStopped:3 Images:20 Driver:overlayfs DriverStatus:[[driver-type io.containerd.snapshotter.v1]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:false BridgeNfIP6Tables:false Debug:false NFd:157 OomKillDisable:false NGoroutines:176 SystemTime:2026-05-19 15:02:12.237738393 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:13 KernelVersion:6.6.114.1-microsoft-standard-WSL2 OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[::1/128 127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[https://your-aliyun-id.mirror.aliyuncs.com/ https://docker.m.daocloud.io/ https://docker.1ms.run/ https://docker.xuanyuan.me/ https://dockerproxy.com/] Secure:true Official:true}} Mirrors:[https://your-aliyun-id.mirror.aliyuncs.com/ https://docker.m.daocloud.io/ https://docker.1ms.run/ https://docker.xuanyuan.me/ https://dockerproxy.com/]} NCPU:8 MemTotal:4051812352 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[com.docker.desktop.address=npipe://\\.\pipe\docker_cli] ExperimentalBuild:false ServerVersion:29.4.3 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:77c84241c7cbdd9b4eca2591793e3d4f4317c590 Expected:} RuncCommit:{ID:v1.3.5-0-g488fc13e Expected:} InitCommit:{ID:de40ad0 Expected:} SecurityOptions:[name=seccomp,profile=builtin name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:agent Path:C:\Program Files\Docker\cli-plugins\docker-agent.exe SchemaVersion:0.1.0 ShortDescription:Docker AI Agent Runner Vendor:Docker Inc. Version:v1.54.0] map[Name:ai Path:C:\Program Files\Docker\cli-plugins\docker-ai.exe SchemaVersion:0.1.0 ShortDescription:Docker AI Agent - Ask Gordon Vendor:Docker Inc. Version:v1.20.2] map[Name:buildx Path:C:\Program Files\Docker\cli-plugins\docker-buildx.exe SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.33.0-desktop.1] map[Name:compose Path:C:\Program Files\Docker\cli-plugins\docker-compose.exe SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v5.1.3] map[Name:debug Path:C:\Program Files\Docker\cli-plugins\docker-debug.exe SchemaVersion:0.1.0 ShortDescription:Get a shell into any image or container Vendor:Docker Inc. Version:0.0.47] map[Name:desktop Path:C:\Program Files\Docker\cli-plugins\docker-desktop.exe SchemaVersion:0.1.0 ShortDescription:Docker Desktop commands Vendor:Docker Inc. Version:v0.3.0] map[Name:dhi Path:C:\Program Files\Docker\cli-plugins\docker-dhi.exe SchemaVersion:0.1.0 ShortDescription:CLI for managing Docker Hardened Images Vendor:Docker Inc. Version:v0.0.3] map[Name:extension Path:C:\Program Files\Docker\cli-plugins\docker-extension.exe SchemaVersion:0.1.0 ShortDescription:Manages Docker extensions Vendor:Docker Inc. Version:v0.2.31] map[Name:init Path:C:\Program Files\Docker\cli-plugins\docker-init.exe SchemaVersion:0.1.0 ShortDescription:Creates Docker-related starter files for your project Vendor:Docker Inc. Version:v1.4.0] map[Name:mcp Path:C:\Program Files\Docker\cli-plugins\docker-mcp.exe SchemaVersion:0.1.0 ShortDescription:Docker MCP Plugin Vendor:Docker Inc. Version:v0.42.0] map[Name:model Path:C:\Program Files\Docker\cli-plugins\docker-model.exe SchemaVersion:0.1.0 ShortDescription:Docker Model Runner Vendor:Docker Inc. Version:v1.1.37] map[Name:offload Path:C:\Program Files\Docker\cli-plugins\docker-offload.exe SchemaVersion:0.1.0 ShortDescription:Docker Offload Vendor:Docker Inc. Version:v0.5.85] map[Hidden:true Name:pass Path:C:\Program Files\Docker\cli-plugins\docker-pass.exe SchemaVersion:0.1.0 ShortDescription:Docker Pass Secrets Manager Plugin (beta) Vendor:Docker Inc. Version:v0.0.25] map[Name:sandbox Path:C:\Program Files\Docker\cli-plugins\docker-sandbox.exe SchemaVersion:0.1.0 ShortDescription:Docker Sandbox Vendor:Docker Inc. Version:v0.12.0] map[Name:sbom Path:C:\Program Files\Docker\cli-plugins\docker-sbom.exe SchemaVersion:0.1.0 ShortDescription:View the packaged-based Software Bill Of Materials (SBOM) for an image URL:https://github.com/docker/sbom-cli-plugin Vendor:Anchore Inc. Version:0.6.0] map[Name:scout Path:C:\Program Files\Docker\cli-plugins\docker-scout.exe SchemaVersion:0.1.0 ShortDescription:Docker Scout Vendor:Docker Inc. Version:v1.20.4]] Warnings:<nil>}}
+I0519 23:02:12.260588    9456 cni.go:83] Creating CNI manager for ""
+I0519 23:02:12.260588    9456 cni.go:157] "docker" driver + "docker" container runtime found on kubernetes v1.24+, recommending bridge
+I0519 23:02:12.260588    9456 start.go:358] cluster config:
+{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO: KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.50 Memory:3072 CPUs:2 DiskSize:20000 Driver:docker HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:8443 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.35.1 ClusterName:minikube Namespace:default APIServerHAVIP: APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin:cni FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI:} Nodes:[{Name: IP: Port:8443 KubernetesVersion:v1.35.1 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s MountString: Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false DisableCoreDNSLog:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP: SSHAuthSock: SSHAgentPID:0 GPUs: AutoPauseInterval:1m0s Rosetta:false}
+I0519 23:02:12.265033    9456 out.go:179] * 在集群中 "minikube" 启动节点 "minikube" primary control-plane
+I0519 23:02:12.267714    9456 cache.go:135] Beginning downloading kic base image for docker with docker
+I0519 23:02:12.269846    9456 out.go:179] * 正在拉取基础镜像 v0.0.50 ...
+I0519 23:02:12.274219    9456 image.go:82] Checking for gcr.io/k8s-minikube/kicbase:v0.0.50 in local docker daemon
+I0519 23:02:12.274219    9456 preload.go:187] Checking if preload exists for k8s version v1.35.1 and runtime docker
+I0519 23:02:12.274219    9456 preload.go:202] Found local preload: C:\Users\Administrator\.minikube\cache\preloaded-tarball\preloaded-images-k8s-v18-v1.35.1-docker-overlay2-amd64.tar.lz4
+I0519 23:02:12.274219    9456 cache.go:66] Caching tarball of preloaded images
+I0519 23:02:12.274734    9456 preload.go:250] Found C:\Users\Administrator\.minikube\cache\preloaded-tarball\preloaded-images-k8s-v18-v1.35.1-docker-overlay2-amd64.tar.lz4 in cache, skipping download
+I0519 23:02:12.274734    9456 cache.go:69] Finished verifying existence of preloaded tar for v1.35.1 on docker
+I0519 23:02:12.274734    9456 profile.go:143] Saving config to C:\Users\Administrator\.minikube\profiles\minikube\config.json ...
+I0519 23:02:14.060832    9456 image.go:101] Found gcr.io/k8s-minikube/kicbase:v0.0.50 in local docker daemon, skipping pull
+I0519 23:02:14.060832    9456 cache.go:159] gcr.io/k8s-minikube/kicbase:v0.0.50 exists in daemon, skipping load
+I0519 23:02:14.060832    9456 cache.go:244] Successfully downloaded all kic artifacts
+I0519 23:02:14.060832    9456 start.go:359] acquireMachinesLock for minikube: {Name:mk3f259f80712de9f83f91ad0f12658ee47ef5bf Timeout:10m0s Delay:500ms}
+I0519 23:02:14.061362    9456 start.go:363] duration metric: took 529.7µs to acquireMachinesLock for "minikube"
+I0519 23:02:14.061362    9456 start.go:95] Skipping create...Using existing machine configuration
+I0519 23:02:14.061362    9456 fix.go:53] fixHost starting: 
+I0519 23:02:14.067286    9456 cli_runner.go:164] Run: docker container inspect minikube --format={{.State.Status}}
+I0519 23:02:14.118332    9456 fix.go:111] recreateIfNeeded on minikube: state=Running err=<nil>
+I0519 23:02:14.124240    9456 out.go:252] * 正在更新运行中的 docker "minikube" container ...
+I0519 23:02:14.124240    9456 machine.go:96] provisionDockerMachine start ...
+I0519 23:02:14.127472    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:14.172079    9456 main.go:144] libmachine: Using SSH client type: native
+I0519 23:02:14.172079    9456 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x7ff6a8fc37a0] 0x7ff6a8fc6300 <nil>  [] 0s} 127.0.0.1 65048 <nil> <nil>}
+I0519 23:02:14.172079    9456 main.go:144] libmachine: About to run SSH command:
+hostname
+I0519 23:02:20.486568    9456 main.go:144] libmachine: SSH cmd err, output: <nil>: minikube
+
+I0519 23:02:20.487358    9456 ubuntu.go:182] provisioning hostname "minikube"
+I0519 23:02:20.493679    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:20.562858    9456 main.go:144] libmachine: Using SSH client type: native
+I0519 23:02:20.563398    9456 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x7ff6a8fc37a0] 0x7ff6a8fc6300 <nil>  [] 0s} 127.0.0.1 65048 <nil> <nil>}
+I0519 23:02:20.563398    9456 main.go:144] libmachine: About to run SSH command:
+sudo hostname minikube && echo "minikube" | sudo tee /etc/hostname
+I0519 23:02:21.847597    9456 main.go:144] libmachine: SSH cmd err, output: <nil>: minikube
+
+I0519 23:02:21.852701    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:21.926344    9456 main.go:144] libmachine: Using SSH client type: native
+I0519 23:02:21.926904    9456 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x7ff6a8fc37a0] 0x7ff6a8fc6300 <nil>  [] 0s} 127.0.0.1 65048 <nil> <nil>}
+I0519 23:02:21.926904    9456 main.go:144] libmachine: About to run SSH command:
+
+		if ! grep -xq '.*\sminikube' /etc/hosts; then
+			if grep -xq '127.0.1.1\s.*' /etc/hosts; then
+				sudo sed -i 's/^127.0.1.1\s.*/127.0.1.1 minikube/g' /etc/hosts;
+			else 
+				echo '127.0.1.1 minikube' | sudo tee -a /etc/hosts; 
+			fi
+		fi
+I0519 23:02:22.165548    9456 main.go:144] libmachine: SSH cmd err, output: <nil>: 
+I0519 23:02:22.165548    9456 ubuntu.go:188] set auth options {CertDir:C:\Users\Administrator\.minikube CaCertPath:C:\Users\Administrator\.minikube\certs\ca.pem CaPrivateKeyPath:C:\Users\Administrator\.minikube\certs\ca-key.pem CaCertRemotePath:/etc/docker/ca.pem ServerCertPath:C:\Users\Administrator\.minikube\machines\server.pem ServerKeyPath:C:\Users\Administrator\.minikube\machines\server-key.pem ClientKeyPath:C:\Users\Administrator\.minikube\certs\key.pem ServerCertRemotePath:/etc/docker/server.pem ServerKeyRemotePath:/etc/docker/server-key.pem ClientCertPath:C:\Users\Administrator\.minikube\certs\cert.pem ServerCertSANs:[] StorePath:C:\Users\Administrator\.minikube}
+I0519 23:02:22.165548    9456 ubuntu.go:190] setting up certificates
+I0519 23:02:22.165548    9456 provision.go:83] configureAuth start
+I0519 23:02:22.170111    9456 cli_runner.go:164] Run: docker container inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}},{{.GlobalIPv6Address}}{{end}}" minikube
+I0519 23:02:22.257116    9456 provision.go:142] copyHostCerts
+I0519 23:02:22.262834    9456 exec_runner.go:143] found C:\Users\Administrator\.minikube/ca.pem, removing ...
+I0519 23:02:22.262834    9456 exec_runner.go:202] rm: C:\Users\Administrator\.minikube\ca.pem
+I0519 23:02:22.262834    9456 exec_runner.go:150] cp: C:\Users\Administrator\.minikube\certs\ca.pem --> C:\Users\Administrator\.minikube/ca.pem (1099 bytes)
+I0519 23:02:22.267483    9456 exec_runner.go:143] found C:\Users\Administrator\.minikube/cert.pem, removing ...
+I0519 23:02:22.267483    9456 exec_runner.go:202] rm: C:\Users\Administrator\.minikube\cert.pem
+I0519 23:02:22.268002    9456 exec_runner.go:150] cp: C:\Users\Administrator\.minikube\certs\cert.pem --> C:\Users\Administrator\.minikube/cert.pem (1139 bytes)
+I0519 23:02:22.272657    9456 exec_runner.go:143] found C:\Users\Administrator\.minikube/key.pem, removing ...
+I0519 23:02:22.272657    9456 exec_runner.go:202] rm: C:\Users\Administrator\.minikube\key.pem
+I0519 23:02:22.273180    9456 exec_runner.go:150] cp: C:\Users\Administrator\.minikube\certs\key.pem --> C:\Users\Administrator\.minikube/key.pem (1675 bytes)
+I0519 23:02:22.275229    9456 provision.go:116] generating server cert: C:\Users\Administrator\.minikube\machines\server.pem ca-key=C:\Users\Administrator\.minikube\certs\ca.pem private-key=C:\Users\Administrator\.minikube\certs\ca-key.pem org=Administrator.minikube san=[127.0.0.1 192.168.49.2 localhost minikube]
+I0519 23:02:22.315404    9456 provision.go:176] copyRemoteCerts
+I0519 23:02:22.323271    9456 ssh_runner.go:194] Run: sudo mkdir -p /etc/docker /etc/docker /etc/docker
+I0519 23:02:22.325790    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:22.373591    9456 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:65048 SSHKeyPath:C:\Users\Administrator\.minikube\machines\minikube\id_rsa Username:docker}
+I0519 23:02:22.620002    9456 ssh_runner.go:361] scp C:\Users\Administrator\.minikube\certs\ca.pem --> /etc/docker/ca.pem (1099 bytes)
+I0519 23:02:22.665080    9456 ssh_runner.go:361] scp C:\Users\Administrator\.minikube\machines\server.pem --> /etc/docker/server.pem (1196 bytes)
+I0519 23:02:22.695042    9456 ssh_runner.go:361] scp C:\Users\Administrator\.minikube\machines\server-key.pem --> /etc/docker/server-key.pem (1679 bytes)
+I0519 23:02:22.756900    9456 provision.go:86] duration metric: took 591.3516ms to configureAuth
+I0519 23:02:22.756900    9456 ubuntu.go:206] setting minikube options for container-runtime
+I0519 23:02:22.756900    9456 config.go:183] Loaded profile config "minikube": Driver=docker, ContainerRuntime=docker, KubernetesVersion=v1.35.1
+I0519 23:02:22.759783    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:22.808556    9456 main.go:144] libmachine: Using SSH client type: native
+I0519 23:02:22.809100    9456 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x7ff6a8fc37a0] 0x7ff6a8fc6300 <nil>  [] 0s} 127.0.0.1 65048 <nil> <nil>}
+I0519 23:02:22.809100    9456 main.go:144] libmachine: About to run SSH command:
+df --output=fstype / | tail -n 1
+I0519 23:02:23.561261    9456 main.go:144] libmachine: SSH cmd err, output: <nil>: overlay
+
+I0519 23:02:23.561261    9456 ubuntu.go:71] root file system type: overlay
+I0519 23:02:23.562720    9456 provision.go:313] Updating docker unit: /lib/systemd/system/docker.service ...
+I0519 23:02:23.599781    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:23.703456    9456 main.go:144] libmachine: Using SSH client type: native
+I0519 23:02:23.704129    9456 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x7ff6a8fc37a0] 0x7ff6a8fc6300 <nil>  [] 0s} 127.0.0.1 65048 <nil> <nil>}
+I0519 23:02:23.704129    9456 main.go:144] libmachine: About to run SSH command:
+sudo mkdir -p /lib/systemd/system && printf %s "[Unit]
+Description=Docker Application Container Engine
+Documentation=https://docs.docker.com
+After=network-online.target nss-lookup.target docker.socket firewalld.service containerd.service time-set.target
+Wants=network-online.target containerd.service
+Requires=docker.socket
+StartLimitBurst=3
+StartLimitIntervalSec=60
+
+[Service]
+Type=notify
+Restart=always
+
+
+
+# This file is a systemd drop-in unit that inherits from the base dockerd configuration.
+# The base configuration already specifies an 'ExecStart=...' command. The first directive
+# here is to clear out that command inherited from the base configuration. Without this,
+# the command from the base configuration and the command specified here are treated as
+# a sequence of commands, which is not the desired behavior, nor is it valid -- systemd
+# will catch this invalid input and refuse to start the service with an error like:
+#  Service has more than one ExecStart= setting, which is only allowed for Type=oneshot services.
+
+# NOTE: default-ulimit=nofile is set to an arbitrary number for consistency with other
+# container runtimes. If left unlimited, it may result in OOM issues with MySQL.
+ExecStart=
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2376 \
+	-H fd:// --containerd=/run/containerd/containerd.sock \
+	-H unix:///var/run/docker.sock \
+	--default-ulimit=nofile=1048576:1048576 \
+	--tlsverify \
+	--tlscacert /etc/docker/ca.pem \
+	--tlscert /etc/docker/server.pem \
+	--tlskey /etc/docker/server-key.pem --label provider=docker --insecure-registry 10.96.0.0/12 
+ExecReload=/bin/kill -s HUP \$MAINPID
+
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+
+# Uncomment TasksMax if your systemd version supports it.
+# Only systemd 226 and above support this version.
+TasksMax=infinity
+TimeoutStartSec=0
+
+# set delegate yes so that systemd does not reset the cgroups of docker containers
+Delegate=yes
+
+# kill only the docker process, not all processes in the cgroup
+KillMode=process
+OOMScoreAdjust=-500
+
+[Install]
+WantedBy=multi-user.target
+" | sudo tee /lib/systemd/system/docker.service.new
+I0519 23:02:24.128566    9456 main.go:144] libmachine: SSH cmd err, output: <nil>: [Unit]
+Description=Docker Application Container Engine
+Documentation=https://docs.docker.com
+After=network-online.target nss-lookup.target docker.socket firewalld.service containerd.service time-set.target
+Wants=network-online.target containerd.service
+Requires=docker.socket
+StartLimitBurst=3
+StartLimitIntervalSec=60
+
+[Service]
+Type=notify
+Restart=always
+
+
+
+# This file is a systemd drop-in unit that inherits from the base dockerd configuration.
+# The base configuration already specifies an 'ExecStart=...' command. The first directive
+# here is to clear out that command inherited from the base configuration. Without this,
+# the command from the base configuration and the command specified here are treated as
+# a sequence of commands, which is not the desired behavior, nor is it valid -- systemd
+# will catch this invalid input and refuse to start the service with an error like:
+#  Service has more than one ExecStart= setting, which is only allowed for Type=oneshot services.
+
+# NOTE: default-ulimit=nofile is set to an arbitrary number for consistency with other
+# container runtimes. If left unlimited, it may result in OOM issues with MySQL.
+ExecStart=
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2376 	-H fd:// --containerd=/run/containerd/containerd.sock 	-H unix:///var/run/docker.sock 	--default-ulimit=nofile=1048576:1048576 	--tlsverify 	--tlscacert /etc/docker/ca.pem 	--tlscert /etc/docker/server.pem 	--tlskey /etc/docker/server-key.pem --label provider=docker --insecure-registry 10.96.0.0/12 
+ExecReload=/bin/kill -s HUP $MAINPID
+
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+
+# Uncomment TasksMax if your systemd version supports it.
+# Only systemd 226 and above support this version.
+TasksMax=infinity
+TimeoutStartSec=0
+
+# set delegate yes so that systemd does not reset the cgroups of docker containers
+Delegate=yes
+
+# kill only the docker process, not all processes in the cgroup
+KillMode=process
+OOMScoreAdjust=-500
+
+[Install]
+WantedBy=multi-user.target
+
+I0519 23:02:24.133471    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:24.184204    9456 main.go:144] libmachine: Using SSH client type: native
+I0519 23:02:24.184764    9456 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x7ff6a8fc37a0] 0x7ff6a8fc6300 <nil>  [] 0s} 127.0.0.1 65048 <nil> <nil>}
+I0519 23:02:24.184764    9456 main.go:144] libmachine: About to run SSH command:
+sudo diff -u /lib/systemd/system/docker.service /lib/systemd/system/docker.service.new || { sudo mv /lib/systemd/system/docker.service.new /lib/systemd/system/docker.service; sudo systemctl -f daemon-reload && sudo systemctl -f enable docker && sudo systemctl -f restart docker; }
+I0519 23:02:35.529675    9456 main.go:144] libmachine: SSH cmd err, output: <nil>: --- /lib/systemd/system/docker.service	2026-02-02 17:15:49.000000000 +0000
++++ /lib/systemd/system/docker.service.new	2026-05-19 15:02:24.122928737 +0000
+@@ -9,23 +9,34 @@
+ 
+ [Service]
+ Type=notify
+-# the default is not to use systemd for cgroups because the delegate issues still
+-# exists and systemd currently does not support the cgroup feature set required
+-# for containers run by docker
+-ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+-ExecReload=/bin/kill -s HUP $MAINPID
+-TimeoutStartSec=0
+-RestartSec=2
+ Restart=always
+ 
++
++
++# This file is a systemd drop-in unit that inherits from the base dockerd configuration.
++# The base configuration already specifies an 'ExecStart=...' command. The first directive
++# here is to clear out that command inherited from the base configuration. Without this,
++# the command from the base configuration and the command specified here are treated as
++# a sequence of commands, which is not the desired behavior, nor is it valid -- systemd
++# will catch this invalid input and refuse to start the service with an error like:
++#  Service has more than one ExecStart= setting, which is only allowed for Type=oneshot services.
++
++# NOTE: default-ulimit=nofile is set to an arbitrary number for consistency with other
++# container runtimes. If left unlimited, it may result in OOM issues with MySQL.
++ExecStart=
++ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2376 	-H fd:// --containerd=/run/containerd/containerd.sock 	-H unix:///var/run/docker.sock 	--default-ulimit=nofile=1048576:1048576 	--tlsverify 	--tlscacert /etc/docker/ca.pem 	--tlscert /etc/docker/server.pem 	--tlskey /etc/docker/server-key.pem --label provider=docker --insecure-registry 10.96.0.0/12 
++ExecReload=/bin/kill -s HUP $MAINPID
++
+ # Having non-zero Limit*s causes performance problems due to accounting overhead
+ # in the kernel. We recommend using cgroups to do container-local accounting.
++LimitNOFILE=infinity
+ LimitNPROC=infinity
+ LimitCORE=infinity
+ 
+-# Comment TasksMax if your systemd version does not support it.
+-# Only systemd 226 and above support this option.
++# Uncomment TasksMax if your systemd version supports it.
++# Only systemd 226 and above support this version.
+ TasksMax=infinity
++TimeoutStartSec=0
+ 
+ # set delegate yes so that systemd does not reset the cgroups of docker containers
+ Delegate=yes
+Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable docker
+
+I0519 23:02:35.529675    9456 machine.go:99] duration metric: took 21.4054345s to provisionDockerMachine
+I0519 23:02:35.530184    9456 start.go:292] postStartSetup for "minikube" (driver="docker")
+I0519 23:02:35.530184    9456 start.go:321] creating required directories: [/etc/kubernetes/addons /etc/kubernetes/manifests /var/tmp/minikube /var/lib/minikube /var/lib/minikube/certs /var/lib/minikube/images /var/lib/minikube/binaries /tmp/gvisor /usr/share/ca-certificates /etc/ssl/certs]
+I0519 23:02:35.532356    9456 ssh_runner.go:194] Run: sudo mkdir -p /etc/kubernetes/addons /etc/kubernetes/manifests /var/tmp/minikube /var/lib/minikube /var/lib/minikube/certs /var/lib/minikube/images /var/lib/minikube/binaries /tmp/gvisor /usr/share/ca-certificates /etc/ssl/certs
+I0519 23:02:35.536092    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:35.596162    9456 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:65048 SSHKeyPath:C:\Users\Administrator\.minikube\machines\minikube\id_rsa Username:docker}
+I0519 23:02:35.817176    9456 ssh_runner.go:194] Run: cat /etc/os-release
+I0519 23:02:35.829790    9456 main.go:144] libmachine: Couldn't set key VERSION_CODENAME, no corresponding struct field found
+I0519 23:02:35.829790    9456 info.go:137] Remote host: Debian GNU/Linux 12 (bookworm)
+I0519 23:02:35.829790    9456 filesync.go:125] Scanning C:\Users\Administrator\.minikube\addons for local assets ...
+I0519 23:02:35.830883    9456 filesync.go:125] Scanning C:\Users\Administrator\.minikube\files for local assets ...
+I0519 23:02:35.831970    9456 start.go:295] duration metric: took 301.2374ms for postStartSetup
+I0519 23:02:35.832918    9456 ssh_runner.go:194] Run: sh -c "df -h /var | awk 'NR==2{print $5}'"
+I0519 23:02:35.840936    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:35.905929    9456 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:65048 SSHKeyPath:C:\Users\Administrator\.minikube\machines\minikube\id_rsa Username:docker}
+I0519 23:02:36.643718    9456 ssh_runner.go:194] Run: sh -c "df -BG /var | awk 'NR==2{print $4}'"
+I0519 23:02:36.653474    9456 fix.go:55] duration metric: took 22.592112s for fixHost
+I0519 23:02:36.653474    9456 start.go:82] releasing machines lock for "minikube", held for 22.592112s
+I0519 23:02:36.661067    9456 cli_runner.go:164] Run: docker container inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}},{{.GlobalIPv6Address}}{{end}}" minikube
+I0519 23:02:36.747664    9456 ssh_runner.go:194] Run: curl -sS -m 2 https://registry.k8s.io/
+I0519 23:02:36.748203    9456 ssh_runner.go:194] Run: cat /version.json
+I0519 23:02:36.751447    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:36.753071    9456 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0519 23:02:36.831908    9456 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:65048 SSHKeyPath:C:\Users\Administrator\.minikube\machines\minikube\id_rsa Username:docker}
+I0519 23:02:36.841495    9456 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:65048 SSHKeyPath:C:\Users\Administrator\.minikube\machines\minikube\id_rsa Username:docker}
+I0519 23:02:44.488740    9456 ssh_runner.go:234] Completed: curl -sS -m 2 https://registry.k8s.io/: (7.7410761s)
+I0519 23:02:44.488740    9456 ssh_runner.go:234] Completed: cat /version.json: (7.7405368s)
+W0519 23:02:44.488740    9456 start.go:887] [curl -sS -m 2 https://registry.k8s.io/] failed: curl -sS -m 2 https://registry.k8s.io/: Process exited with status 28
+stdout:
+
+stderr:
+curl: (28) Connection timed out after 6269 milliseconds
+I0519 23:02:44.493206    9456 ssh_runner.go:194] Run: systemctl --version
+I0519 23:02:45.207134    9456 ssh_runner.go:194] Run: sh -c "stat /etc/cni/net.d/*loopback.conf*"
+W0519 23:02:45.321720    9456 cni.go:208] loopback cni configuration skipped: "/etc/cni/net.d/*loopback.conf*" not found
+I0519 23:02:45.323348    9456 ssh_runner.go:194] Run: sudo find /etc/cni/net.d -maxdepth 1 -type f ( ( -name *bridge* -or -name *podman* ) -and -not -name *.mk_disabled ) -printf "%p, " -exec sh -c "sudo mv {} {}.mk_disabled" ;
+I0519 23:02:45.978020    9456 cni.go:261] disabled [/etc/cni/net.d/87-podman-bridge.conflist, /etc/cni/net.d/10-crio-bridge.conflist.disabled] bridge cni config(s)
+I0519 23:02:45.978020    9456 start.go:497] detecting cgroup driver to use...
+I0519 23:02:45.978020    9456 detect.go:175] detected "cgroupfs" cgroup driver on host os
+I0519 23:02:45.978020    9456 ssh_runner.go:194] Run: /bin/bash -c "sudo mkdir -p /etc && printf %s "runtime-endpoint: unix:///run/containerd/containerd.sock
+" | sudo tee /etc/crictl.yaml"
+I0519 23:02:46.331457    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)sandbox_image = .*$|\1sandbox_image = "registry.k8s.io/pause:3.10.1"|' /etc/containerd/config.toml"
+I0519 23:02:46.563829    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)restrict_oom_score_adj = .*$|\1restrict_oom_score_adj = false|' /etc/containerd/config.toml"
+I0519 23:02:47.229650    9456 containerd.go:146] configuring containerd to use "cgroupfs" as cgroup driver...
+I0519 23:02:47.230159    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)SystemdCgroup = .*$|\1SystemdCgroup = false|g' /etc/containerd/config.toml"
+W0519 23:02:48.860267    9456 out.go:285] ! Failing to connect to https://registry.k8s.io/ from both inside the minikube container and host machine
+W0519 23:02:48.860267    9456 out.go:285] * 要获取新的外部镜像，可能需要配置代理：https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+I0519 23:02:49.412223    9456 ssh_runner.go:234] Completed: sh -c "sudo sed -i -r 's|^( *)SystemdCgroup = .*$|\1SystemdCgroup = false|g' /etc/containerd/config.toml": (2.1820636s)
+I0519 23:02:49.412776    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i 's|"io.containerd.runtime.v1.linux"|"io.containerd.runc.v2"|g' /etc/containerd/config.toml"
+I0519 23:02:49.447943    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i '/systemd_cgroup/d' /etc/containerd/config.toml"
+I0519 23:02:49.603603    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i 's|"io.containerd.runc.v1"|"io.containerd.runc.v2"|g' /etc/containerd/config.toml"
+I0519 23:02:49.647086    9456 ssh_runner.go:194] Run: sh -c "sudo rm -rf /etc/cni/net.mk"
+I0519 23:02:49.736354    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)conf_dir = .*$|\1conf_dir = "/etc/cni/net.d"|g' /etc/containerd/config.toml"
+I0519 23:02:49.850407    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i '/^ *enable_unprivileged_ports = .*/d' /etc/containerd/config.toml"
+I0519 23:02:50.100203    9456 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)\[plugins."io.containerd.grpc.v1.cri"\]|&\n\1  enable_unprivileged_ports = true|' /etc/containerd/config.toml"
+I0519 23:02:51.829753    9456 ssh_runner.go:234] Completed: sh -c "sudo sed -i -r 's|^( *)\[plugins."io.containerd.grpc.v1.cri"\]|&\n\1  enable_unprivileged_ports = true|' /etc/containerd/config.toml": (1.7295495s)
+I0519 23:02:51.831440    9456 ssh_runner.go:194] Run: sudo sysctl net.bridge.bridge-nf-call-iptables
+I0519 23:02:52.184346    9456 ssh_runner.go:194] Run: sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+I0519 23:02:52.300750    9456 ssh_runner.go:194] Run: sudo systemctl daemon-reload
+I0519 23:02:57.133073    9456 ssh_runner.go:234] Completed: sudo systemctl daemon-reload: (4.832323s)
+I0519 23:02:57.134676    9456 ssh_runner.go:194] Run: sudo systemctl restart containerd
+I0519 23:02:57.770869    9456 start.go:497] detecting cgroup driver to use...
+I0519 23:02:57.770869    9456 detect.go:175] detected "cgroupfs" cgroup driver on host os
+I0519 23:02:57.774148    9456 ssh_runner.go:194] Run: sudo systemctl cat docker.service
+I0519 23:02:57.836771    9456 ssh_runner.go:194] Run: sudo systemctl is-active --quiet service containerd
+I0519 23:02:57.889792    9456 ssh_runner.go:194] Run: sudo systemctl stop -f containerd
+I0519 23:02:57.943822    9456 ssh_runner.go:194] Run: sudo systemctl is-active --quiet service containerd
+I0519 23:02:58.117254    9456 ssh_runner.go:194] Run: sudo systemctl is-active --quiet service crio
+I0519 23:02:58.155375    9456 ssh_runner.go:194] Run: /bin/bash -c "sudo mkdir -p /etc && printf %s "runtime-endpoint: unix:///var/run/cri-dockerd.sock
+" | sudo tee /etc/crictl.yaml"
+I0519 23:02:58.179370    9456 ssh_runner.go:194] Run: which cri-dockerd
+I0519 23:02:58.191495    9456 ssh_runner.go:194] Run: sudo mkdir -p /etc/systemd/system/cri-docker.service.d
+I0519 23:02:58.210367    9456 ssh_runner.go:361] scp memory --> /etc/systemd/system/cri-docker.service.d/10-cni.conf (192 bytes)
+I0519 23:02:58.239989    9456 ssh_runner.go:194] Run: sudo systemctl unmask docker.service
+I0519 23:02:58.981664    9456 ssh_runner.go:194] Run: sudo systemctl enable docker.socket
+I0519 23:02:59.205772    9456 docker.go:577] configuring docker to use "cgroupfs" as cgroup driver...
+I0519 23:02:59.205772    9456 ssh_runner.go:361] scp memory --> /etc/docker/daemon.json (130 bytes)
+I0519 23:02:59.238368    9456 ssh_runner.go:194] Run: sudo systemctl reset-failed docker
+I0519 23:02:59.275476    9456 ssh_runner.go:194] Run: sudo systemctl daemon-reload
+I0519 23:02:59.458104    9456 ssh_runner.go:194] Run: sudo systemctl restart docker
+I0519 23:03:02.759958    9456 ssh_runner.go:234] Completed: sudo systemctl restart docker: (3.3018547s)
+I0519 23:03:02.762126    9456 ssh_runner.go:194] Run: sudo systemctl is-active --quiet service docker
+I0519 23:03:02.784027    9456 ssh_runner.go:194] Run: sudo systemctl is-active --quiet service cri-docker.socket
+I0519 23:03:02.806746    9456 ssh_runner.go:194] Run: sudo systemctl is-active --quiet service cri-docker.service
+I0519 23:03:02.827623    9456 ssh_runner.go:194] Run: sudo systemctl unmask cri-docker.socket
+I0519 23:03:03.137565    9456 ssh_runner.go:194] Run: sudo systemctl enable cri-docker.socket
+I0519 23:03:03.290416    9456 ssh_runner.go:194] Run: sudo systemctl daemon-reload
+I0519 23:03:06.951355    9456 ssh_runner.go:234] Completed: sudo systemctl daemon-reload: (3.6609391s)
+I0519 23:03:06.953080    9456 ssh_runner.go:194] Run: sudo systemctl restart cri-docker.socket
+I0519 23:03:07.002579    9456 ssh_runner.go:194] Run: sudo systemctl reset-failed cri-docker.service
+I0519 23:03:07.024266    9456 ssh_runner.go:194] Run: sudo systemctl daemon-reload
+I0519 23:03:07.140256    9456 ssh_runner.go:194] Run: sudo systemctl restart cri-docker.service
+I0519 23:05:24.018830    9456 ssh_runner.go:234] Completed: sudo systemctl restart cri-docker.service: (2m16.878574s)
+I0519 23:05:24.021280    9456 ssh_runner.go:194] Run: sudo systemctl is-active --quiet service cri-docker.service
+I0519 23:05:24.217089    9456 start.go:554] Will wait 60s for socket path /var/run/cri-dockerd.sock
+I0519 23:05:24.217623    9456 ssh_runner.go:194] Run: stat /var/run/cri-dockerd.sock
+I0519 23:05:24.315495    9456 start.go:575] Will wait 60s for crictl version
+I0519 23:05:24.317534    9456 ssh_runner.go:194] Run: which crictl
+I0519 23:05:24.339848    9456 ssh_runner.go:194] Run: sudo /usr/local/bin/crictl version
+I0519 23:06:17.010442    9456 ssh_runner.go:234] Completed: sudo /usr/local/bin/crictl version: (52.6705945s)
+I0519 23:06:17.014947    9456 out.go:203] 
+W0519 23:06:17.017946    9456 out.go:285] X 因 RUNTIME_ENABLE 错误而退出：Failed to start container runtime: Temporary Error: sudo /usr/local/bin/crictl version: Process exited with status 1
+stdout:
+
+stderr:
+time="2026-05-19T15:06:16Z" level=fatal msg="validate service connection: validate CRI v1 runtime API for endpoint \"unix:///var/run/cri-dockerd.sock\": rpc error: code = DeadlineExceeded desc = context deadline exceeded"
+
+W0519 23:06:17.017946    9456 out.go:285] * 
+W0519 23:06:17.019795    9456 out.go:308] ╭───────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                   │
+│    * 如果上述建议无法帮助解决问题，请告知我们：                                                   │
+│      https://github.com/kubernetes/minikube/issues/new/choose                                     │
+│                                                                                                   │
+│    * 请运行 minikube logs --file=logs.txt 命令，并将生成的 logs.txt 文件附加到 GitHub 问题中。    │
+│                                                                                                   │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
+I0519 23:06:17.023224    9456 out.go:203] 
+
+
+==> Docker <==
+May 19 15:03:00 minikube dockerd[1141]: time="2026-05-19T15:03:00.904163838Z" level=info msg="Deleting nftables IPv4 rules" error="exit status 1"
+May 19 15:03:00 minikube dockerd[1141]: time="2026-05-19T15:03:00.936114978Z" level=info msg="Deleting nftables IPv6 rules" error="exit status 1"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610437604Z" level=warning msg="error locating sandbox id e399a309c75f03c27f7b35b93d7706ac8694e2c94dc7ecd5ea90a7646169be78: sandbox e399a309c75f03c27f7b35b93d7706ac8694e2c94dc7ecd5ea90a7646169be78 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610544909Z" level=warning msg="error locating sandbox id a2bdcf17f6c7a1aa15ac9fdfed819bfc0922d4db494e50aea05453b140433505: sandbox a2bdcf17f6c7a1aa15ac9fdfed819bfc0922d4db494e50aea05453b140433505 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610560609Z" level=warning msg="error locating sandbox id 27d65efcf71b5e47b19a3fa3f1f8b72b890ce07c041f1b57dcfd18aa724c7b59: sandbox 27d65efcf71b5e47b19a3fa3f1f8b72b890ce07c041f1b57dcfd18aa724c7b59 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610572910Z" level=warning msg="error locating sandbox id d9f5d8af42acc0189ed5ee0d1625816637f23ee2bfbc84f6809c59a9e2c2113d: sandbox d9f5d8af42acc0189ed5ee0d1625816637f23ee2bfbc84f6809c59a9e2c2113d not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610583511Z" level=warning msg="error locating sandbox id 072d093bdd13c3fc6ab79c49d29a14a21583ffa1757eadcce0ac0fccdeec1a41: sandbox 072d093bdd13c3fc6ab79c49d29a14a21583ffa1757eadcce0ac0fccdeec1a41 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610593511Z" level=warning msg="error locating sandbox id 79148d66fed777a54ac6e469f9fb516e23ecbe779477f1fcba1561c583e580e7: sandbox 79148d66fed777a54ac6e469f9fb516e23ecbe779477f1fcba1561c583e580e7 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610603111Z" level=warning msg="error locating sandbox id 907f9f40fb9dc4af479650ea897a86d74e623bc9f55c3cdf50514b4f20bb076f: sandbox 907f9f40fb9dc4af479650ea897a86d74e623bc9f55c3cdf50514b4f20bb076f not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610613012Z" level=warning msg="error locating sandbox id e4387fab765ccc202dd0f0003d4f94d4c0e09b82f1de69e65177216bddb70e7e: sandbox e4387fab765ccc202dd0f0003d4f94d4c0e09b82f1de69e65177216bddb70e7e not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610623412Z" level=warning msg="error locating sandbox id 1b3f373a19d8f49df6f6aa344d11658d8708d8ce31ff35a7483b96710ef47fb7: sandbox 1b3f373a19d8f49df6f6aa344d11658d8708d8ce31ff35a7483b96710ef47fb7 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610632413Z" level=warning msg="error locating sandbox id 0c178191e1a8cc7e02754b9d7be127ee5dc359981548794a58c986c089950ac5: sandbox 0c178191e1a8cc7e02754b9d7be127ee5dc359981548794a58c986c089950ac5 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610644113Z" level=warning msg="error locating sandbox id 129a50608594c771f9184e80fdbdbd44590b6f18f52032fe7c579de5b9c2e070: sandbox 129a50608594c771f9184e80fdbdbd44590b6f18f52032fe7c579de5b9c2e070 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610654014Z" level=warning msg="error locating sandbox id 7cd74c2b7093a669003023076e94203d34648799b6eebcb9acb518c54fc04277: sandbox 7cd74c2b7093a669003023076e94203d34648799b6eebcb9acb518c54fc04277 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610662614Z" level=warning msg="error locating sandbox id 145e9a8e6ad3405f28f351941c3a835ff0510e6e342b529bbb342a4c0e26ddd4: sandbox 145e9a8e6ad3405f28f351941c3a835ff0510e6e342b529bbb342a4c0e26ddd4 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610681315Z" level=warning msg="error locating sandbox id ed136dbf8d315a5ee749390ca1adcc2fc1ccc0aec7d0b3f3f1731d505d543cf3: sandbox ed136dbf8d315a5ee749390ca1adcc2fc1ccc0aec7d0b3f3f1731d505d543cf3 not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.610693116Z" level=warning msg="error locating sandbox id 4e7a1a4e982b89602f9bea0722aec5a974f314c1e8b90c200d27350ffd0db2cb: sandbox 4e7a1a4e982b89602f9bea0722aec5a974f314c1e8b90c200d27350ffd0db2cb not found"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.611414749Z" level=info msg="Loading containers: done."
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.637685853Z" level=info msg="Docker daemon" commit=6bc6209 containerd-snapshotter=false storage-driver=overlay2 version=29.2.1
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.637782458Z" level=info msg="Initializing buildkit"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.694876976Z" level=info msg="Completed buildkit initialization"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.757809061Z" level=info msg="Daemon has completed initialization"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.758004670Z" level=info msg="API listen on /run/docker.sock"
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.758014971Z" level=info msg="API listen on /var/run/docker.sock"
+May 19 15:03:02 minikube systemd[1]: Started docker.service - Docker Application Container Engine.
+May 19 15:03:02 minikube dockerd[1141]: time="2026-05-19T15:03:02.758029271Z" level=info msg="API listen on [::]:2376"
+May 19 15:03:07 minikube systemd[1]: Starting cri-docker.service - CRI Interface for Docker Application Container Engine...
+May 19 15:05:21 minikube cri-dockerd[1461]: time="2026-05-19T15:05:21Z" level=info msg="Starting cri-dockerd dev (HEAD)"
+May 19 15:05:21 minikube cri-dockerd[1461]: time="2026-05-19T15:05:21Z" level=info msg="Connecting to docker on the Endpoint unix:///var/run/docker.sock"
+May 19 15:05:21 minikube cri-dockerd[1461]: time="2026-05-19T15:05:21Z" level=info msg="Start docker client with request timeout 0s"
+May 19 15:05:22 minikube cri-dockerd[1461]: time="2026-05-19T15:05:22Z" level=info msg="Hairpin mode is set to hairpin-veth"
+May 19 15:05:22 minikube cri-dockerd[1461]: time="2026-05-19T15:05:22Z" level=info msg="Loaded network plugin cni"
+May 19 15:05:22 minikube cri-dockerd[1461]: time="2026-05-19T15:05:22Z" level=info msg="Docker cri networking managed by network plugin cni"
+May 19 15:05:23 minikube cri-dockerd[1461]: time="2026-05-19T15:05:23Z" level=info msg="Setting cgroupDriver cgroupfs"
+May 19 15:05:23 minikube cri-dockerd[1461]: time="2026-05-19T15:05:23Z" level=info msg="Docker cri received runtime config &RuntimeConfig{NetworkConfig:&NetworkConfig{PodCidr:,},}"
+May 19 15:05:23 minikube cri-dockerd[1461]: time="2026-05-19T15:05:23Z" level=info msg="Starting the GRPC backend for the Docker CRI interface."
+May 19 15:05:23 minikube cri-dockerd[1461]: time="2026-05-19T15:05:23Z" level=info msg="Start cri-dockerd grpc backend"
+May 19 15:05:24 minikube systemd[1]: Started cri-docker.service - CRI Interface for Docker Application Container Engine.
+May 19 15:08:10 minikube dockerd[1141]: time="2026-05-19T15:08:10.905621162Z" level=error msg="Failed to get event" error="rpc error: code = Unavailable desc = error reading from server: EOF" module=libcontainerd namespace=plugins.moby
+May 19 15:08:10 minikube dockerd[1141]: time="2026-05-19T15:08:10.905660466Z" level=info msg="Waiting for containerd to be ready to restart event processing" module=libcontainerd namespace=plugins.moby
+May 19 15:08:10 minikube dockerd[1141]: time="2026-05-19T15:08:10.905981895Z" level=error msg="Failed to get event" error="rpc error: code = Unavailable desc = error reading from server: EOF" module=libcontainerd namespace=moby
+May 19 15:08:10 minikube dockerd[1141]: time="2026-05-19T15:08:10.906004997Z" level=info msg="Waiting for containerd to be ready to restart event processing" module=libcontainerd namespace=moby
+May 19 15:08:16 minikube dockerd[1141]: time="2026-05-19T15:08:16.793311833Z" level=error msg="Failed to get event" error="rpc error: code = Unavailable desc = error reading from server: EOF" module=libcontainerd namespace=plugins.moby
+May 19 15:08:16 minikube dockerd[1141]: time="2026-05-19T15:08:16.793380540Z" level=info msg="Waiting for containerd to be ready to restart event processing" module=libcontainerd namespace=plugins.moby
+May 19 15:08:16 minikube dockerd[1141]: time="2026-05-19T15:08:16.793566659Z" level=error msg="Failed to get event" error="rpc error: code = Unavailable desc = error reading from server: EOF" module=libcontainerd namespace=moby
+May 19 15:08:16 minikube dockerd[1141]: time="2026-05-19T15:08:16.793624565Z" level=info msg="Waiting for containerd to be ready to restart event processing" module=libcontainerd namespace=moby
+May 19 15:08:19 minikube systemd[1]: Stopping docker.service - Docker Application Container Engine...
+May 19 15:08:19 minikube dockerd[1141]: time="2026-05-19T15:08:19.853364147Z" level=info msg="Processing signal 'terminated'"
+May 19 15:08:19 minikube dockerd[1141]: time="2026-05-19T15:08:19.856235643Z" level=warning msg="Error while testing if containerd API is ready" error="Canceled: grpc: the client connection is closing"
+May 19 15:08:19 minikube dockerd[1141]: time="2026-05-19T15:08:19.857175540Z" level=info msg="Daemon shutdown complete"
+May 19 15:08:19 minikube dockerd[1141]: time="2026-05-19T15:08:19.857213944Z" level=info msg="stopping event stream following graceful shutdown" error="context canceled" module=libcontainerd namespace=moby
+May 19 15:08:19 minikube systemd[1]: docker.service: Deactivated successfully.
+May 19 15:08:19 minikube systemd[1]: Stopped docker.service - Docker Application Container Engine.
+May 19 15:08:19 minikube systemd[1]: docker.service: Consumed 5.046s CPU time.
+May 19 15:08:22 minikube systemd[1]: Starting docker.service - Docker Application Container Engine...
+May 19 15:08:23 minikube dockerd[1942]: time="2026-05-19T15:08:23.264318630Z" level=info msg="Starting up"
+May 19 15:08:23 minikube dockerd[1942]: time="2026-05-19T15:08:23.281737852Z" level=info msg="OTEL tracing is not configured, using no-op tracer provider"
+May 19 15:08:23 minikube dockerd[1942]: time="2026-05-19T15:08:23.282100089Z" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/etc/cdi
+May 19 15:08:23 minikube dockerd[1942]: time="2026-05-19T15:08:23.282163996Z" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/var/run/cdi
+May 19 15:08:23 minikube dockerd[1942]: time="2026-05-19T15:08:23.304213902Z" level=info msg="Creating a containerd client" address=/run/containerd/containerd.sock timeout=1m0s
+
+
+==> container status <==
+time="2026-05-19T15:08:30Z" level=fatal msg="validate service connection: validate CRI v1 runtime API for endpoint \"unix:///var/run/cri-dockerd.sock\": rpc error: code = DeadlineExceeded desc = context deadline exceeded"
+CONTAINER ID   IMAGE          COMMAND                  CREATED             STATUS                         PORTS     NAMES
+4c57028db76f   537434729123   "kube-apiserver --ad…"   37 minutes ago      Exited (255) 8 minutes ago               k8s_kube-apiserver_kube-apiserver-minikube_kube-system_55b4bbe24dac3803a7379f9ae169d6ba_18
+da67002d63de   6e38f40d628d   "/storage-provisioner"   38 minutes ago      Exited (1) 36 minutes ago                k8s_storage-provisioner_storage-provisioner_kube-system_5885a71f-43cb-45cc-89fe-44d14c6f9318_41
+7fe64466fed1   70f3acb618ed   "dotnet Hospital.Api…"   58 minutes ago      Exited (143) 52 minutes ago              k8s_api_hospital-api-6dbdd66666-vpnsz_hospital_cbc9d5bf-944f-4618-80ad-2282313c5562_2
+ffb8e1c1104a   70f3acb618ed   "dotnet Hospital.Api…"   59 minutes ago      Exited (143) 53 minutes ago              k8s_api_hospital-api-6dbdd66666-78rlt_hospital_bfbd5c04-e6b3-400c-a890-e83c9ae4930d_2
+d6e1a8d2d906   b72af56c9bc9   "/docker-entrypoint.…"   About an hour ago   Exited (255) 8 minutes ago               k8s_web_hospital-web-dbf5c8cfc-bwhdd_hospital_5c7067c0-2433-4b89-b70a-662618b22a70_7
+326b857d5888   126b2038388d   "/opt/mssql/bin/laun…"   About an hour ago   Exited (255) 8 minutes ago               k8s_sqlserver_hospital-sqlserver-0_hospital_f2a3e0c0-0db9-48ab-be00-b5cd0d19db75_1
+d6496e3ab13e   10baa1ca1706   "kube-controller-man…"   About an hour ago   Exited (255) 8 minutes ago               k8s_kube-controller-manager_kube-controller-manager-minikube_kube-system_7da72fc2e2cfb27aacf6cffd1c72da00_8
+3f8361dd658e   10baa1ca1706   "kube-controller-man…"   About an hour ago   Exited (1) About an hour ago             k8s_kube-controller-manager_kube-controller-manager-minikube_kube-system_7da72fc2e2cfb27aacf6cffd1c72da00_7
+7a99e1462dfd   6d1b4fd1b182   "kube-scheduler --au…"   About an hour ago   Exited (255) 8 minutes ago               k8s_kube-scheduler_kube-scheduler-minikube_kube-system_75ac196d3709dde303d8a81c035c2c28_4
+dd69b83edf83   73deb9a3f702   "etcd --advertise-cl…"   About an hour ago   Exited (255) 8 minutes ago               k8s_etcd_etcd-minikube_kube-system_9aac5b5c8815def09a2ef9e37b89da55_4
+36891e47ac9e   ead0a4a53df8   "/coredns -conf /etc…"   About an hour ago   Exited (255) 8 minutes ago               k8s_coredns_coredns-5dd5756b68-n4m2f_kube-system_04e6a4bc-04ef-4a6d-858f-7d007f46dcf0_5
+b437bc488d85   ead0a4a53df8   "/coredns -conf /etc…"   About an hour ago   Exited (2) About an hour ago             k8s_coredns_coredns-5dd5756b68-n4m2f_kube-system_04e6a4bc-04ef-4a6d-858f-7d007f46dcf0_4
+e5a93de765d5   73deb9a3f702   "etcd --advertise-cl…"   About an hour ago   Exited (2) About an hour ago             k8s_etcd_etcd-minikube_kube-system_9aac5b5c8815def09a2ef9e37b89da55_3
+e8dd358fdb5c   bfc896cf80fb   "/usr/local/bin/kube…"   2 hours ago         Exited (255) 8 minutes ago               k8s_kube-proxy_kube-proxy-s2qx8_kube-system_55f1c4d7-3046-42ba-bad9-bdfa47a2cc67_2
+691da931c526   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_coredns-5dd5756b68-n4m2f_kube-system_04e6a4bc-04ef-4a6d-858f-7d007f46dcf0_2
+0f1c669d80ff   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_hospital-web-dbf5c8cfc-bwhdd_hospital_5c7067c0-2433-4b89-b70a-662618b22a70_1
+ef3d6efca85a   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_ingress-nginx-admission-patch-ln8l8_ingress-nginx_7fe999a8-a9cb-4823-baee-d77cab7407d3_2
+ec62fe0fb9dd   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_hospital-api-6dbdd66666-78rlt_hospital_bfbd5c04-e6b3-400c-a890-e83c9ae4930d_1
+078d699fdf98   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_ingress-nginx-admission-create-wx4fc_ingress-nginx_7ee2d043-b69d-44c0-b9d4-3771332437a1_2
+8c1fec6bdfed   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_hospital-sqlserver-0_hospital_f2a3e0c0-0db9-48ab-be00-b5cd0d19db75_1
+6023f54f4389   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_hospital-api-6dbdd66666-vpnsz_hospital_cbc9d5bf-944f-4618-80ad-2282313c5562_1
+0ecbc3202f9b   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_kube-proxy-s2qx8_kube-system_55f1c4d7-3046-42ba-bad9-bdfa47a2cc67_2
+34871c568a82   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_etcd-minikube_kube-system_9aac5b5c8815def09a2ef9e37b89da55_2
+b378b3dfbe6e   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_kube-controller-manager-minikube_kube-system_7da72fc2e2cfb27aacf6cffd1c72da00_2
+d49b2063edbf   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_storage-provisioner_kube-system_5885a71f-43cb-45cc-89fe-44d14c6f9318_2
+96072ad6f546   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_kube-apiserver-minikube_kube-system_55b4bbe24dac3803a7379f9ae169d6ba_3
+f16216e27932   e6f181688397   "/pause"                 2 hours ago         Exited (255) 8 minutes ago               k8s_POD_kube-scheduler-minikube_kube-system_75ac196d3709dde303d8a81c035c2c28_3
+bcee3a2a743f   126b2038388d   "/opt/mssql/bin/laun…"   3 hours ago         Exited (137) 2 hours ago                 k8s_sqlserver_hospital-sqlserver-0_hospital_f2a3e0c0-0db9-48ab-be00-b5cd0d19db75_0
+4b58a89dbaee   e6f181688397   "/pause"                 4 hours ago         Exited (0) 2 hours ago                   k8s_POD_hospital-sqlserver-0_hospital_f2a3e0c0-0db9-48ab-be00-b5cd0d19db75_0
+8d8e5fb2b8c1   bfc896cf80fb   "/usr/local/bin/kube…"   4 hours ago         Exited (0) 2 hours ago                   k8s_kube-proxy_kube-proxy-s2qx8_kube-system_55f1c4d7-3046-42ba-bad9-bdfa47a2cc67_1
+7d12c7694a3d   e6f181688397   "/pause"                 4 hours ago         Exited (0) 2 hours ago                   k8s_POD_kube-proxy-s2qx8_kube-system_55f1c4d7-3046-42ba-bad9-bdfa47a2cc67_1
+
+
+==> describe nodes <==
+command /bin/bash -c "sudo /var/lib/minikube/binaries/v1.35.1/kubectl describe nodes --kubeconfig=/var/lib/minikube/kubeconfig" failed with error: /bin/bash -c "sudo /var/lib/minikube/binaries/v1.35.1/kubectl describe nodes --kubeconfig=/var/lib/minikube/kubeconfig": Process exited with status 1
+stdout:
+
+stderr:
+E0519 15:08:34.414273    2289 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://localhost:8443/api?timeout=32s\": dial tcp [::1]:8443: connect: connection refused"
+E0519 15:08:34.416167    2289 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://localhost:8443/api?timeout=32s\": dial tcp [::1]:8443: connect: connection refused"
+E0519 15:08:34.417684    2289 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://localhost:8443/api?timeout=32s\": dial tcp [::1]:8443: connect: connection refused"
+E0519 15:08:34.459222    2289 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://localhost:8443/api?timeout=32s\": dial tcp [::1]:8443: connect: connection refused"
+E0519 15:08:34.519255    2289 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://localhost:8443/api?timeout=32s\": dial tcp [::1]:8443: connect: connection refused"
+The connection to the server localhost:8443 was refused - did you specify the right host or port?
+
+
+==> dmesg <==
+[  +0.001152] RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+[  +0.001271] R10: 0000000000000000 R11: 0000000000000246 R12: 0000738720bf4b38
+[  +0.001196] R13: 0000000000000000 R14: 0000000000000000 R15: 0000738720bf4b74
+[  +0.001120]  </TASK>
+[May19 13:54] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [mini_init:171]
+[  +2.675595] Modules linked in: configfs autofs4 xt_statistic xt_mark xt_nfacct nfnetlink_acct xt_comment nf_conntrack_netlink xt_nat xt_conntrack xt_MASQUERADE xfrm_user xfrm_algo xt_set ip_set xt_addrtype ip6t_REJECT nf_reject_ipv6 ipt_REJECT nf_reject_ipv4 nft_compat sunrpc isofs br_netfilter bridge stp llc ip_tables tun
+[  +3.533648] CPU: 1 PID: 171 Comm: mini_init Tainted: G             L     6.6.114.1-microsoft-standard-WSL2 #1
+[  +0.115945] RIP: 0010:clear_page_erms+0xb/0x20
+[  +1.241992] Code: 48 8d 7f 40 75 d9 90 e9 93 b3 01 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa b9 00 10 00 00 31 c0 <f3> aa c3 cc cc cc cc 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 90
+[  +0.002861] RSP: 0018:ffffb538404cb818 EFLAGS: 00010246
+[  +0.013333] RAX: 0000000000000000 RBX: ffffe17202853ec0 RCX: 0000000000001000
+[  +0.001097] RDX: ffffe17202853ec0 RSI: ffffe17202853f00 RDI: ffffa0c8614fb000
+[  +0.001083] RBP: ffffb538404cb838 R08: ffffe17202866808 R09: 0000000000000001
+[  +0.001254] R10: ffffb538404cbc70 R11: ffffb538404cb8f8 R12: 0000000000000040
+[  +0.001069] R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000001
+[  +0.001002] FS:  0000738720bf4b38(0000) GS:ffffa0c8c0840000(0000) knlGS:0000000000000000
+[  +0.000998] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  +0.000975] CR2: 000077eeb2fc2000 CR3: 0000000000850001 CR4: 00000000003706e0
+[  +0.001041] Call Trace:
+[  +0.007280]  <TASK>
+[  +0.000554]  ? post_alloc_hook+0x96/0xc0
+[  +0.897325]  split_map_pages+0xa5/0x180
+[  +0.051180]  compaction_alloc+0x6c7/0xba0
+[  +0.000523]  migrate_pages_batch+0x220/0xca0
+[  +0.048779]  ? __pfx_compaction_alloc+0x10/0x10
+[  +0.000790]  ? __pfx_compaction_free+0x10/0x10
+[  +0.000837]  ? __pfx_remove_migration_pte+0x10/0x10
+[  +0.000762]  migrate_pages+0xb27/0xdf0
+[  +0.000443]  ? __mod_memcg_lruvec_state+0x52/0xa0
+[  +0.046441]  ? __pfx_compaction_free+0x10/0x10
+[  +0.000671]  ? __pfx_compaction_alloc+0x10/0x10
+[  +0.000821]  compact_zone+0x8c6/0xf10
+[  +0.000579]  ? _raw_spin_unlock_irq+0x12/0x40
+[  +0.088088]  compact_node+0x88/0xc0
+[  +0.000615]  sysctl_compaction_handler+0x56/0xa0
+[  +0.000643]  proc_sys_call_handler+0x1ac/0x2c0
+[  +0.366484]  proc_sys_write+0x17/0x20
+[  +0.000549]  vfs_write+0x200/0x3f0
+[  +0.023811]  ksys_write+0x6f/0xf0
+[  +0.000509]  __x64_sys_write+0x1d/0x30
+[  +0.000526]  x64_sys_call+0x858/0x1c90
+[  +0.072187]  do_syscall_64+0x5a/0xb0
+[  +0.000556]  ? switch_fpu_return+0x55/0xe0
+[  +0.024047]  ? exit_to_user_mode_prepare+0x7f/0x170
+[  +0.016811]  ? irqentry_exit_to_user_mode+0x12/0x20
+[  +0.017762]  ? clear_bhb_loop+0x70/0xc0
+[  +0.022875]  ? clear_bhb_loop+0x70/0xc0
+[  +0.000549]  ? clear_bhb_loop+0x70/0xc0
+[  +0.000487]  ? clear_bhb_loop+0x70/0xc0
+[  +0.000494]  ? clear_bhb_loop+0x70/0xc0
+[  +0.000519]  entry_SYSCALL_64_after_hwframe+0x78/0xe2
+[  +0.000846] RIP: 0033:0x49c6a9
+[  +0.198009] Code: c0 0f 85 24 00 00 00 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> e9 21 fd ff ff cc 55 41 56 53 48 81 ec 80 00 00 00 89 f5 49 89
+[  +0.002153] RSP: 002b:0000738720bf4718 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+[  +0.000999] RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 000000000049c6a9
+[  +0.000916] RDX: 0000000000000002 RSI: 000000000021db42 RDI: 0000000000000008
+[  +0.001066] RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+[  +0.000938] R10: 0000000000000000 R11: 0000000000000246 R12: 0000738720bf4b38
+[  +0.001072] R13: 0000000000000000 R14: 0000000000000000 R15: 0000738720bf4b74
+[  +0.166974]  </TASK>
+
+
+==> kernel <==
+ 15:08:35 up  4:01,  0 user,  load average: 2.68, 3.11, 6.02
+Linux minikube 6.6.114.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Mon Dec  1 20:46:23 UTC 2025 x86_64 GNU/Linux
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+
+
+==> kube-apiserver [4c57028db76f] <==
+I0519 14:36:38.120858       1 controller.go:178] quota evaluator worker shutdown
+I0519 14:36:38.120868       1 controller.go:178] quota evaluator worker shutdown
+E0519 14:36:38.818906       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:monitoring: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:monitoring": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:38.819554       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:discovery: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:discovery": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:38.918289       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:basic-user: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:basic-user": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:38.918852       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:public-info-viewer: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:public-info-viewer": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.620138       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:node-proxier: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:node-proxier": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.620458       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:kube-controller-manager: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:kube-controller-manager": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.819192       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:kube-dns: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:kube-dns": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.820739       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:kube-scheduler: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:kube-scheduler": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.821576       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:volume-scheduler: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:volume-scheduler": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.822286       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:node: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:node": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.919048       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:service-account-issuer-discovery: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:service-account-issuer-discovery": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.920182       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:attachdetach-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:attachdetach-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.920484       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:clusterrole-aggregation-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:clusterrole-aggregation-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.921947       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:cronjob-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:cronjob-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:39.922269       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:daemon-set-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:daemon-set-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:40.519527       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:deployment-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:deployment-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:40.521287       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:disruption-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:disruption-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:40.521739       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:endpoint-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:endpoint-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:40.523325       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:endpointslice-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:endpointslice-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:40.523803       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:endpointslicemirroring-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:endpointslicemirroring-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:40.525326       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:expand-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:expand-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:40.525564       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:ephemeral-volume-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:ephemeral-volume-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.018420       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:generic-garbage-collector: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:generic-garbage-collector": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.018918       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:horizontal-pod-autoscaler: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:horizontal-pod-autoscaler": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.021821       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:job-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:job-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.022081       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:namespace-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:namespace-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.026280       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:node-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:node-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.026528       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:persistent-volume-binder: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:persistent-volume-binder": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.027857       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:pod-garbage-collector: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:pod-garbage-collector": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.028002       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:replicaset-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:replicaset-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.029329       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:replication-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:replication-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.029472       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:resourcequota-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:resourcequota-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.030785       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:route-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:route-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.030924       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:service-account-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:service-account-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.032259       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:service-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:service-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.032395       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:statefulset-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:statefulset-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.033732       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:ttl-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:ttl-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.033864       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:certificate-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:certificate-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.035261       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:pvc-protection-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:pvc-protection-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.035407       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:pv-protection-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:pv-protection-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.036722       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:ttl-after-finished-controller: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:ttl-after-finished-controller": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.036891       1 storage_rbac.go:264] unable to reconcile clusterrolebinding.rbac.authorization.k8s.io/system:controller:root-ca-cert-publisher: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system:controller:root-ca-cert-publisher": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.318791       1 storage_rbac.go:295] unable to reconcile role.rbac.authorization.k8s.io/system:controller:bootstrap-signer in kube-public: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-public/roles/system:controller:bootstrap-signer": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.319383       1 storage_rbac.go:295] unable to reconcile role.rbac.authorization.k8s.io/extension-apiserver-authentication-reader in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/roles/extension-apiserver-authentication-reader": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.320721       1 storage_rbac.go:295] unable to reconcile role.rbac.authorization.k8s.io/system:controller:bootstrap-signer in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/roles/system:controller:bootstrap-signer": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.321928       1 storage_rbac.go:295] unable to reconcile role.rbac.authorization.k8s.io/system:controller:cloud-provider in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/roles/system:controller:cloud-provider": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.323475       1 storage_rbac.go:295] unable to reconcile role.rbac.authorization.k8s.io/system:controller:token-cleaner in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/roles/system:controller:token-cleaner": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.323746       1 storage_rbac.go:295] unable to reconcile role.rbac.authorization.k8s.io/system::leader-locking-kube-controller-manager in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/roles/system::leader-locking-kube-controller-manager": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.418712       1 storage_rbac.go:295] unable to reconcile role.rbac.authorization.k8s.io/system::leader-locking-kube-scheduler in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/roles/system::leader-locking-kube-scheduler": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.619676       1 storage_rbac.go:329] unable to reconcile rolebinding.rbac.authorization.k8s.io/system::extension-apiserver-authentication-reader in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/rolebindings/system::extension-apiserver-authentication-reader": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.620140       1 storage_rbac.go:329] unable to reconcile rolebinding.rbac.authorization.k8s.io/system::leader-locking-kube-controller-manager in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/rolebindings/system::leader-locking-kube-controller-manager": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.621587       1 storage_rbac.go:329] unable to reconcile rolebinding.rbac.authorization.k8s.io/system::leader-locking-kube-scheduler in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/rolebindings/system::leader-locking-kube-scheduler": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.621787       1 storage_rbac.go:329] unable to reconcile rolebinding.rbac.authorization.k8s.io/system:controller:bootstrap-signer in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/rolebindings/system:controller:bootstrap-signer": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.647985       1 storage_rbac.go:329] unable to reconcile rolebinding.rbac.authorization.k8s.io/system:controller:cloud-provider in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/rolebindings/system:controller:cloud-provider": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.648242       1 storage_rbac.go:329] unable to reconcile rolebinding.rbac.authorization.k8s.io/system:controller:token-cleaner in kube-system: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-system/rolebindings/system:controller:token-cleaner": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.920470       1 storage_rbac.go:329] unable to reconcile rolebinding.rbac.authorization.k8s.io/system:controller:bootstrap-signer in kube-public: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/namespaces/kube-public/rolebindings/system:controller:bootstrap-signer": dial tcp [::1]:8443: connect: connection refused
+E0519 14:36:41.921363       1 storage_rbac.go:187] unable to initialize clusterroles: Get "https://[::1]:8443/apis/rbac.authorization.k8s.io/v1/clusterroles": dial tcp [::1]:8443: connect: connection refused
+F0519 14:36:41.934182       1 hooks.go:203] PostStartHook "rbac/bootstrap-roles" failed: unable to initialize roles: timed out waiting for the condition
+
+
+==> kubelet <==
+-- No entries --
+

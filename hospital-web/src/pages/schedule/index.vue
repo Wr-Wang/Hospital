@@ -185,8 +185,7 @@ function removeSlot(index: number) {
   form.slots.splice(index, 1)
 }
 
-function onDoctorSelect(doctorId: number) {
-  const doctor = allStaff.value.find((s) => s.id === doctorId)
+function onDoctorSelect(_doctorId: number) {
   // 医生所属科室由 backend 决定，但我们在表单中不需要额外设置 deptId
 }
 

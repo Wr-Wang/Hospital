@@ -126,26 +126,6 @@ async function loadTodaySchedules() {
   finally { loadingSchedules.value = false }
 }
 
-const scheduleColumns: DataTableColumns<ScheduleDto> = [
-  { title: '医生', key: 'doctorId', width: 100 },
-  { title: '科室', key: 'deptId', width: 100 },
-  {
-    title: '时间',
-    key: 'slots',
-    render(row) {
-      return row.slots.map((s) => `${s.slotName} ${s.startTime}-${s.endTime}`).join(' ')
-    },
-  },
-  {
-    title: '状态',
-    key: 'status',
-    width: 80,
-    render(row) {
-      const map: Record<string, 'success' | 'error' | 'warning'> = { 已发布: 'success', 已停用: 'error', 已满: 'warning' }
-      return h(NTag, { type: map[row.status] || 'default', size: 'small' }, { default: () => row.status })
-    },
-  },
-]
 
 onMounted(async () => {
   await Promise.all([loadStats(), loadTodaySchedules()])

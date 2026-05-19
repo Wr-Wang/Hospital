@@ -67,8 +67,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, h, computed, onMounted } from 'vue'
-import { useMessage, NButton, NTag, NSpace, NPageHeader, NCard, NDivider, NCheckbox, NCheckboxGroup } from 'naive-ui'
+import { ref, reactive, h, onMounted } from 'vue'
+import { useMessage, NButton, NSpace, NPageHeader, NCard, NDivider, NCheckbox, NCheckboxGroup } from 'naive-ui'
 import type { DataTableColumns, FormRules, FormInst } from 'naive-ui'
 import type { RoleDto } from '../../types'
 import { getRoles, createRole, updateRole, deleteRole } from '../../api/userRole'
@@ -155,8 +155,6 @@ const permissionGroups: PermissionGroup[] = [
     ],
   },
 ]
-
-const allPermissionValues = permissionGroups.flatMap((g) => g.permissions.map((p) => p.value))
 
 function isGroupChecked(perms: PermissionDef[]): boolean {
   return perms.every((p) => form.permissions.includes(p.value))
@@ -274,17 +272,7 @@ async function handleSubmit() {
 }
 
 async function handleDelete(row: RoleDto) {
-  const confirmed = await new Promise<boolean>((resolve) => {
-    message.warning(`确定要删除角色「${row.name}」吗？`, {
-      action: () => h(NSpace, {}, {
-        default: () => [
-          h(NButton, { size: 'small', type: 'error', onClick: () => { message.destroyAll(); resolve(true) } }, { default: () => '确定删除' }),
-          h(NButton, { size: 'small', onClick: () => { message.destroyAll(); resolve(false) } }, { default: () => '取消' }),
-        ],
-      }),
-      duration: 0,
-    })
-  })
+  const confirmed = window.confirm(`确定要删除角色「${row.name}」吗？`)
 
   if (!confirmed) return
 

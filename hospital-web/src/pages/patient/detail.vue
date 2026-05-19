@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, h, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMessage, NTag, NPageHeader, NDescriptions } from 'naive-ui'
 import type { DataTableColumns } from 'naive-ui'

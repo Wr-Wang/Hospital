@@ -1,0 +1,2 @@
+FROM hospital-api:latest
+COPY publish/ /app/

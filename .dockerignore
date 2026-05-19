@@ -1,0 +1,13 @@
+**/.git
+**/.gitignore
+**/.vs
+**/.github
+**/bin
+**/obj
+**/node_modules
+**/.dockerignore
+**/Dockerfile
+**/docker-compose*.yml
+**/.DS_Store
+**/global.json
+**/launchSettings.json

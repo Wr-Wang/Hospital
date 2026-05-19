@@ -4,11 +4,20 @@ using Hospital.Api.Middleware;
 using Hospital.Application.Services;
 using Hospital.Application.Repositories;
 using Hospital.Infrastructure.Repositories;
+using Hospital.Infrastructure.Repositories.Ef;
 using Hospital.Infrastructure.ExternalServices;
+using Hospital.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register EF Core DbContext
+builder.Services.AddDbContext<HospitalDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("HospitalDb"),
+        sqlOptions => sqlOptions.EnableRetryOnFailure(3)));
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -21,50 +30,43 @@ builder.Services.AddSwaggerGen(c =>
         c.IncludeXmlComments(xmlPath);
 });
 
-// Register DDD services
-builder.Services.AddSingleton<IPatientRepository, PatientRepository>();
+// Register EF Core repositories (Scoped — aligned with DbContext lifetime)
+builder.Services.AddScoped<IPatientRepository, EfPatientRepository>();
+builder.Services.AddScoped<ICampusRepository, EfCampusRepository>();
+builder.Services.AddScoped<IDepartmentRepository, EfDepartmentRepository>();
+builder.Services.AddScoped<IStaffRepository, EfStaffRepository>();
+builder.Services.AddScoped<IDictionaryRepository, EfDictionaryRepository>();
+builder.Services.AddScoped<IScheduleRepository, EfScheduleRepository>();
+builder.Services.AddScoped<IRegistrationRepository, EfRegistrationRepository>();
+builder.Services.AddScoped<IEncounterRepository, EfEncounterRepository>();
+builder.Services.AddScoped<IMedicalRecordRepository, EfMedicalRecordRepository>();
+builder.Services.AddScoped<IDiagnosisRepository, EfDiagnosisRepository>();
+builder.Services.AddScoped<IPrescriptionRepository, EfPrescriptionRepository>();
+builder.Services.AddScoped<ILabOrderRepository, EfLabOrderRepository>();
+builder.Services.AddScoped<IRadOrderRepository, EfRadOrderRepository>();
+builder.Services.AddScoped<IBillingRepository, EfBillingRepository>();
+builder.Services.AddScoped<IDispenseRepository, EfDispenseRepository>();
+builder.Services.AddScoped<IDrugInventoryRepository, EfDrugInventoryRepository>();
+builder.Services.AddScoped<IAuditLogRepository, EfAuditLogRepository>();
+builder.Services.AddScoped<IUserRepository, EfUserRepository>();
+builder.Services.AddScoped<IRoleRepository, EfRoleRepository>();
+
+// Register Application services
 builder.Services.AddScoped<IPatientApplicationService, PatientApplicationService>();
-builder.Services.AddSingleton<ICampusRepository, CampusRepository>();
 builder.Services.AddScoped<ICampusApplicationService, CampusApplicationService>();
-builder.Services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDepartmentApplicationService, DepartmentApplicationService>();
-builder.Services.AddSingleton<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffApplicationService, StaffApplicationService>();
-builder.Services.AddSingleton<IDictionaryRepository, DictionaryRepository>();
 builder.Services.AddScoped<IDictionaryApplicationService, DictionaryApplicationService>();
-
-// Register Schedule and Registration services
-builder.Services.AddSingleton<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IScheduleApplicationService, ScheduleApplicationService>();
-builder.Services.AddSingleton<IRegistrationRepository, RegistrationRepository>();
-builder.Services.AddSingleton<IEncounterRepository, EncounterRepository>();
 builder.Services.AddScoped<IRegistrationApplicationService, RegistrationApplicationService>();
-
-// Register Encounter, MedicalRecord, Diagnosis, Prescription, LabOrder services
 builder.Services.AddScoped<IEncounterApplicationService, EncounterApplicationService>();
-builder.Services.AddSingleton<IMedicalRecordRepository, MedicalRecordRepository>();
 builder.Services.AddScoped<IMedicalRecordApplicationService, MedicalRecordApplicationService>();
-builder.Services.AddSingleton<IDiagnosisRepository, DiagnosisRepository>();
 builder.Services.AddScoped<IDiagnosisApplicationService, DiagnosisApplicationService>();
-builder.Services.AddSingleton<IPrescriptionRepository, PrescriptionRepository>();
 builder.Services.AddScoped<IPrescriptionApplicationService, PrescriptionApplicationService>();
-builder.Services.AddSingleton<ILabOrderRepository, LabOrderRepository>();
 builder.Services.AddScoped<ILabOrderApplicationService, LabOrderApplicationService>();
-builder.Services.AddSingleton<IRadOrderRepository, RadOrderRepository>();
-
-// Register Cashier and Dispense services
 builder.Services.AddScoped<ICashierApplicationService, CashierApplicationService>();
 builder.Services.AddScoped<IDispenseApplicationService, DispenseApplicationService>();
-
-// Register Billing, Dispense, AuditLog repositories
-builder.Services.AddSingleton<IBillingRepository, BillingRepository>();
-builder.Services.AddSingleton<IDispenseRepository, DispenseRepository>();
-builder.Services.AddSingleton<IDrugInventoryRepository, DrugInventoryRepository>();
-builder.Services.AddSingleton<IAuditLogRepository, AuditLogRepository>();
-
-// Register User and Role services
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IUserRoleApplicationService, UserRoleApplicationService>();
 builder.Services.AddScoped<IUserRoleApplicationService, UserRoleApplicationService>();
 
 // Register auth services
@@ -108,7 +110,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// 容器部署时 HTTPS 由反向代理（nginx / ingress）终结，后端无需重定向
+// 如需直接公网暴露，可取消注释并配置 Kestrel HTTPS 证书
+// app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
