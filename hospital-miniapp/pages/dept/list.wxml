@@ -1,0 +1,59 @@
+<view class="page">
+  <!-- 院区切换 -->
+  <view class="campus-tabs">
+    <view
+      class="campus-tab {{currentCampusIndex === index ? 'campus-tab--active' : ''}}"
+      wx:for="{{campuses}}"
+      wx:key="id"
+      data-index="{{index}}"
+      bindtap="switchCampus"
+    >
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input
+      class="search-input"
+      placeholder="搜索科室名称"
+      placeholder-class="search-placeholder"
+      bindinput="onSearch"
+      value="{{keyword}}"
+    />
+  </view>
+
+  <!-- 科室列表 -->
+  <scroll-view
+    class="dept-list"
+    scroll-y
+    enhanced
+    show-scrollbar="{{false}}"
+    wx:if="{{filteredDepts.length > 0}}"
+  >
+    <view
+      class="dept-item"
+      wx:for="{{filteredDepts}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      data-name="{{item.name}}"
+      bindtap="goToSchedule"
+    >
+      <view class="dept-icon-wrap">
+        <text class="dept-icon">{{item.icon}}</text>
+      </view>
+      <view class="dept-info">
+        <text class="dept-name">{{item.name}}</text>
+        <text class="dept-desc">{{item.desc}}</text>
+      </view>
+      <text class="dept-arrow">›</text>
+    </view>
+  </scroll-view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text style="font-size: 80rpx; margin-bottom: 20rpx;">🔍</text>
+    <text>未找到匹配的科室</text>
+  </view>
+</view>

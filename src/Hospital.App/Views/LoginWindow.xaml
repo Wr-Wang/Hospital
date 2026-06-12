@@ -1,0 +1,105 @@
+<Window x:Class="Hospital.App.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:Hospital.App.Converters"
+        mc:Ignorable="d"
+        Title="医院管理系统 — 登录"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        FontFamily="Microsoft YaHei, SimHei, sans-serif"
+        Background="{StaticResource Gray50Brush}">
+    <Window.Resources>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource Gray50Brush}">
+        <!-- Centered card -->
+        <Border Width="400"
+                Padding="0"
+                Background="{StaticResource WhiteBrush}"
+                CornerRadius="10"
+                Effect="{StaticResource CardShadowEffect}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Border Grid.Row="0"
+                        Background="{StaticResource BluePrimaryBrush}"
+                        CornerRadius="10,10,0,0"
+                        Padding="32,28,32,24">
+                    <TextBlock Text="医院管理系统"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource WhiteBrush}"
+                               HorizontalAlignment="Center" />
+                </Border>
+
+                <!-- Form -->
+                <StackPanel Grid.Row="1" Margin="32,28,32,0">
+                    <TextBlock Text="用户名" Style="{StaticResource FormLabelStyle}" />
+                    <TextBox x:Name="UserNameBox"
+                             Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource FormTextBoxStyle}" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Margin="32,20,32,0">
+                    <TextBlock Text="密码" Style="{StaticResource FormLabelStyle}" />
+                    <PasswordBox x:Name="PasswordBox"
+                                 PasswordChanged="PasswordBox_PasswordChanged"
+                                 Style="{StaticResource FormPasswordBoxStyle}" />
+                </StackPanel>
+
+                <!-- Error message -->
+                <Border Grid.Row="3"
+                        Margin="32,12,32,0"
+                        Style="{StaticResource ErrorBannerStyle}"
+                        Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}">
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="{StaticResource Red700Brush}"
+                               FontSize="13"
+                               TextWrapping="Wrap" />
+                </Border>
+
+                <!-- Buttons -->
+                <StackPanel Grid.Row="4"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Stretch"
+                            Margin="32,20,32,28">
+                    <Button Content="取消"
+                            Command="{Binding CancelCommand}"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Width="120" />
+                    <Button Content="登 录"
+                            Command="{Binding LoginCommand}"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Width="120"
+                            Margin="16,0,0,0"
+                            IsDefault="True" />
+                </StackPanel>
+
+                <!-- Loading overlay -->
+                <Border Grid.Row="0"
+                        Grid.RowSpan="5"
+                        Background="#80FFFFFF"
+                        Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="正在登录…"
+                                   FontSize="16"
+                                   Foreground="{StaticResource Gray700Brush}"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,12,0,0" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

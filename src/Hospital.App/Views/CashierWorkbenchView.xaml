@@ -1,0 +1,191 @@
+<UserControl x:Class="Hospital.App.Views.CashierWorkbenchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="1200"
+             FontFamily="Microsoft YaHei, SimHei, sans-serif">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32,28,32,32">
+
+            <!-- ===== Header ===== -->
+            <Border Padding="32,28" CornerRadius="12">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#F59E0B" Offset="0.0" />
+                        <GradientStop Color="#D97706" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel>
+                    <TextBlock FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource WhiteBrush}"
+                               Text="收费工作台" />
+                    <TextBlock Margin="0,8,0,0" FontSize="14"
+                               Foreground="{StaticResource BlueAccentBrush}"
+                               Text="门诊费用收取、退费处理、发票打印" />
+                </StackPanel>
+            </Border>
+
+            <!-- ===== Error Banner ===== -->
+            <Border Margin="0,16,0,0"
+                    Style="{StaticResource ErrorBannerStyle}"
+                    Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}, FallbackValue=Collapsed}">
+                <TextBlock Text="{Binding ErrorMessage}"
+                           FontSize="13" Foreground="{StaticResource Red700Brush}"
+                           TextWrapping="Wrap" />
+            </Border>
+
+            <!-- ===== Success Banner ===== -->
+            <Border Margin="0,8,0,0" Padding="10,8" CornerRadius="6"
+                    Background="{StaticResource Green50Brush}"
+                    BorderBrush="{StaticResource Green200Brush}" BorderThickness="1"
+                    Visibility="{Binding IsSuccess, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
+                <TextBlock Text="缴费成功！" FontSize="13"
+                           Foreground="{StaticResource Green800Brush}" FontWeight="SemiBold" />
+            </Border>
+
+            <!-- ===== Step 1: Patient Search ===== -->
+            <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
+                    Background="{StaticResource WhiteBrush}">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold"
+                               Foreground="{StaticResource Gray900Brush}"
+                               Text="① 选择患者" />
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Height="38" Padding="12,0"
+                                 Text="{Binding PatientKeyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource FormTextBoxStyle}" />
+                        <Button Grid.Column="1" Content="搜索" Width="100" Height="40" Margin="12,0,0,0"
+                                FontSize="15" FontWeight="SemiBold" Cursor="Hand"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding SearchPatientCommand}" />
+                    </Grid>
+
+                    <ItemsControl ItemsSource="{Binding PatientResults}" Margin="0,8,0,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="12,10" Margin="0,0,0,4" CornerRadius="6"
+                                        Background="{StaticResource Gray50Brush}"
+                                        Cursor="Hand">
+                                    <Border.InputBindings>
+                                        <MouseBinding Gesture="LeftClick"
+                                                      Command="{Binding DataContext.SelectPatientCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                      CommandParameter="{Binding}" />
+                                    </Border.InputBindings>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" Width="40" Height="40" CornerRadius="20"
+                                                Background="{StaticResource BlueSubtleBrush}" Margin="0,0,12,0">
+                                            <TextBlock FontSize="18" Foreground="{StaticResource WhiteBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Text="💰" />
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock FontSize="15" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource Gray900Brush}"
+                                                       Text="{Binding Name}" />
+                                            <TextBlock Margin="0,2,0,0" FontSize="13"
+                                                       Foreground="{StaticResource Gray500Brush}"
+                                                       Text="{Binding PatientNo, StringFormat='病历号: {0}'}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Border Margin="0,8,0,0" Padding="12,10" CornerRadius="6"
+                            Background="{StaticResource BlueSubtleBrush}"
+                            Visibility="{Binding SelectedPatientInfo, Converter={StaticResource StringToVisibilityConverter}, FallbackValue=Collapsed}">
+                        <TextBlock FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource BluePrimaryBrush}"
+                                   Text="{Binding SelectedPatientInfo}" />
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== Step 2: Pending Items ===== -->
+            <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
+                    Background="{StaticResource WhiteBrush}">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold"
+                               Foreground="{StaticResource Gray900Brush}"
+                               Text="② 待收费项目" />
+
+                    <TextBlock Margin="0,8,0,0" FontSize="13"
+                               Foreground="{StaticResource Gray500Brush}"
+                               Text="{Binding PendingItems.Count, StringFormat='共 {0} 项待收费'}" />
+
+                    <ItemsControl ItemsSource="{Binding PendingItems}" Margin="0,8,0,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="12,10" Margin="0,0,0,4" CornerRadius="6"
+                                        Background="{StaticResource Gray50Brush}"
+                                        Cursor="Hand">
+                                    <Border.InputBindings>
+                                        <MouseBinding Gesture="LeftClick"
+                                                      Command="{Binding DataContext.ToggleItemSelectionCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                      CommandParameter="{Binding}" />
+                                    </Border.InputBindings>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" Width="20" Height="20" CornerRadius="4"
+                                                BorderBrush="{StaticResource Gray300Brush}" BorderThickness="1"
+                                                Background="{StaticResource WhiteBrush}" Margin="0,0,12,0">
+                                            <TextBlock Text="✓" FontSize="12" Foreground="{StaticResource WhiteBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                        </Border>
+                                        <Border Grid.Column="1" Padding="6,3" CornerRadius="4"
+                                                Background="{StaticResource BlueSubtleBrush}" Margin="0,0,12,0"
+                                                VerticalAlignment="Center">
+                                            <TextBlock FontSize="12" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource BluePrimaryBrush}"
+                                                       Text="{Binding ItemType}" />
+                                        </Border>
+                                        <TextBlock Grid.Column="2" FontSize="14"
+                                                   Foreground="{StaticResource Gray900Brush}"
+                                                   Text="{Binding ItemName}"
+                                                   VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="3" FontSize="14" FontWeight="SemiBold"
+                                                   Foreground="{StaticResource BluePrimaryBrush}"
+                                                   Text="{Binding Amount, StringFormat='¥{0:N2}'}"
+                                                   VerticalAlignment="Center" Margin="0,0,16,0" />
+                                        <TextBlock Grid.Column="4" FontSize="12"
+                                                   Foreground="{StaticResource Gray400Brush}"
+                                                   Text="{Binding Status}"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Button Content="{Binding SelectedCount, StringFormat='确认缴费（{0} 项）'}"
+                            Width="200" Height="44" Margin="0,12,0,0"
+                            FontSize="16" FontWeight="Bold" Cursor="Hand"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            HorizontalAlignment="Left"
+                            Command="{Binding PayCommand}" />
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

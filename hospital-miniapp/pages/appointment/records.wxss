@@ -1,0 +1,160 @@
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* 选项卡 */
+.tabs {
+  display: flex;
+  background: #fff;
+  padding: 0 30rpx;
+  border-bottom: 2rpx solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #6b7280;
+  position: relative;
+  font-weight: 500;
+}
+
+.tab--active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20rpx;
+  right: 20rpx;
+  height: 4rpx;
+  background: var(--primary);
+  border-radius: 2rpx;
+}
+
+.tab-count {
+  background: #ef4444;
+  color: #fff;
+  font-size: 20rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 20rpx;
+  min-width: 30rpx;
+  text-align: center;
+}
+
+/* 预约卡片 */
+.list-scroll {
+  padding: 20rpx 30rpx;
+  max-height: calc(100vh - 100rpx);
+}
+
+.appt-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.appt-top {
+  margin-bottom: 16rpx;
+}
+
+.appt-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.appt-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.appt-dept {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.appt-doctor {
+  font-size: 26rpx;
+  color: #6b7280;
+}
+
+.appt-time {
+  font-size: 26rpx;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.appt-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.appt-number {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.appt-bottom {
+  border-top: 2rpx solid #f3f4f6;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+}
+
+.appt-created {
+  font-size: 24rpx;
+  color: #9ca3af;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.appt-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 16rpx 0;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  text-align: center;
+  background: none;
+  border: none;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.action-btn--cancel {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.action-btn--queue {
+  background: #ede6ff;
+  color: var(--primary);
+}
+
+.bottom-spacer {
+  height: 140rpx;
+}

@@ -1,0 +1,248 @@
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.dept-header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 30rpx;
+}
+
+.dept-header-name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* 日期选择 */
+.date-picker {
+  display: flex;
+  background: #fff;
+  padding: 20rpx 20rpx;
+  gap: 12rpx;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-bottom: 2rpx solid #e5e7eb;
+}
+
+.date-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  border-radius: 16rpx;
+  min-width: 100rpx;
+  position: relative;
+  background: #f9fafb;
+}
+
+.date-item--active {
+  background: #ede6ff;
+}
+
+.date-day {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-bottom: 4rpx;
+}
+
+.date-item--active .date-day {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.date-num {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.date-item--active .date-num {
+  color: var(--primary);
+}
+
+.date-badge {
+  font-size: 18rpx;
+  background: var(--primary);
+  color: #fff;
+  padding: 2rpx 12rpx;
+  border-radius: 12rpx;
+  margin-top: 4rpx;
+}
+
+/* 医生卡片 */
+.doctor-list {
+  padding: 20rpx;
+  max-height: calc(100vh - 200rpx);
+}
+
+.doctor-card {
+  background: #fff;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.doctor-main {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx;
+}
+
+.doctor-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  background: #ede6ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.doctor-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.doctor-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.doctor-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.doctor-title {
+  font-size: 24rpx;
+  color: var(--primary);
+  background: #ede6ff;
+  padding: 2rpx 14rpx;
+  border-radius: 8rpx;
+}
+
+.doctor-dept {
+  font-size: 24rpx;
+  color: #9ca3af;
+}
+
+.doctor-desc {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-top: 8rpx;
+  line-height: 1.5;
+}
+
+.expand-arrow {
+  font-size: 24rpx;
+  color: #9ca3af;
+  transition: transform 0.2s;
+  margin-left: 12rpx;
+}
+
+.expand-arrow--up {
+  transform: rotate(180deg);
+}
+
+/* 时段 */
+.slots-wrap {
+  border-top: 2rpx solid #f3f4f6;
+  padding: 20rpx 24rpx;
+}
+
+.slots-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.slots-date {
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.slots-count {
+  font-size: 24rpx;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.slots-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.slot-item {
+  width: calc(50% - 8rpx);
+}
+
+.slot-item-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+  padding: 20rpx 16rpx;
+  border: 2rpx solid #e5e7eb;
+  border-radius: 12rpx;
+  text-align: center;
+  background: #fff;
+}
+
+.slot-item-inner:active {
+  background: #ede6ff;
+  border-color: var(--primary);
+}
+
+.slot-time {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.slot-quota {
+  font-size: 22rpx;
+  color: var(--primary);
+}
+
+.slot-quota--few {
+  color: #ef4444;
+}
+
+.slot-full {
+  font-size: 22rpx;
+  color: #d1d5db;
+}
+
+.slot-item--full .slot-item-inner {
+  background: #f9fafb;
+  border-color: #f3f4f6;
+  opacity: 0.6;
+}
+
+/* 上/下午分组 */
+.slot-group {
+  margin-bottom: 20rpx;
+}
+
+.slot-group:last-child {
+  margin-bottom: 0;
+}
+
+.slot-group-label {
+  display: block;
+  font-size: 24rpx;
+  color: #9ca3af;
+  margin-bottom: 12rpx;
+  padding-left: 4rpx;
+}

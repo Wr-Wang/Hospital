@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/dept/list",
+    "pages/doctor/schedule",
+    "pages/appointment/confirm",
+    "pages/appointment/success",
+    "pages/appointment/records",
+    "pages/queue/status",
+    "pages/profile/profile",
+    "pages/profile/patients/index",
+    "pages/profile/patients/edit",
+    "pages/profile/settings",
+    "pages/profile/detail/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "华西医院",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#863bff",
+    "backgroundColor": "#f5f5f5"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

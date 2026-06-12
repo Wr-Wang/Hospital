@@ -1,0 +1,49 @@
+<view class="page">
+  <view class="success-card">
+    <view class="success-icon">✅</view>
+    <text class="success-title">预约成功</text>
+    <text class="success-subtitle">请于就诊当日按时到达医院</text>
+  </view>
+
+  <view class="card">
+    <text class="section-title">预约详情</text>
+    <view class="info-row">
+      <text class="info-label">就诊科室</text>
+      <text class="info-value">{{deptName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">就诊医生</text>
+      <text class="info-value">{{doctorName}} {{doctorTitle}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">就诊日期</text>
+      <text class="info-value">{{date}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">就诊时段</text>
+      <text class="info-value">{{startTime}}-{{endTime}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">就诊院区</text>
+      <text class="info-value">总院区</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">取号方式</text>
+      <text class="info-value">凭身份证到自助机取号</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">温馨提示</text>
+    <view class="tips-list">
+      <text class="tip-item">• 请提前15分钟到达医院候诊</text>
+      <text class="tip-item">• 如需取消，请前往"我的预约"操作</text>
+      <text class="tip-item">• 就诊时请携带身份证原件</text>
+    </view>
+  </view>
+
+  <view class="action-buttons">
+    <button class="btn-primary" bindtap="goToRecords">查看我的预约</button>
+    <button class="btn-secondary" bindtap="goToHome">返回首页</button>
+  </view>
+</view>

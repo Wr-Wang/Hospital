@@ -1,0 +1,124 @@
+<view class="page">
+  <!-- 顶部用户区域 -->
+  <view class="header-section">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="user-info" bindtap="goToProfile">
+        <view class="user-avatar">
+          <text class="avatar-text">{{userAvatar}}</text>
+        </view>
+        <view class="user-detail">
+          <text class="user-name">{{displayName}}</text>
+          <text class="user-tip">{{isLoggedIn ? '点击查看健康档案' : '点击登录体验更多功能'}}</text>
+        </view>
+      </view>
+      <view class="hospital-badge">
+        <text class="hospital-name">华西医院</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷功能入口 -->
+  <view class="quick-actions">
+    <view class="action-item" bindtap="goToDeptList">
+      <view class="action-icon action-icon--book">
+        <text>📅</text>
+      </view>
+      <text class="action-label">预约挂号</text>
+    </view>
+    <view class="action-item" bindtap="goToQueue">
+      <view class="action-icon action-icon--queue">
+        <text>🚶</text>
+      </view>
+      <text class="action-label">排队进度</text>
+    </view>
+    <view class="action-item" bindtap="goToRecords">
+      <view class="action-icon action-icon--records">
+        <text>📋</text>
+      </view>
+      <text class="action-label">我的预约</text>
+    </view>
+    <view class="action-item" bindtap="goToReports">
+      <view class="action-icon action-icon--report">
+        <text>📄</text>
+      </view>
+      <text class="action-label">报告查询</text>
+    </view>
+  </view>
+
+  <!-- 快捷入口标签（横向滚动）-->
+  <view class="services-scroll">
+    <view class="service-tag" wx:for="{{serviceTags}}" wx:key="index">
+      <text class="tag-emoji">{{item.icon}}</text>
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 预约提醒 -->
+  <view class="card" wx:if="{{upcomingAppointment}}" bindtap="goToRecords">
+    <view class="card-header">
+      <text class="card-title">📢 即将就诊</text>
+      <text class="card-more">查看全部 ›</text>
+    </view>
+    <view class="appt-reminder">
+      <view class="reminder-left">
+        <text class="reminder-dept">{{upcomingAppointment.deptName}}</text>
+        <text class="reminder-doctor">{{upcomingAppointment.doctorName}} | {{upcomingAppointment.doctorTitle}}</text>
+        <text class="reminder-time">{{upcomingAppointment.date}} {{upcomingAppointment.timeSlot}}</text>
+      </view>
+      <view class="reminder-right">
+        <text class="reminder-number">第{{upcomingAppointment.queueNumber}}号</text>
+        <text class="reminder-status tag tag--primary">待就诊</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 医院公告 -->
+  <view class="card">
+    <view class="card-header">
+      <text class="card-title">📢 医院公告</text>
+    </view>
+    <view class="notice-list">
+      <view class="notice-item" wx:for="{{notices}}" wx:key="index">
+        <text class="notice-dot">●</text>
+        <text class="notice-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 科室快捷入口 -->
+  <view class="card">
+    <view class="card-header">
+      <text class="card-title">🏥 热门科室</text>
+      <text class="card-more" bindtap="goToDeptList">全部科室 ›</text>
+    </view>
+    <view class="hot-depts">
+      <view
+        class="hot-dept-item"
+        wx:for="{{hotDepts}}"
+        wx:key="index"
+        data-id="{{item.id}}"
+        data-name="{{item.name}}"
+        bindtap="goToDeptDetail"
+      >
+        <text class="hot-dept-icon">{{item.icon}}</text>
+        <text class="hot-dept-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 医院信息 -->
+  <view class="card">
+    <view class="hospital-info">
+      <text class="info-label">🏥 华西医院</text>
+      <text class="info-addr">📍 总院：市中心大道100号</text>
+      <text class="info-addr">📍 东院：东城区健康路66号</text>
+      <text class="info-phone">📞 总机：0571-12345678</text>
+    </view>
+  </view>
+
+  <!-- 自定义 Tab Bar -->
+  <tab-bar current="0"></tab-bar>
+
+  <view class="bottom-spacer"></view>
+</view>

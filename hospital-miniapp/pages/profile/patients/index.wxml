@@ -1,0 +1,38 @@
+<view class="page">
+  <!-- 就诊人列表 -->
+  <view class="card" wx:for="{{patients}}" wx:key="id">
+    <view class="patient-header">
+      <view class="patient-name-row">
+        <text class="p-name">{{item.name}}</text>
+        <text class="p-gender">{{item.gender === 1 ? '男' : '女'}}</text>
+        <text class="p-age">{{item.age}}岁</text>
+        <text wx:if="{{item.isDefault}}" class="p-badge tag tag--primary">默认</text>
+      </view>
+      <view class="patient-actions">
+        <text class="p-action" data-id="{{item.id}}" bindtap="editPatient">编辑</text>
+        <text class="p-action p-action--del" data-id="{{item.id}}" bindtap="deletePatient">删除</text>
+      </view>
+    </view>
+    <view class="patient-detail">
+      <text class="p-detail-item">身份证：{{item.idCardDisplay}}</text>
+      <text class="p-detail-item">手机号：{{item.phoneDisplay}}</text>
+    </view>
+    <view class="patient-footer" wx:if="{{!item.isDefault}}">
+      <button class="set-default-btn" data-id="{{item.id}}" bindtap="setDefault">设为默认就诊人</button>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{patients.length === 0}}">
+    <text style="font-size: 80rpx; margin-bottom: 20rpx;">👥</text>
+    <text>暂无就诊人信息</text>
+    <text style="font-size: 24rpx; color: #9ca3af; margin-top: 12rpx;">添加就诊人后可为其预约挂号</text>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-bar">
+    <button class="btn-primary" bindtap="addPatient">+ 添加就诊人</button>
+  </view>
+
+  <view class="bottom-spacer"></view>
+</view>

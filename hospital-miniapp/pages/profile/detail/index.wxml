@@ -1,0 +1,31 @@
+<view class="page">
+  <!-- 用户头部 -->
+  <view class="user-hero">
+    <view class="user-avatar">{{userInitial}}</view>
+    <text class="user-name">{{patientInfo.name}}</text>
+    <text class="user-no">病历号 {{patientInfo.patientNo}}</text>
+  </view>
+
+  <!-- 个人信息 -->
+  <view class="info-section">
+    <text class="section-title">个人信息</text>
+    <view class="info-list">
+      <view class="info-item">
+        <text class="info-label">姓名</text>
+        <text class="info-value">{{patientInfo.name || '未设置'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">病历号</text>
+        <text class="info-value">{{patientInfo.patientNo}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">手机号</text>
+        <text class="info-value">{{patientInfo.phone || '未设置'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">就诊人</text>
+        <text class="info-value link" bindtap="goToPatients">{{patientCount}} 人 ›</text>
+      </view>
+    </view>
+  </view>
+</view>

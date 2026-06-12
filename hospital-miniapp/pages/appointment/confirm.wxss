@@ -1,0 +1,178 @@
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 140rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 20rpx 30rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1f2937;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.add-patient {
+  font-size: 26rpx;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* 信息行 */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 2rpx solid #f9fafb;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #6b7280;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #1f2937;
+  font-weight: 500;
+  text-align: right;
+  max-width: 60%;
+}
+
+/* 就诊人选择 */
+.patient-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 2rpx solid #f9fafb;
+}
+
+.patient-item:last-child {
+  border-bottom: none;
+}
+
+.patient-item--active {
+  background: #faf5ff;
+  margin: 0 -20rpx;
+  padding: 24rpx 20rpx;
+  border-radius: 12rpx;
+}
+
+.patient-radio {
+  margin-right: 20rpx;
+}
+
+.radio-circle {
+  width: 40rpx;
+  height: 40rpx;
+  border: 3rpx solid #d1d5db;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radio-circle--checked {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.radio-check {
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.patient-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.patient-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.patient-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.patient-gender {
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.patient-idcard, .patient-phone {
+  font-size: 24rpx;
+  color: #9ca3af;
+}
+
+.patient-badge {
+  font-size: 20rpx;
+  margin-left: 12rpx;
+}
+
+.patient-del {
+  font-size: 24rpx;
+  color: #ef4444;
+  padding: 8rpx 12rpx;
+  margin-left: 8rpx;
+  flex-shrink: 0;
+}
+
+.patient-del:active {
+  opacity: 0.6;
+}
+
+/* 温馨提示 */
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.tip-item {
+  font-size: 26rpx;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* 底部按钮 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 30rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.06);
+}
+
+.bottom-bar .btn-primary {
+  width: 100%;
+}

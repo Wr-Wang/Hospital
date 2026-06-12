@@ -1,0 +1,76 @@
+<view class="page">
+  <!-- 排队头部 -->
+  <view class="queue-header">
+    <view class="queue-header-bg"></view>
+    <view class="queue-header-content">
+      <text class="queue-doctor">{{queueInfo.department}} · {{queueInfo.doctor}}</text>
+      <text class="queue-date">{{queueInfo.date}}</text>
+    </view>
+  </view>
+
+  <!-- 排队号显示 -->
+  <view class="queue-numbers">
+    <view class="queue-number-card">
+      <text class="qnc-label">当前叫号</text>
+      <text class="qnc-number">{{queueInfo.currentNumber}}</text>
+    </view>
+    <view class="queue-divider">
+      <text class="queue-arrow">→</text>
+    </view>
+    <view class="queue-number-card queue-number-card--mine">
+      <text class="qnc-label">我的号码</text>
+      <text class="qnc-number">{{queueInfo.myNumber}}</text>
+    </view>
+  </view>
+
+  <!-- 等待信息 -->
+  <view class="queue-info">
+    <view class="qi-item">
+      <text class="qi-value">{{queueInfo.waitingCount}}</text>
+      <text class="qi-label">前面还有</text>
+    </view>
+    <view class="qi-item">
+      <text class="qi-value">{{queueInfo.estimatedWait}}</text>
+      <text class="qi-label">预计等待</text>
+    </view>
+    <view class="qi-item">
+      <text class="qi-value">{{queueInfo.statusText}}</text>
+      <text class="qi-label">当前状态</text>
+    </view>
+  </view>
+
+  <!-- 排队状态指引 -->
+  <view class="card">
+    <text class="section-title">排队指引</text>
+    <view class="guide-steps">
+      <view class="guide-step {{queueInfo.status === 'waiting' ? 'guide-step--active' : ''}}">
+        <view class="guide-dot">1</view>
+        <text class="guide-text">等待叫号</text>
+      </view>
+      <view class="guide-line {{queueInfo.status === 'consulting' ? 'guide-line--active' : ''}}"></view>
+      <view class="guide-step {{queueInfo.status === 'consulting' ? 'guide-step--active' : ''}}">
+        <view class="guide-dot">2</view>
+        <text class="guide-text">就诊中</text>
+      </view>
+      <view class="guide-line {{queueInfo.status === 'completed' ? 'guide-line--active' : ''}}"></view>
+      <view class="guide-step {{queueInfo.status === 'completed' ? 'guide-step--active' : ''}}">
+        <view class="guide-dot">3</view>
+        <text class="guide-text">就诊完成</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 温馨提示 -->
+  <view class="card">
+    <text class="section-title">温馨提示</text>
+    <view class="tips-list">
+      <text class="tip-item">• 请关注叫号屏幕，过号需重新排队</text>
+      <text class="tip-item">• 如长时间未叫号，请咨询导诊台</text>
+    </view>
+  </view>
+
+  <!-- 刷新按钮 -->
+  <view class="refresh-bar">
+    <button class="btn-primary" bindtap="refreshQueue">刷新排队状态</button>
+  </view>
+</view>

@@ -1,0 +1,204 @@
+<Window x:Class="Hospital.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="1024"
+        MinHeight="600"
+        Title="医院管理系统"
+        FontFamily="Microsoft YaHei, SimHei, sans-serif"
+        Background="{StaticResource Gray50Brush}">
+
+    <Window.Resources>
+        <Style x:Key="NavListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="Margin" Value="6,1" />
+            <Setter Property="Height" Value="38" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="itemBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}"
+                                Height="{TemplateBinding Height}"
+                                Margin="{TemplateBinding Margin}"
+                                BorderThickness="0"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              SnapsToDevicePixels="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="itemBorder" Property="Background" Value="{StaticResource BluePrimaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="itemBorder" Property="Background" Value="{StaticResource BluePrimaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ==================== Sidebar ==================== -->
+        <Border Grid.Column="0" Background="{StaticResource BlueDeepBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- User profile section -->
+                <Border Grid.Row="0"
+                        Padding="16,16,16,14"
+                        BorderBrush="{StaticResource BluePrimaryBrush}"
+                        BorderThickness="0,0,0,1">
+                    <StackPanel>
+                        <Border Width="44"
+                                Height="44"
+                                Background="{StaticResource BlueLightBrush}"
+                                CornerRadius="22"
+                                HorizontalAlignment="Center">
+                            <TextBlock FontSize="18"
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource WhiteBrush}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding AppContext.CurrentUserDisplayName, StringFormat={}{0}}" />
+                        </Border>
+                        <TextBlock Margin="0,8,0,0"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource WhiteBrush}"
+                                   Text="{Binding AppContext.CurrentUserDisplayName}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Margin="0,2,0,0"
+                                   FontSize="11"
+                                   Foreground="{StaticResource BlueAccentBrush}"
+                                   Text="{Binding AppContext.CampusName}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Navigation items (ListBox with built-in scrolling) -->
+                <ListBox Grid.Row="1"
+                         ItemsSource="{Binding MenuItems}"
+                         SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Margin="0,8,0,0"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         ItemContainerStyle="{StaticResource NavListBoxItemStyle}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding Icon}"
+                                           FontSize="16"
+                                           VerticalAlignment="Center"
+                                           DockPanel.Dock="Left" />
+                                <TextBlock Text="{Binding Title}"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"
+                                           Margin="10,0,0,0"
+                                           DockPanel.Dock="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="{StaticResource NavTextBrush}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource NavTextSelectedBrush}" />
+                                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!-- Logout button -->
+                <Border Grid.Row="2"
+                        Padding="12,8"
+                        BorderBrush="{StaticResource BluePrimaryBrush}"
+                        BorderThickness="0,1,0,0">
+                    <Button HorizontalContentAlignment="Left"
+                            Padding="16,8"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="{StaticResource BlueTintBrush}"
+                            FontSize="13"
+                            Cursor="Hand"
+                            Command="{Binding LogoutCommand}">
+                        <DockPanel>
+                            <TextBlock Text="⏻"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left" />
+                            <TextBlock Text="退出系统"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left" />
+                        </DockPanel>
+                    </Button>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ==================== Main content area ==================== -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Top bar -->
+            <Border Grid.Row="0"
+                    Padding="20,10,20,10"
+                    Background="{StaticResource WhiteBrush}"
+                    BorderBrush="{StaticResource Gray200Brush}"
+                    BorderThickness="0,0,0,1">
+                <DockPanel LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Left"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Foreground="{StaticResource Gray500Brush}">
+                        <Run Text="{Binding AppContext.CampusName}" />
+                        <Run Text="—" />
+                        <Run Text="医院管理系统" />
+                    </TextBlock>
+                    <StackPanel DockPanel.Dock="Right"
+                                Orientation="Horizontal">
+                        <Border Background="{StaticResource BlueSubtleBrush}"
+                                Padding="8,4,10,4"
+                                CornerRadius="4"
+                                Margin="0,0,12,0">
+                            <TextBlock Text="{Binding AppContext.CurrentUserDisplayName}"
+                                       FontSize="13"
+                                       Foreground="{StaticResource BluePrimaryBrush}"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- Page content -->
+            <ContentControl x:Name="ShellContentHost"
+                            Grid.Row="1" />
+        </Grid>
+    </Grid>
+</Window>

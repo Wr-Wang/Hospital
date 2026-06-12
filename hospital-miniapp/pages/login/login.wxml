@@ -1,0 +1,35 @@
+<view class="login-page">
+  <view class="login-header">
+    <view class="login-logo">
+      <text class="logo-icon">🏥</text>
+    </view>
+    <text class="login-title">华西医院</text>
+    <text class="login-subtitle">预约挂号服务平台</text>
+  </view>
+
+  <view class="login-card">
+    <text class="login-card-title">微信一键登录</text>
+    <text class="login-desc">授权微信信息即可快速登录</text>
+
+    <button class="wechat-login-btn" loading="{{loading}}" bindtap="handleWeChatLogin">
+      <text wx:if="{{!loading}}">微信一键登录</text>
+    </button>
+
+    <text wx:if="{{errorMsg}}" class="error-tip">{{errorMsg}}</text>
+  </view>
+
+  <!-- 新患者姓名输入 -->
+  <view wx:if="{{showNameInput}}" class="patient-picker-overlay">
+    <view class="patient-picker">
+      <text class="picker-title">完善信息</text>
+      <text class="picker-desc">未匹配到您的微信账号，请填写姓名</text>
+      <input class="name-input" placeholder="请输入您的姓名" value="{{newName}}" bindinput="onNameInput" />
+      <input class="name-input" placeholder="请输入手机号" type="number" maxlength="11" value="{{newPhone}}" bindinput="onPhoneInput" />
+      <button class="confirm-btn" bindtap="onConfirmName">确认</button>
+    </view>
+  </view>
+
+  <view class="login-footer">
+    <text class="login-footer-link" bindtap="onSkipLogin">暂不登录，先浏览</text>
+  </view>
+</view>

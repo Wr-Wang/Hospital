@@ -1,0 +1,112 @@
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 160rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 20rpx 30rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.patient-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.patient-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  flex-wrap: wrap;
+}
+
+.p-name {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.p-gender {
+  font-size: 26rpx;
+  color: #6b7280;
+}
+
+.p-age {
+  font-size: 26rpx;
+  color: #6b7280;
+}
+
+.p-badge {
+  font-size: 20rpx;
+}
+
+.patient-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.p-action {
+  font-size: 26rpx;
+  color: var(--primary);
+  padding: 4rpx 12rpx;
+}
+
+.p-action--del {
+  color: #ef4444;
+}
+
+.patient-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding: 16rpx 0;
+  border-top: 2rpx solid #f9fafb;
+}
+
+.p-detail-item {
+  font-size: 26rpx;
+  color: #6b7280;
+}
+
+.patient-footer {
+  border-top: 2rpx solid #f9fafb;
+  padding-top: 16rpx;
+  text-align: center;
+}
+
+.set-default-btn {
+  background: none;
+  border: none;
+  font-size: 26rpx;
+  color: var(--primary);
+  padding: 8rpx 0;
+}
+
+.set-default-btn::after {
+  border: none;
+}
+
+.add-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 30rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.06);
+  z-index: 100;
+}
+
+.add-bar .btn-primary {
+  width: 100%;
+}
+
+.bottom-spacer {
+  height: 40rpx;
+}

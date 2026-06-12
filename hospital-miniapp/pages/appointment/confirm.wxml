@@ -1,0 +1,84 @@
+<view class="page">
+  <!-- 预约信息卡片 -->
+  <view class="card">
+    <text class="section-title">预约信息</text>
+    <view class="info-row">
+      <text class="info-label">就诊科室</text>
+      <text class="info-value">{{deptName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">就诊医生</text>
+      <text class="info-value">{{doctorName}} {{doctorTitle}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">就诊日期</text>
+      <text class="info-value">{{date}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">就诊时段</text>
+      <text class="info-value">{{startTime}}-{{endTime}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">就诊院区</text>
+      <text class="info-value">总院区</text>
+    </view>
+  </view>
+
+  <!-- 选择就诊人 -->
+  <view class="card">
+    <view class="section-header">
+      <text class="section-title">选择就诊人</text>
+      <text class="add-patient" bindtap="addPatient">+ 添加</text>
+    </view>
+
+    <view
+      class="patient-item {{selectedPatientId === item.id ? 'patient-item--active' : ''}}"
+      wx:for="{{patients}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="selectPatient"
+    >
+      <view class="patient-radio">
+        <view class="radio-circle {{selectedPatientId === item.id ? 'radio-circle--checked' : ''}}">
+          <text wx:if="{{selectedPatientId === item.id}}" class="radio-check">✓</text>
+        </view>
+      </view>
+      <view class="patient-info">
+        <view class="patient-name-row">
+          <text class="patient-name">{{item.name}}</text>
+          <text class="patient-gender">{{item.gender === 1 ? '男' : '女'}}</text>
+        </view>
+        <text class="patient-idcard">身份证：{{item.idCardDisplay}}</text>
+        <text class="patient-phone">手机号：{{item.phoneDisplay}}</text>
+      </view>
+      <text wx:if="{{item.isDefault}}" class="patient-badge tag tag--primary">默认</text>
+      <text class="patient-del" data-id="{{item.id}}" catchtap="deletePatient">删除</text>
+    </view>
+
+    <view wx:if="{{patients.length === 0}}" class="empty-state" style="padding: 40rpx;">
+      <text>请先添加就诊人</text>
+    </view>
+  </view>
+
+  <!-- 温馨提示 -->
+  <view class="card">
+    <text class="section-title">温馨提示</text>
+    <view class="tips-list">
+      <text class="tip-item">• 请于就诊当日按时到达医院候诊</text>
+      <text class="tip-item">• 如需取消预约，请至少提前2小时</text>
+      <text class="tip-item">• 就诊时请携带身份证和医保卡</text>
+    </view>
+  </view>
+
+  <!-- 确认按钮 -->
+  <view class="bottom-bar">
+    <button
+      class="btn-primary {{!selectedPatientId ? 'btn-primary--disabled' : ''}}"
+      disabled="{{!selectedPatientId}}"
+      loading="{{submitting}}"
+      bindtap="submitAppointment"
+    >
+      确认预约
+    </button>
+  </view>
+</view>

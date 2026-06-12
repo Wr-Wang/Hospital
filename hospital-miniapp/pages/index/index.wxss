@@ -1,0 +1,296 @@
+.page {
+  padding-bottom: 120rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 顶部区域 */
+.header-section {
+  position: relative;
+  padding: 0 30rpx 50rpx;
+  overflow: hidden;
+}
+
+.header-bg {
+  position: absolute;
+  top: -200rpx;
+  left: -100rpx;
+  right: -100rpx;
+  height: 500rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 0 0 50% 50%;
+}
+
+.header-content {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 60rpx;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.user-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4rpx solid rgba(255, 255, 255, 0.4);
+}
+
+.avatar-text {
+  font-size: 40rpx;
+  color: #fff;
+  font-weight: 600;
+}
+
+.user-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #fff;
+}
+
+.user-tip {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4rpx;
+}
+
+.hospital-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.hospital-name {
+  font-size: 24rpx;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* 快捷功能入口 */
+.quick-actions {
+  display: flex;
+  margin: -30rpx 30rpx 20rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.action-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+}
+
+.action-icon--book { background: #ede6ff; }
+.action-icon--queue { background: #dbeafe; }
+.action-icon--records { background: #dcfce7; }
+.action-icon--report { background: #fef3c7; }
+
+.action-label {
+  font-size: 26rpx;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* 服务标签滚动 */
+.services-scroll {
+  display: flex;
+  gap: 16rpx;
+  padding: 0 30rpx;
+  margin-bottom: 20rpx;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.service-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  background: #fff;
+  padding: 12rpx 24rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: #6b7280;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.tag-emoji {
+  font-size: 28rpx;
+}
+
+/* 卡片通用 */
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 0 30rpx 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.card-more {
+  font-size: 26rpx;
+  color: var(--primary);
+}
+
+/* 预约提醒 */
+.appt-reminder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ede6ff;
+  padding: 24rpx;
+  border-radius: 16rpx;
+}
+
+.reminder-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.reminder-dept {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.reminder-doctor {
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.reminder-time {
+  font-size: 24rpx;
+  color: var(--primary);
+}
+
+.reminder-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8rpx;
+}
+
+.reminder-number {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.reminder-status {
+  font-size: 22rpx;
+}
+
+/* 公告列表 */
+.notice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.notice-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.notice-dot {
+  color: var(--primary);
+  font-size: 16rpx;
+  flex-shrink: 0;
+}
+
+.notice-text {
+  font-size: 26rpx;
+  color: #4b5563;
+}
+
+/* 热门科室 */
+.hot-depts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24rpx;
+}
+
+.hot-dept-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+  padding: 16rpx 0;
+}
+
+.hot-dept-icon {
+  font-size: 48rpx;
+}
+
+.hot-dept-name {
+  font-size: 24rpx;
+  color: #374151;
+}
+
+/* 医院信息 */
+.hospital-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.info-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.info-addr, .info-phone {
+  font-size: 26rpx;
+  color: #6b7280;
+}
+
+/* 底部 spacer 用于 tab bar */
+.bottom-spacer {
+  height: 140rpx;
+}

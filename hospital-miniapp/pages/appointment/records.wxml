@@ -1,0 +1,59 @@
+<view class="page">
+  <!-- 状态选项卡 -->
+  <view class="tabs">
+    <view
+      class="tab {{currentTab === index ? 'tab--active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="index"
+      data-index="{{index}}"
+      bindtap="switchTab"
+    >
+      <text>{{item.name}}</text>
+      <text class="tab-count" wx:if="{{item.count > 0}}">{{item.count}}</text>
+    </view>
+  </view>
+
+  <!-- 预约列表 -->
+  <scroll-view class="list-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view wx:if="{{list.length === 0}}" class="empty-state">
+      <text style="font-size: 80rpx; margin-bottom: 20rpx;">
+        {{currentTab === 0 ? '📅' : currentTab === 1 ? '✅' : '📪'}}
+      </text>
+      <text>
+        {{currentTab === 0 ? '暂无待就诊预约' : currentTab === 1 ? '暂无就诊记录' : '暂无已取消记录'}}
+      </text>
+    </view>
+
+    <view
+      class="appt-card"
+      wx:for="{{list}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+    >
+      <view class="appt-top">
+        <text class="appt-status tag {{item.statusObj.type}}">{{item.statusText}}</text>
+      </view>
+      <view class="appt-body">
+        <view class="appt-left">
+          <text class="appt-dept">{{item.deptName}}</text>
+          <text class="appt-doctor">{{item.doctorName}} | {{item.doctorTitle}}</text>
+          <text class="appt-time">{{item.date}} {{item.timeSlot}}</text>
+        </view>
+        <view class="appt-right">
+          <text class="appt-number">第{{item.queueNumber}}号</text>
+        </view>
+      </view>
+      <view class="appt-bottom" wx:if="{{item.status === '已挂号'}}">
+        <text class="appt-created">预约时间：{{item.createTime}}</text>
+        <view class="appt-actions">
+          <button class="action-btn action-btn--cancel" bindtap="cancelAppointment" data-id="{{item.id}}">取消预约</button>
+          <button class="action-btn action-btn--queue" bindtap="viewQueue" data-id="{{item.id}}">排队进度</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- Tab Bar -->
+  <tab-bar current="1"></tab-bar>
+  <view class="bottom-spacer"></view>
+</view>

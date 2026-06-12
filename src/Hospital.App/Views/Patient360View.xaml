@@ -1,0 +1,155 @@
+<UserControl x:Class="Hospital.App.Views.Patient360View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32,28,32,32">
+            <!-- Header -->
+            <Border Padding="32,28" CornerRadius="12">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#14B8A6" Offset="0.0" />
+                        <GradientStop Color="#0D9488" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel>
+                    <TextBlock FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource WhiteBrush}"
+                               Text="患者 360 视图" />
+                    <TextBlock Margin="0,8,0,0" FontSize="14"
+                               Foreground="{StaticResource BlueAccentBrush}"
+                               Text="查看患者完整信息、就诊历史、处方记录与检查报告" />
+                </StackPanel>
+            </Border>
+
+            <!-- Error message -->
+            <Border Style="{StaticResource ErrorBannerStyle}"
+                    Margin="0,12,0,0"
+                    Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}">
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="{StaticResource Red700Brush}" FontSize="13" />
+            </Border>
+
+            <!-- Loading -->
+            <StackPanel Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"
+                        HorizontalAlignment="Center" Margin="0,48,0,0">
+                <TextBlock Text="加载中…" FontSize="16"
+                           Foreground="{StaticResource Gray500Brush}" />
+            </StackPanel>
+
+            <!-- Content (visible only when hasPatient) -->
+            <StackPanel Visibility="{Binding HasPatient, Converter={StaticResource BoolToVisibilityConverter}}">
+                <!-- Patient Banner -->
+                <Border Background="{StaticResource BlueSubtleBrush}"
+                        CornerRadius="8" Padding="16,12" Margin="0,16,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Width="48" Height="48"
+                                CornerRadius="24"
+                                Background="{StaticResource BluePrimaryBrush}"
+                                VerticalAlignment="Center">
+                            <TextBlock Text="👤"
+                                       FontSize="20"
+                                       Foreground="{StaticResource WhiteBrush}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding PatientName}"
+                                       FontSize="16" FontWeight="SemiBold"
+                                       Foreground="{StaticResource Gray900Brush}" />
+                            <TextBlock Text="{Binding PatientInfo}"
+                                       FontSize="13" Foreground="{StaticResource Gray500Brush}"
+                                       Margin="0,4,0,0" />
+                            <TextBlock Text="{Binding PatientIdLabel}"
+                                       FontSize="12" Foreground="{StaticResource Gray400Brush}"
+                                       Margin="0,2,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Tab selector -->
+                <Border Style="{StaticResource CardStyle}" Padding="0">
+                    <TabControl SelectedIndex="{Binding SelectedTab}"
+                                BorderThickness="0"
+                                Background="Transparent">
+                        <TabItem Header="基本信息">
+                            <StackPanel Margin="0,16,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                               Style="{StaticResource FormLabelStyle}" Text="姓名" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1"
+                                               Text="{Binding Name}" FontSize="14"
+                                               Foreground="{StaticResource Gray900Brush}" Margin="0,0,0,12" />
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0"
+                                               Style="{StaticResource FormLabelStyle}" Text="性别" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1"
+                                               Text="{Binding Gender}" FontSize="14"
+                                               Foreground="{StaticResource Gray900Brush}" Margin="0,0,0,12" />
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0"
+                                               Style="{StaticResource FormLabelStyle}" Text="出生日期" />
+                                    <TextBlock Grid.Row="2" Grid.Column="1"
+                                               Text="{Binding BirthDate}" FontSize="14"
+                                               Foreground="{StaticResource Gray900Brush}" Margin="0,0,0,12" />
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0"
+                                               Style="{StaticResource FormLabelStyle}" Text="手机号" />
+                                    <TextBlock Grid.Row="3" Grid.Column="1"
+                                               Text="{Binding Phone}" FontSize="14"
+                                               Foreground="{StaticResource Gray900Brush}" Margin="0,0,0,12" />
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0"
+                                               Style="{StaticResource FormLabelStyle}" Text="身份证号" />
+                                    <TextBlock Grid.Row="4" Grid.Column="1"
+                                               Text="{Binding IdCard}" FontSize="14"
+                                               Foreground="{StaticResource Gray900Brush}" />
+                                </Grid>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="就诊历史">
+                            <StackPanel Margin="0,16,0,0">
+                                <TextBlock Text="{Binding VisitHistoryText}"
+                                           FontSize="14"
+                                           Foreground="{StaticResource Gray500Brush}" />
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="处方记录">
+                            <StackPanel Margin="0,16,0,0">
+                                <TextBlock Text="暂无处方记录"
+                                           FontSize="14"
+                                           Foreground="{StaticResource Gray500Brush}" />
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="检查报告">
+                            <StackPanel Margin="0,16,0,0">
+                                <TextBlock Text="暂无检查报告"
+                                           FontSize="14"
+                                           Foreground="{StaticResource Gray500Brush}" />
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

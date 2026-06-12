@@ -1,0 +1,110 @@
+<view class="page">
+  <!-- 用户信息头部 -->
+  <view class="profile-header">
+    <view class="profile-header-bg"></view>
+    <view class="profile-content" bindtap="{{isLoggedIn ? 'goToUserDetail' : 'goToLogin'}}">
+      <view class="profile-avatar">
+        <text class="avatar-emoji">{{isLoggedIn ? userInitial : '👤'}}</text>
+      </view>
+      <view class="profile-info-wrap">
+        <text class="profile-name">{{isLoggedIn ? displayName : '未登录'}}</text>
+        <text class="profile-arrow" wx:if="{{isLoggedIn}}">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷统计 -->
+  <view class="quick-stats">
+    <view class="qs-item" bindtap="goToRecords">
+      <view class="qs-icon qs-icon--pending">📋</view>
+      <text class="qs-num">{{pendingCount}}</text>
+      <text class="qs-label">待就诊</text>
+    </view>
+    <view class="qs-divider"></view>
+    <view class="qs-item" bindtap="goToRecords">
+      <view class="qs-icon qs-icon--done">✅</view>
+      <text class="qs-num">{{visitedCount}}</text>
+      <text class="qs-label">已就诊</text>
+    </view>
+    <view class="qs-divider"></view>
+    <view class="qs-item" bindtap="goToPatients">
+      <view class="qs-icon qs-icon--users">👥</view>
+      <text class="qs-num">{{patientCount}}</text>
+      <text class="qs-label">就诊人</text>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="menu-section-header">常用服务</view>
+    <view class="menu-item" bindtap="goToPatients">
+      <view class="menu-icon-wrap menu-icon--p1">
+        <text class="menu-icon-text">👥</text>
+      </view>
+      <view class="menu-info">
+        <text class="menu-label">就诊人管理</text>
+        <text class="menu-desc">添加和管理就诊人信息</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToRecords">
+      <view class="menu-icon-wrap menu-icon--p2">
+        <text class="menu-icon-text">📋</text>
+      </view>
+      <view class="menu-info">
+        <text class="menu-label">我的预约</text>
+        <text class="menu-desc">查看和管理预约记录</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToPayments">
+      <view class="menu-icon-wrap menu-icon--p3">
+        <text class="menu-icon-text">💰</text>
+      </view>
+      <view class="menu-info">
+        <text class="menu-label">缴费记录</text>
+        <text class="menu-desc">查看历史缴费明细</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToReports">
+      <view class="menu-icon-wrap menu-icon--p4">
+        <text class="menu-icon-text">📄</text>
+      </view>
+      <view class="menu-info">
+        <text class="menu-label">报告查询</text>
+        <text class="menu-desc">查看检验检查报告</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 系统菜单 -->
+  <view class="menu-section">
+    <view class="menu-section-header">系统设置</view>
+    <view class="menu-item" bindtap="goToSettings">
+      <view class="menu-icon-wrap menu-icon--p5">
+        <text class="menu-icon-text">⚙️</text>
+      </view>
+      <view class="menu-info">
+        <text class="menu-label">设置</text>
+        <text class="menu-desc">账号安全与缓存管理</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" wx:if="{{isLoggedIn}}" bindtap="handleLogout">
+      <view class="menu-icon-wrap menu-icon--p6">
+        <text class="menu-icon-text">🚪</text>
+      </view>
+      <view class="menu-info">
+        <text class="menu-label menu-label--danger">退出登录</text>
+        <text class="menu-desc">退出当前账号</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- Tab Bar -->
+  <tab-bar current="2"></tab-bar>
+  <view class="bottom-spacer"></view>
+</view>

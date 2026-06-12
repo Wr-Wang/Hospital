@@ -1,0 +1,125 @@
+<view class="page">
+  <!-- 科室信息头部 -->
+  <view class="dept-header">
+    <text class="dept-header-name">{{deptName}}</text>
+  </view>
+
+  <!-- 日期选择 -->
+  <view class="date-picker">
+    <view
+      class="date-item {{item.isToday ? 'date-item--today' : ''}} {{selectedDate === item.date ? 'date-item--active' : ''}}"
+      wx:for="{{weekDays}}"
+      wx:key="date"
+      data-date="{{item.date}}"
+      bindtap="selectDate"
+    >
+      <text class="date-day">{{item.dayOfWeek}}</text>
+      <text class="date-num">{{item.dayOfMonth}}</text>
+      <text wx:if="{{item.isToday}}" class="date-badge">今天</text>
+    </view>
+  </view>
+
+  <!-- 医生列表 -->
+  <scroll-view class="doctor-list" scroll-y enhanced show-scrollbar="{{false}}">
+    <view wx:if="{{loading}}" class="empty-state">
+      <text>加载中...</text>
+    </view>
+
+    <view wx:elif="{{doctors.length === 0}}" class="empty-state">
+      <text style="font-size: 80rpx; margin-bottom: 20rpx;">📅</text>
+      <text>该日期暂无排班</text>
+    </view>
+
+    <view
+      class="doctor-card"
+      wx:for="{{doctors}}"
+      wx:key="id"
+      wx:for-item="doctor"
+    >
+      <view class="doctor-main" bindtap="toggleExpand" data-id="{{doctor.id}}">
+        <view class="doctor-avatar">{{doctor.avatar}}</view>
+        <view class="doctor-info">
+          <view class="doctor-name-row">
+            <text class="doctor-name">{{doctor.name}}</text>
+            <text class="doctor-title">{{doctor.title}}</text>
+          </view>
+          <text class="doctor-dept">{{doctor.deptName}}</text>
+          <text class="doctor-desc" wx:if="{{doctor.expanded}}">{{doctor.desc}}</text>
+        </view>
+        <text class="expand-arrow {{doctor.expanded ? 'expand-arrow--up' : ''}}">▼</text>
+      </view>
+
+      <!-- 时段列表 -->
+      <view class="slots-wrap" wx:if="{{doctor.expanded && doctor.flatSlots.length > 0}}">
+        <view class="slots-title">
+          <text class="slots-date">{{selectedDateInfo}}</text>
+          <text class="slots-count">{{doctor.availableSlots}} 个可约号源</text>
+        </view>
+
+        <!-- 上午时段 -->
+        <view wx:if="{{doctor.morningSlots.length > 0}}" class="slot-group">
+          <text class="slot-group-label">上午</text>
+          <view class="slots-grid">
+            <view
+              class="slot-item {{slot.availableQuota === 0 ? 'slot-item--full' : ''}}"
+              wx:for="{{doctor.morningSlots}}"
+              wx:for-item="slot"
+              wx:key="id"
+            >
+              <view
+                class="slot-item-inner"
+                data-doctor="{{doctor.id}}"
+                data-slot="{{slot.id}}"
+                data-schedule-id="{{slot.scheduleId}}"
+                data-slot-name="{{slot.slotName}}"
+                data-start-time="{{slot.startTime}}"
+                data-end-time="{{slot.endTime}}"
+                bindtap="bookSlot"
+              >
+                <text class="slot-time">{{slot.startTime}}-{{slot.endTime}}</text>
+                <text class="slot-quota {{slot.availableQuota <= 3 ? 'slot-quota--few' : ''}}" wx:if="{{slot.availableQuota > 0}}">
+                  余{{slot.availableQuota}}号
+                </text>
+                <text class="slot-full" wx:else>已满</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 下午时段 -->
+        <view wx:if="{{doctor.afternoonSlots.length > 0}}" class="slot-group">
+          <text class="slot-group-label">下午</text>
+          <view class="slots-grid">
+            <view
+              class="slot-item {{slot.availableQuota === 0 ? 'slot-item--full' : ''}}"
+              wx:for="{{doctor.afternoonSlots}}"
+              wx:for-item="slot"
+              wx:key="id"
+            >
+              <view
+                class="slot-item-inner"
+                data-doctor="{{doctor.id}}"
+                data-slot="{{slot.id}}"
+                data-schedule-id="{{slot.scheduleId}}"
+                data-slot-name="{{slot.slotName}}"
+                data-start-time="{{slot.startTime}}"
+                data-end-time="{{slot.endTime}}"
+                bindtap="bookSlot"
+              >
+                <text class="slot-time">{{slot.startTime}}-{{slot.endTime}}</text>
+                <text class="slot-quota {{slot.availableQuota <= 3 ? 'slot-quota--few' : ''}}" wx:if="{{slot.availableQuota > 0}}">
+                  余{{slot.availableQuota}}号
+                </text>
+                <text class="slot-full" wx:else>已满</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="empty-state" wx:elif="{{doctor.expanded}}" style="padding: 40rpx;">
+        <text>该医生今日无排班</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
