@@ -1,5 +1,48 @@
 # 部署命令速查
 
+## 本地 IIS 终端发布（推荐，本机）
+
+### 1. API 发布（IIS 站点 HospitalApi → 8080）
+
+```bash
+# 发布 Release（产物默认输出到 src\Hospital.Api\bin\Release\net10.0\publish，
+# 即 IIS HospitalApi 站点物理路径，无需拷贝）
+dotnet publish src/Hospital.Api -c Release
+
+# 重启 IIS 站点使新版本生效（管理员权限）
+"$WINDIR/system32/inetsrv/appcmd" stop site "HospitalApi"
+"$WINDIR/system32/inetsrv/appcmd" start site "HospitalApi"
+```
+
+### 2. Web 前端发布（IIS 站点 HospitalWeb → 8081）
+
+```bash
+cd hospital-web
+npm install        # 首次或依赖变更后执行；已有 node_modules 可跳过
+npm run build      # 产物输出到 hospital-web\dist，即 HospitalWeb 站点物理路径
+cd ..
+```
+
+静态文件无需重启站点，刷新浏览器即可。
+
+### 3. 验证
+
+```bash
+# API：返回 401（需 JWT）说明正常；发布版 Swagger 始终启用（Program.cs 未按环境关闭）
+curl -s -o /dev/null -w "%{http_code}" http://192.168.31.19:8080/api/campus
+curl -s -o /dev/null -w "%{http_code}" http://192.168.31.19:8080/swagger/index.html
+
+# Web：返回 200 HTML
+curl -s -o /dev/null -w "%{http_code}" http://192.168.31.19:8081/
+```
+
+> ⚠️ 注意：Web 前端 `API_BASE_URL` 已改为相对路径 `/api`，开发时统一走 Vite 代理，
+> 后端地址只在 `hospital-web/vite.config.ts` 的 `server.proxy` 中配置一处。
+> 而 WPF 客户端（`src/Hospital.App/ServiceCollectionExtensions.cs`）和小程序
+> （`hospital-miniapp/utils/constants.js`）仍硬编码 IP，机器 IP 变更时需同步修改。
+
+---
+
 ## Docker Compose
 
 ```bash

@@ -1,7 +1,7 @@
 // API 基础配置
 const CONFIG = {
   // 后端 API 基础地址
-  API_BASE: 'http://192.168.31.20:8080',
+  API_BASE: 'http://192.168.31.19:8080',
 
   // 小程序 AppID
   APP_ID: 'wx71380c520e3e0777',

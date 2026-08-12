@@ -3,6 +3,7 @@ using System.Windows;
 using Hospital.App.Services;
 using Hospital.App.ViewModels;
 using Hospital.App.Views;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital.App;
@@ -21,8 +22,13 @@ public partial class App : System.Windows.Application
 
         try
         {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+                .Build();
+
             _serviceProvider = new ServiceCollection()
-                .AddHospitalAppServices()
+                .AddHospitalAppServices(configuration)
                 .BuildServiceProvider();
 
             if (!StartLoginFlow())

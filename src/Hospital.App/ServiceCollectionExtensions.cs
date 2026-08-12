@@ -5,20 +5,25 @@ using Hospital.App.Views;
 using Hospital.App.Views.Placeholder;
 using Hospital.Application.Services;
 using Hospital.Infrastructure.ExternalServices;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hospital.App;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddHospitalAppServices(this IServiceCollection services)
+    public static IServiceCollection AddHospitalAppServices(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddSingleton<IAppContext, ApplicationContext>();
         services.AddSingleton<INavigationService, NavigationService>();
 
+        var apiBaseUrl = configuration["Api:BaseUrl"] ?? "http://192.168.31.19:8080/api/";
+
         services.AddHttpClient<IApiClient, ApiClient>(client =>
         {
-            client.BaseAddress = new Uri("http://192.168.31.20:8080/api/");
+            client.BaseAddress = new Uri(apiBaseUrl);
         })
         .AddHttpMessageHandler<AuthDelegatingHandler>();
 
