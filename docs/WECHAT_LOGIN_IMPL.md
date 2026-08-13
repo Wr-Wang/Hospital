@@ -2,6 +2,7 @@
 
 > 基于 [WECHAT_LOGIN_REQUIREMENTS.md](WECHAT_LOGIN_REQUIREMENTS.md) 的实现方案。
 > 分层架构：Domain → Application → Infrastructure → Api + 小程序前端。
+> 想看端到端登录流程与时序图 → [WECHAT_LOGIN_FLOW.md](WECHAT_LOGIN_FLOW.md)。
 
 ---
 
@@ -22,7 +23,7 @@
 | 9 | Infrastructure | `src/Hospital.Infrastructure/ExternalServices/PatientJwtService.cs` | 患者 JWT 生成 |
 | 10 | Infrastructure | `src/Hospital.Infrastructure/ExternalServices/PatientNoService.cs` | PatientNo 编号生成 |
 | 11 | Api | `src/Hospital.Api/Controllers/MiniProgramAuthController.cs` | 微信登录 API |
-| 12 | Database | `database/010_wechat_login.sql` | 数据库迁移脚本 |
+| 12 | Database | `database/01_create_schema.sql` | 数据库脚本（建表含 `WeChatAccounts` / `PatientRefreshTokens`） |
 | 13 | Miniapp | `hospital-miniapp/services/wechat-auth-service.js` | 微信登录服务 |
 
 ### 修改 6 个文件
@@ -508,7 +509,7 @@ builder.Services.AddAuthentication()
 ### 5.1 迁移脚本
 
 ```sql
--- database/010_wechat_login.sql
+-- 以下两表已并入 database/01_create_schema.sql（原 database/010_wechat_login.sql）
 
 -- 微信账号关联表
 CREATE TABLE [sec].[WeChatAccounts] (

@@ -80,25 +80,19 @@ SQL Server 容器启动后，按数字顺序执行数据库脚本：
 # 查看 SQL Server 是否就绪
 docker logs hospital-sqlserver
 
-# 执行建库脚本（000 ~ 015）
-for f in database/0*.sql; do
-  echo "执行 $f ..."
-  docker exec -i hospital-sqlserver /opt/mssql-tools18/bin/sqlcmd \
-    -S localhost -U sa -P "Hospital@2024" -C -I -f i:65001 \
-    -i /dev/stdin < "$f"
-  if [ $? -ne 0 ]; then
-    echo "失败: $f"
-    exit 1
-  fi
-done
+# 建库 + 建表（01_create_schema.sql）
+docker exec -i hospital-sqlserver /opt/mssql-tools18/bin/sqlcmd \
+  -S localhost -U sa -P "Hospital@2024" -C -I -f i:65001 \
+  -i /dev/stdin < database/01_create_schema.sql
+if [ $? -ne 0 ]; then
+  echo "失败: 01_create_schema.sql"
+  exit 1
+fi
 
-# 执行种子数据（900 ~ 999）
-for f in database/9*.sql; do
-  echo "执行 $f ..."
-  docker exec -i hospital-sqlserver /opt/mssql-tools18/bin/sqlcmd \
-    -S localhost -U sa -P "Hospital@2024" -C -I -f i:65001 \
-    -i /dev/stdin < "$f"
-done
+# 种子数据（02_seed_data.sql，自带验证汇总）
+docker exec -i hospital-sqlserver /opt/mssql-tools18/bin/sqlcmd \
+  -S localhost -U sa -P "Hospital@2024" -C -I -f i:65001 \
+  -i /dev/stdin < database/02_seed_data.sql
 
 echo "数据库初始化完成"
 ```
@@ -107,7 +101,10 @@ echo "数据库初始化完成"
 > ```bash
 > docker exec -i hospital-sqlserver /opt/mssql-tools18/bin/sqlcmd \
 >   -S localhost -U sa -P "Hospital@2024" -C -I -f i:65001 \
->   -i /dev/stdin < database/000_init_database.sql
+>   -i /dev/stdin < database/01_create_schema.sql
+> docker exec -i hospital-sqlserver /opt/mssql-tools18/bin/sqlcmd \
+>   -S localhost -U sa -P "Hospital@2024" -C -I -f i:65001 \
+>   -i /dev/stdin < database/02_seed_data.sql
 > ```
 
 ### 3.5 验证部署

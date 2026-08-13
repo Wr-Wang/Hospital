@@ -456,21 +456,8 @@ Hospital.sln                              -- Visual Studio 解决方案
 │   └── assets/                            --    静态资源
 │
 ├── database/                              -- 🗄 数据库脚本
-│   ├── init_full.sql                      --    一键执行脚本（建库+建表+种子数据）
-│   ├── 000_init_database.sql              --    建库、建 Schema、所有表
-│   ├── 002_migrate_hourly_slots.sql       --    排班时段迁移（小时制）
-│   ├── 010_wechat_login.sql               --    微信登录相关表
-│   ├── 900_seed_minimal.sql               --    最小演示数据（院区、科室、人员、用户、字典）
-│   ├── 901_seed_data.sql                  --    全量测试数据（患者、排班、挂号、就诊、发药）
-│   ├── 999_verify_seed_data.sql           --    验证数据行数
-│   ├── scripts/                           --    辅助脚本
-│   │   ├── seed_doctor1.py                --      医生演示数据生成
-│   │   ├── seed_schedule.py               --      排班数据 Python 生成器
-│   │   ├── seed_schedule.sql              --      排班数据 SQL
-│   │   ├── seed_schedule_final.sql
-│   │   ├── seed_schedule_fix.sql
-│   │   └── _patch_staff.py                --      员工数据修补
-│   └── old_schema/                        --    旧版本建表脚本（归档）
+│   ├── 01_create_schema.sql               --    建库 + 建 Schema + 全部 29 张表（含微信登录表）
+│   └── 02_seed_data.sql                   --    种子数据（院区、人员、用户、排班、患者等，含验证）
 │
 ├── deploy/                                -- 🚀 部署配置
 │   ├── docker-compose.yml                 --    三容器编排（SQL Server + API + Web）
@@ -958,8 +945,9 @@ sequenceDiagram
 ### 1. 克隆并初始化数据库
 
 ```powershell
-# 一键执行（建库 + 建表 + 种子数据）
-sqlcmd -S localhost -C -I -f i:65001 -U sa -P "Hospital@2024" -b -i "database\init_full.sql"
+# 建库 + 建表，再写入种子数据
+sqlcmd -S localhost -C -I -f i:65001 -U sa -P "Hospital@2024" -b -i "database\01_create_schema.sql"
+sqlcmd -S localhost -C -I -f i:65001 -U sa -P "Hospital@2024" -b -i "database\02_seed_data.sql"
 ```
 
 ### 2. 启动后端 API

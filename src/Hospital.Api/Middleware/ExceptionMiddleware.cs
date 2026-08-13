@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using Hospital.Infrastructure.ExternalServices;
 
 namespace Hospital.Api.Middleware;
 
@@ -35,6 +36,11 @@ public class ExceptionMiddleware
             _logger.LogWarning(ex, "无权限访问");
             await WriteErrorResponse(context, HttpStatusCode.Forbidden, ex.Message, "forbidden");
         }
+        catch (WeChatApiException ex)
+        {
+            _logger.LogWarning(ex, "微信接口调用失败");
+            await WriteErrorResponse(context, HttpStatusCode.BadRequest, ex.Message, "wechat_api_error");
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "服务器内部错误");
@@ -42,10 +48,14 @@ public class ExceptionMiddleware
         }
     }
 
-    private static async Task WriteErrorResponse(HttpContext context, HttpStatusCode statusCode, string message, string type)
+    private async Task WriteErrorResponse(HttpContext context, HttpStatusCode statusCode, string message, string type)
     {
         context.Response.StatusCode = (int)statusCode;
         context.Response.ContentType = "application/json";
+
+        _logger.LogInformation(
+            "[API] <<< 错误响应: HTTP {StatusCode} ({Type}) {Message}",
+            (int)statusCode, type, message);
 
         var result = JsonSerializer.Serialize(new
         {

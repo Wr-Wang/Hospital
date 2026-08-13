@@ -9,8 +9,6 @@ using Hospital.Infrastructure.Repositories.Ef;
 using Hospital.Application.Services.WeChat;
 using Hospital.Infrastructure.ExternalServices;
 using Hospital.Infrastructure.Data;
-using Hospital.Domain.Aggregates.Patient;
-using Hospital.Domain.ValueObjects;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -23,6 +21,10 @@ builder.Services.AddDbContext<HospitalDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("HospitalDb"),
         sqlOptions => sqlOptions.EnableRetryOnFailure(3)));
+
+// 数据库初始化：启动时尽力执行，失败由后台服务重试，不阻断应用启动（避免 SQL 抖动导致 500.30）
+builder.Services.AddSingleton<DatabaseInitializationService>();
+builder.Services.AddHostedService(sp => sp.GetRequiredService<DatabaseInitializationService>());
 
 // Add services to the container.
 builder.Services.AddCors(options =>
@@ -87,7 +89,7 @@ builder.Services.AddScoped<IDispenseApplicationService, DispenseApplicationServi
 builder.Services.AddScoped<IUserRoleApplicationService, UserRoleApplicationService>();
 builder.Services.AddScoped<IUserRoleApplicationService, UserRoleApplicationService>();
 
-// Register auth services
+// Register auth services（后台/桌面端 JWT）
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"]!;
 var issuer = jwtSettings["Issuer"]!;
@@ -95,6 +97,17 @@ var audience = jwtSettings["Audience"]!;
 var expirationHours = int.Parse(jwtSettings["ExpirationHours"] ?? "24");
 
 builder.Services.AddSingleton(new JwtTokenService(secretKey, issuer, audience, expirationHours));
+
+// 小程序患者 JWT（独立密钥/签发方/有效期）
+var weChatJwt = builder.Configuration.GetSection("WeChat:Jwt");
+var patientSecret = weChatJwt["SecretKey"]!;
+var patientIssuer = weChatJwt["Issuer"]!;
+var patientAudience = weChatJwt["Audience"] ?? "HospitalMiniProgram";
+var patientExpirationHours = int.Parse(weChatJwt["AccessTokenExpiryMinutes"] ?? "120") / 60;
+
+builder.Services.AddKeyedSingleton<JwtTokenService>("patient", (_, _) =>
+    new JwtTokenService(patientSecret, patientIssuer, patientAudience, patientExpirationHours));
+
 builder.Services.AddSingleton<LocalUserStore>();
 builder.Services.AddScoped<IAuthenticationService, LocalAuthenticationService>();
 builder.Services.AddScoped<IAuthenticationApplicationService, AuthenticationApplicationService>();
@@ -112,9 +125,13 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = issuer,
-        ValidAudience = audience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+        ValidIssuers = new[] { issuer, patientIssuer },
+        ValidAudiences = new[] { audience, patientAudience },
+        IssuerSigningKeys = new[]
+        {
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(patientSecret))
+        },
         ClockSkew = TimeSpan.Zero
     };
 })
@@ -150,29 +167,11 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 
-// 开发环境自动创建数据库表并填充种子数据
+// 启动时尽力初始化数据库（建表 + 种子数据）；失败不阻断启动，由 DatabaseInitializationService 后台重试
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<HospitalDbContext>();
-    db.Database.EnsureCreated();
-
-    // 种子患者数据（仅首次运行）
-    if (!db.Patients.Any())
-    {
-        db.Patients.AddRange(
-            new Patient("P20250001", "张明", Gender.Male, new DateOnly(1990, 3, 15), new PhoneNumber("13800138001"), "青霉素过敏", new IdCard("110101199003151234")),
-            new Patient("P20250002", "李芳", Gender.Female, new DateOnly(1985, 7, 20), new PhoneNumber("13800138002"), null, new IdCard("110101198507202345")),
-            new Patient("P20250003", "王建国", Gender.Male, new DateOnly(1978, 11, 11), new PhoneNumber("13800138003"), "磺胺类过敏", new IdCard("110101197811113456")),
-            new Patient("P20250004", "赵秀英", Gender.Female, new DateOnly(1992, 8, 8), new PhoneNumber("13800138004"), null, new IdCard("110101199208084567")),
-            new Patient("P20250005", "刘浩然", Gender.Male, new DateOnly(2001, 5, 5), new PhoneNumber("13800138005"), null, new IdCard("110101200105055678")),
-            new Patient("P20250006", "陈德明", Gender.Male, new DateOnly(1965, 12, 25), new PhoneNumber("13800138006"), "阿司匹林过敏", new IdCard("110101196512256789")),
-            new Patient("P20250007", "杨雪", Gender.Female, new DateOnly(1995, 9, 15), new PhoneNumber("13800138007"), null, new IdCard("110101199509152345")),
-            new Patient("P20250008", "黄海波", Gender.Male, new DateOnly(1982, 3, 30), new PhoneNumber("13800138008"), null, new IdCard("110101198203308901")),
-            new Patient("P20250009", "周玉兰", Gender.Female, new DateOnly(1976, 9, 9), new PhoneNumber("13800138009"), "头孢类过敏", new IdCard("110101197609092345")),
-            new Patient("P20250010", "吴磊", Gender.Male, new DateOnly(1998, 8, 18), new PhoneNumber("13800138010"), null, new IdCard("110101199808186789"))
-        );
-        db.SaveChanges();
-    }
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializationService>();
+    await dbInitializer.EnsureDatabaseReadyAsync();
 }
 
 app.Run();

@@ -36,7 +36,7 @@ const request = (options) => {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(res.data)
         } else {
-          reject({ status: res.statusCode, message: res.data?.message || res.data?.title || '请求失败', data: res.data })
+          reject({ status: res.statusCode, message: res.data?.error || res.data?.message || res.data?.title || '请求失败', data: res.data })
         }
       },
       fail(err) {
@@ -93,7 +93,7 @@ function handle401(originalOptions, resolve, reject) {
             if (retryRes.statusCode >= 200 && retryRes.statusCode < 300) {
               resolve(retryRes.data)
             } else {
-              reject({ status: retryRes.statusCode, message: retryRes.data?.message || '请求失败', data: retryRes.data })
+              reject({ status: retryRes.statusCode, message: retryRes.data?.error || retryRes.data?.message || '请求失败', data: retryRes.data })
             }
           },
           fail(err) {

@@ -2,6 +2,7 @@ using Hospital.Application.DTOs;
 using Hospital.Application.Services.WeChat;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Hospital.Api.Controllers;
 
@@ -11,17 +12,26 @@ namespace Hospital.Api.Controllers;
 public class MiniProgramAuthController : ControllerBase
 {
     private readonly IWeChatAuthService _weChatAuthService;
+    private readonly ILogger<MiniProgramAuthController> _logger;
 
-    public MiniProgramAuthController(IWeChatAuthService weChatAuthService)
+    public MiniProgramAuthController(IWeChatAuthService weChatAuthService, ILogger<MiniProgramAuthController> logger)
     {
         _weChatAuthService = weChatAuthService;
+        _logger = logger;
     }
 
     /// <summary>code → openid → 已绑定则直接 JWT，否则返回临时 token</summary>
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] WeChatLoginRequest request)
     {
+        _logger.LogInformation("小程序登录请求: code={Code}", request.Code);
+
         var result = await _weChatAuthService.LoginAsync(request);
+
+        _logger.LogInformation(
+            "小程序登录成功: IsNew={IsNew}, PatientId={PatientId}, PatientNo={PatientNo}",
+            result.IsNew, result.PatientId, result.PatientNo);
+
         return Ok(result);
     }
 
