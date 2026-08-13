@@ -7,14 +7,12 @@ namespace Hospital.Domain.Aggregates.Schedule;
 /// <summary>排班时段子实体，维护单个时段的配额和预约数</summary>
 public class ScheduleSlot : Entity
 {
-    private static long _nextId;
-
     // EF Core
     private ScheduleSlot() { TimeSlot = default!; }
 
     public ScheduleSlot(TimeSlot timeSlot, int totalQuota)
     {
-        Id = Interlocked.Increment(ref _nextId);
+        // Id 由数据库自增生成，不在此处手动赋值（避免与 IDENTITY 主键冲突）
         TimeSlot = timeSlot ?? throw new ArgumentNullException(nameof(timeSlot));
         if (totalQuota <= 0)
             throw new ArgumentException("总配额必须大于 0", nameof(totalQuota));
