@@ -40,10 +40,10 @@ public sealed class DictionaryService : IDictionaryApplicationService
     // ===== 字典项 =====
 
     public async Task<List<DictionaryItemDto>> GetItemsByTypeIdAsync(long typeId)
-        => await _api.GetAsync<List<DictionaryItemDto>>($"Dictionary/items/by-type/{typeId}");
+        => await _api.GetAsync<List<DictionaryItemDto>>($"Dictionary/types/{typeId}/items");
 
     public async Task<List<DictionaryItemDto>> GetItemsByTypeCodeAsync(string typeCode)
-        => await _api.GetAsync<List<DictionaryItemDto>>($"Dictionary/items/by-code/{typeCode}");
+        => await _api.GetAsync<List<DictionaryItemDto>>($"Dictionary/types/by-code/{typeCode}/items");
 
     public async Task<long> CreateItemAsync(CreateDictionaryItemDto dto)
     {

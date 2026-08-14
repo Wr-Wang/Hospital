@@ -15,6 +15,7 @@ public sealed class MedicalRecordService : IMedicalRecordApplicationService
     public async Task<MedicalRecordDto?> GetByEncounterAsync(long encounterId)
         => await _api.GetAsyncOrDefault<MedicalRecordDto>(ApiRoutes.MedicalRecord.ByEncounter(encounterId));
 
+    // API Save 返回 NoContent（无 body），用忽略响应体的 PostAsync，避免反序列化空响应报错
     public async Task SaveAsync(long encounterId, SaveMedicalRecordDto dto)
-        => await _api.PostAsync<object>(ApiRoutes.MedicalRecord.Save(encounterId), dto);
+        => await _api.PostAsync(ApiRoutes.MedicalRecord.Save(encounterId), dto);
 }

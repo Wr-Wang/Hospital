@@ -129,22 +129,180 @@
                         <TabItem Header="就诊历史">
                             <StackPanel Margin="0,16,0,0">
                                 <TextBlock Text="{Binding VisitHistoryText}"
-                                           FontSize="14"
-                                           Foreground="{StaticResource Gray500Brush}" />
+                                           FontSize="14" FontWeight="SemiBold"
+                                           Foreground="{StaticResource Gray700Brush}" />
+                                <ItemsControl ItemsSource="{Binding VisitHistory}"
+                                              Margin="0,12,0,0"
+                                              Visibility="{Binding HasVisits, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="14,10" Margin="0,0,0,6" CornerRadius="6"
+                                                    Background="{StaticResource Gray50Brush}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" FontSize="13" FontWeight="SemiBold"
+                                                               Foreground="{StaticResource Gray900Brush}"
+                                                               Text="{Binding Date}" VerticalAlignment="Center" />
+                                                    <Border Grid.Column="1" Margin="12,0" Padding="8,3" CornerRadius="4"
+                                                            Background="{StaticResource BlueSubtleBrush}"
+                                                            VerticalAlignment="Center">
+                                                        <TextBlock FontSize="11" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource BluePrimaryBrush}"
+                                                                   Text="{Binding DeptName}" />
+                                                    </Border>
+                                                    <TextBlock Grid.Column="2" FontSize="13"
+                                                               Foreground="{StaticResource Gray700Brush}"
+                                                               Text="{Binding DoctorName, StringFormat='医生：{0}'}"
+                                                               VerticalAlignment="Center" Margin="0,0,16,0" />
+                                                    <TextBlock Grid.Column="3" FontSize="13"
+                                                               Foreground="{StaticResource Gray500Brush}"
+                                                               Text="{Binding Diagnosis}"
+                                                               VerticalAlignment="Center" TextWrapping="Wrap" />
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </StackPanel>
                         </TabItem>
                         <TabItem Header="处方记录">
                             <StackPanel Margin="0,16,0,0">
-                                <TextBlock Text="暂无处方记录"
-                                           FontSize="14"
-                                           Foreground="{StaticResource Gray500Brush}" />
+                                <TextBlock Text="暂无处方记录" FontSize="14"
+                                           Foreground="{StaticResource Gray500Brush}"
+                                           Visibility="{Binding HasPrescriptions, Converter={StaticResource BoolToInverseConverter}}" />
+                                <ItemsControl ItemsSource="{Binding Prescriptions}"
+                                              Visibility="{Binding HasPrescriptions, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="14,12" Margin="0,0,0,10" CornerRadius="8"
+                                                    Background="{StaticResource Gray50Brush}">
+                                                <StackPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" FontSize="13" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource Gray700Brush}"
+                                                                   Text="{Binding EncounterId, StringFormat='就诊单 #{0}'}" />
+                                                        <Border Grid.Column="1" Padding="8,3" CornerRadius="4"
+                                                                Background="{StaticResource Green50Brush}">
+                                                            <TextBlock FontSize="11" FontWeight="SemiBold"
+                                                                       Foreground="{StaticResource Green600Brush}"
+                                                                       Text="{Binding Status}" />
+                                                        </Border>
+                                                    </Grid>
+                                                    <ItemsControl ItemsSource="{Binding Items}" Margin="0,8,0,0">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border Padding="10,8" Margin="0,0,0,4" CornerRadius="4"
+                                                                        Background="{StaticResource WhiteBrush}"
+                                                                        BorderBrush="{StaticResource Gray200Brush}"
+                                                                        BorderThickness="1">
+                                                                    <StackPanel>
+                                                                        <TextBlock FontSize="13" FontWeight="SemiBold"
+                                                                                   Foreground="{StaticResource Gray900Brush}">
+                                                                            <Run Text="{Binding DrugName}" />
+                                                                            <Run Text="  " />
+                                                                            <Run Text="{Binding Spec}"
+                                                                                 Foreground="{StaticResource Gray500Brush}" />
+                                                                        </TextBlock>
+                                                                        <TextBlock Margin="0,4,0,0" FontSize="12"
+                                                                                   Foreground="{StaticResource Gray500Brush}">
+                                                                            <Run Text="{Binding Form}" />
+                                                                            <Run Text=" | " />
+                                                                            <Run Text="{Binding Freq}" />
+                                                                            <Run Text=" | " />
+                                                                            <Run Text="{Binding Dosage}" />
+                                                                            <Run Text=" | " />
+                                                                            <Run Text="{Binding Duration, StringFormat='{}{0}天'}" />
+                                                                            <Run Text=" × " />
+                                                                            <Run Text="{Binding Qty}" />
+                                                                        </TextBlock>
+                                                                    </StackPanel>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </StackPanel>
                         </TabItem>
                         <TabItem Header="检查报告">
                             <StackPanel Margin="0,16,0,0">
-                                <TextBlock Text="暂无检查报告"
-                                           FontSize="14"
-                                           Foreground="{StaticResource Gray500Brush}" />
+                                <TextBlock Text="检验申请" FontSize="14" FontWeight="SemiBold"
+                                           Foreground="{StaticResource Gray700Brush}" />
+                                <TextBlock Text="暂无检验记录" FontSize="13"
+                                           Foreground="{StaticResource Gray500Brush}" Margin="0,6,0,0"
+                                           Visibility="{Binding HasLabOrders, Converter={StaticResource BoolToInverseConverter}}" />
+                                <ItemsControl ItemsSource="{Binding LabOrders}" Margin="0,8,0,0"
+                                              Visibility="{Binding HasLabOrders, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="12,8" Margin="0,0,0,4" CornerRadius="4"
+                                                    Background="{StaticResource Gray50Brush}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Grid.Column="0">
+                                                        <TextBlock FontSize="13" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource Gray900Brush}"
+                                                                   Text="{Binding ItemName}" />
+                                                        <TextBlock Margin="0,2,0,0" FontSize="12"
+                                                                   Foreground="{StaticResource Gray400Brush}"
+                                                                   Text="{Binding ItemCode}" />
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Column="1" FontSize="12" FontWeight="SemiBold"
+                                                               Foreground="{StaticResource BluePrimaryBrush}"
+                                                               VerticalAlignment="Center" Text="{Binding Status}" />
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <TextBlock Text="放射申请" FontSize="14" FontWeight="SemiBold"
+                                           Foreground="{StaticResource Gray700Brush}" Margin="0,16,0,0" />
+                                <TextBlock Text="暂无放射记录" FontSize="13"
+                                           Foreground="{StaticResource Gray500Brush}" Margin="0,6,0,0"
+                                           Visibility="{Binding HasRadOrders, Converter={StaticResource BoolToInverseConverter}}" />
+                                <ItemsControl ItemsSource="{Binding RadOrders}" Margin="0,8,0,0"
+                                              Visibility="{Binding HasRadOrders, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="12,8" Margin="0,0,0,4" CornerRadius="4"
+                                                    Background="{StaticResource Gray50Brush}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Grid.Column="0">
+                                                        <TextBlock FontSize="13" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource Gray900Brush}"
+                                                                   Text="{Binding ItemName}" />
+                                                        <TextBlock Margin="0,2,0,0" FontSize="12"
+                                                                   Foreground="{StaticResource Gray400Brush}"
+                                                                   Text="{Binding ItemCode}" />
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Column="1" FontSize="12" FontWeight="SemiBold"
+                                                               Foreground="{StaticResource BluePrimaryBrush}"
+                                                               VerticalAlignment="Center" Text="{Binding Status}" />
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </StackPanel>
                         </TabItem>
                     </TabControl>

@@ -18,6 +18,11 @@ public sealed class EfPrescriptionRepository : IPrescriptionRepository
             .Where(p => p.EncounterId == encounterId)
             .ToListAsync();
 
+    public async Task<List<Prescription>> GetByPatientAsync(long patientId)
+        => await _db.Prescriptions.Include(p => p.Items)
+            .Where(p => _db.Encounters.Any(e => e.Id == p.EncounterId && e.PatientId == patientId))
+            .ToListAsync();
+
     public async Task AddAsync(Prescription prescription)
     {
         await _db.Prescriptions.AddAsync(prescription);

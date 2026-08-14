@@ -93,6 +93,21 @@ public sealed class WeChatAuthService : IWeChatAuthService
         if (existing is not null)
             return await IssueForBoundAsync(existing);
 
+        // 按手机号去重：同手机号已建档 → 绑定已有患者而非新建，避免重复建档。
+        // 微信建档只采集姓名+手机号，身份证恒为 null；若不做手机号去重，
+        // 同人换微信重登会反复建出空身份证患者（如 P202608130001/0002）
+        if (!string.IsNullOrWhiteSpace(phone))
+        {
+            var byPhone = await _db.Patients
+                .FirstOrDefaultAsync(p => p.Phone != null && p.Phone.Value == phone);
+            if (byPhone is not null)
+            {
+                await BindWeChatAccountAsync(openId, byPhone.Id, null);
+                var (accessToken, refreshToken) = await IssueTokenAsync(byPhone.Id, byPhone.Name);
+                return new WeChatAuthResult(accessToken, refreshToken, byPhone.Id, byPhone.PatientNo, byPhone.Name, phone, false);
+            }
+        }
+
         try
         {
             // 患者 + 微信绑定在同一事务中：任一步失败整体回滚，避免留下孤儿患者

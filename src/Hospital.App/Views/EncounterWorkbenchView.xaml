@@ -93,9 +93,9 @@
                             <StackPanel>
                                 <TextBlock FontSize="15" FontWeight="SemiBold"
                                            Foreground="{StaticResource Gray900Brush}"
-                                           Text="{Binding QueueItems.Count, StringFormat='待诊队列（{0} 人）'}" />
+                                           Text="{Binding QueueRows.Count, StringFormat='门诊队列（{0} 人）'}" />
 
-                                <ItemsControl ItemsSource="{Binding QueueItems}" Margin="0,12,0,0">
+                                <ItemsControl ItemsSource="{Binding QueueRows}" Margin="0,12,0,0">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Padding="14,10" Margin="0,0,0,4" CornerRadius="6"
@@ -113,31 +113,129 @@
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="Auto" />
                                                         <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0" FontSize="18" FontWeight="Bold"
                                                                Foreground="{StaticResource BluePrimaryBrush}"
                                                                Text="{Binding QueueNumber, StringFormat='#{0}'}"
                                                                VerticalAlignment="Center" Margin="0,0,12,0" />
-                                                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold"
-                                                               Foreground="{StaticResource Gray900Brush}"
-                                                               Text="{Binding PatientName}"
-                                                               VerticalAlignment="Center" Margin="0,0,12,0" />
+                                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,16,0">
+                                                        <TextBlock FontSize="14" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource Gray900Brush}"
+                                                                   Text="{Binding PatientName}" />
+                                                        <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                            <TextBlock FontSize="11"
+                                                                       Foreground="{StaticResource Gray500Brush}"
+                                                                       Text="{Binding PatientGender}" />
+                                                            <TextBlock FontSize="11" Margin="8,0,0,0"
+                                                                       Foreground="{StaticResource Gray500Brush}"
+                                                                       Text="{Binding PatientIdCard}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
                                                     <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                                         <TextBlock FontSize="12"
                                                                    Foreground="{StaticResource Gray500Brush}"
                                                                    Text="{Binding SlotName}" />
                                                     </StackPanel>
+                                                    <!-- 状态徽标：待诊 / 就诊中 / 已呼叫（模拟） -->
                                                     <Border Grid.Column="3" Padding="8,4" CornerRadius="4"
-                                                            Background="{StaticResource BlueSubtleBrush}"
                                                             VerticalAlignment="Center" Margin="0,0,8,0">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="Background" Value="{StaticResource BlueSubtleBrush}" />
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Status}" Value="待诊">
+                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Status}" Value="就诊中">
+                                                                        <Setter Property="Background" Value="{StaticResource Green200Brush}" />
+                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding IsCalled}" Value="True">
+                                                                        <Setter Property="Background" Value="{StaticResource Amber600Brush}" />
+                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
                                                         <TextBlock FontSize="12" FontWeight="SemiBold"
-                                                                   Foreground="{StaticResource BluePrimaryBrush}"
-                                                                   Text="{Binding Status}" />
+                                                                   Foreground="{StaticResource BluePrimaryBrush}">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Setter Property="Text" Value="{Binding Status}" />
+                                                                    <Setter Property="Foreground" Value="{StaticResource BluePrimaryBrush}" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="就诊中">
+                                                                            <Setter Property="Foreground" Value="{StaticResource Green600Brush}" />
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding IsCalled}" Value="True">
+                                                                            <Setter Property="Text" Value="已呼叫" />
+                                                                            <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
                                                     </Border>
                                                     <TextBlock Grid.Column="4" FontSize="12"
                                                                Foreground="{StaticResource Gray400Brush}"
                                                                Text="{Binding RegisterTime}"
-                                                               VerticalAlignment="Center" />
+                                                               VerticalAlignment="Center" Margin="0,0,12,0" />
+                                                    <!-- 按就诊人操作：呼叫 / 开始接诊（待诊），完成接诊（就诊中） -->
+                                                    <StackPanel Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <ContentControl Margin="0,0,6,0">
+                                                            <ContentControl.Style>
+                                                                <Style TargetType="ContentControl">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="待诊">
+                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </ContentControl.Style>
+                                                            <Button Content="呼叫" Height="28" Padding="12,0"
+                                                                    FontSize="12" Cursor="Hand"
+                                                                    Style="{StaticResource SecondaryButtonStyle}"
+                                                                    Command="{Binding DataContext.CallPatientCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </ContentControl>
+                                                        <ContentControl Margin="0,0,6,0">
+                                                            <ContentControl.Style>
+                                                                <Style TargetType="ContentControl">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="待诊">
+                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </ContentControl.Style>
+                                                            <Button Content="开始接诊" Height="28" Padding="12,0"
+                                                                    FontSize="12" Cursor="Hand"
+                                                                    Style="{StaticResource PrimaryButtonStyle}"
+                                                                    Command="{Binding DataContext.StartConsultationCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </ContentControl>
+                                                        <ContentControl>
+                                                            <ContentControl.Style>
+                                                                <Style TargetType="ContentControl">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="就诊中">
+                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </ContentControl.Style>
+                                                            <Button Content="完成接诊" Height="28" Padding="12,0"
+                                                                    FontSize="12" Cursor="Hand"
+                                                                    Style="{StaticResource PrimaryButtonStyle}"
+                                                                    Command="{Binding DataContext.CompleteConsultationCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </ContentControl>
+                                                    </StackPanel>
                                                 </Grid>
                                             </Border>
                                         </DataTemplate>
@@ -265,6 +363,28 @@
                                         <TextBlock FontSize="14" FontWeight="SemiBold"
                                                    Foreground="{StaticResource Gray900Brush}"
                                                    Text="新增诊断" />
+
+                                        <TextBlock Margin="0,12,0,6" Style="{StaticResource FormLabelStyle}"
+                                                   Text="常用诊断快捷选择（选一项，编码与描述自动填入）" />
+                                        <ComboBox Height="36" MinWidth="360" HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding IcdItems}"
+                                                  SelectedItem="{Binding SelectedIcdItem, Mode=TwoWay}"
+                                                  Tag="选择或输入常用诊断，编码自动填充">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Code}" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource BluePrimaryBrush}" />
+                                                        <TextBlock Text=" - " Foreground="{StaticResource Gray400Brush}" />
+                                                        <TextBlock Text="{Binding Name}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBlock Margin="0,6,0,0" FontSize="12"
+                                                   Foreground="{StaticResource Gray500Brush}"
+                                                   Text="或在下方直接输入诊断描述，ICD 编码会自动匹配填充；编码也可手动修改。" />
+
                                         <Grid Margin="0,12,0,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
@@ -290,16 +410,16 @@
                                                        VerticalAlignment="Center" Margin="0,0,8,8" />
                                             <TextBox Grid.Row="0" Grid.Column="3" Height="36" Padding="8,0"
                                                      Text="{Binding NewIcdCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     Margin="0,0,0,8"
-                                                     Style="{StaticResource FormTextBoxStyle}" />
+                                                     Margin="0,0,0,8" Tag="例：I10"
+                                                     Style="{StaticResource WatermarkTextBoxStyle}" />
 
                                             <TextBlock Grid.Row="1" Grid.Column="0" Text="诊断描述"
                                                        FontSize="13" Foreground="{StaticResource Gray700Brush}"
                                                        VerticalAlignment="Center" Margin="0,0,8,0" />
                                             <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="36"
-                                                     Padding="8,0"
+                                                     Padding="8,0" Tag="例：高血压病 / 急性上呼吸道感染"
                                                      Text="{Binding NewDiagnosisDesc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     Style="{StaticResource FormTextBoxStyle}" />
+                                                     Style="{StaticResource WatermarkTextBoxStyle}" />
                                         </Grid>
                                         <Button Content="添加诊断" Width="120" Height="34" Margin="0,12,0,0"
                                                 FontSize="13" FontWeight="SemiBold" Cursor="Hand"
@@ -376,72 +496,115 @@
                                         <TextBlock FontSize="14" FontWeight="SemiBold"
                                                    Foreground="{StaticResource Gray900Brush}" Text="开立新处方" />
 
+                                        <!-- 用法示例提示 -->
+                                        <Border Margin="0,10,0,0" Padding="12,8" CornerRadius="6"
+                                                Background="{StaticResource BlueSubtleBrush}">
+                                            <StackPanel>
+                                                <TextBlock FontSize="12" FontWeight="SemiBold"
+                                                           Foreground="{StaticResource BluePrimaryBrush}" Text="用法示例" />
+                                                <TextBlock Margin="0,2,0,0" FontSize="12"
+                                                           Foreground="{StaticResource Gray700Brush}" TextWrapping="Wrap"
+                                                           Text="阿莫西林胶囊 0.25g*24粒 胶囊剂 ｜ 用法：口服 BID 每日2次 ｜ 每次 1粒 ｜ 共 7 天 21 粒 ｜ 备注：饭后服用" />
+                                            </StackPanel>
+                                        </Border>
+
                                         <ItemsControl ItemsSource="{Binding NewPrescriptionItems}" Margin="0,12,0,0">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Border Padding="10,8" Margin="0,0,0,6" CornerRadius="6"
+                                                    <Border Padding="12,10" Margin="0,0,0,10" CornerRadius="6"
                                                             Background="{StaticResource WhiteBrush}">
-                                                        <Grid>
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="Auto" />
-                                                                <RowDefinition Height="Auto" />
-                                                                <RowDefinition Height="Auto" />
-                                                            </Grid.RowDefinitions>
-                                                            <Grid Grid.Row="0">
+                                                        <StackPanel>
+                                                            <!-- 行1：药品名称 / 规格 / 剂型 -->
+                                                            <Grid>
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="*" />
                                                                     <ColumnDefinition Width="*" />
                                                                     <ColumnDefinition Width="*" />
                                                                     <ColumnDefinition Width="Auto" />
                                                                 </Grid.ColumnDefinitions>
-                                                                <TextBox Grid.Column="0" Height="32" Padding="6,0" Margin="0,0,6,0"
-                                                                         Text="{Binding DrugName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                         Style="{StaticResource FormTextBoxStyle}" />
-                                                                <TextBox Grid.Column="1" Height="32" Padding="6,0" Margin="0,0,6,0"
-                                                                         Text="{Binding Spec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                         Style="{StaticResource FormTextBoxStyle}" />
-                                                                <TextBox Grid.Column="2" Height="32" Padding="6,0" Margin="0,0,6,0"
-                                                                         Text="{Binding Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                         Style="{StaticResource FormTextBoxStyle}" />
-                                                                <Button Grid.Column="3" Content="×" Width="28" Height="28"
-                                                                        FontSize="14" Cursor="Hand"
+                                                                <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                                                    <TextBlock Text="药品名称（选药自动填规格/剂型）"
+                                                                               Style="{StaticResource FormLabelStyle}" />
+                                                                    <ComboBox Height="32"
+                                                                              ItemsSource="{Binding DataContext.DrugOptions, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                              SelectedItem="{Binding SelectedDrug, Mode=TwoWay}"
+                                                                              Tag="选择药品，自动填规格/剂型">
+                                                                        <ComboBox.ItemTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock Text="{Binding Converter={StaticResource DrugDisplayConverter}}"
+                                                                                           ToolTip="{Binding Name}" />
+                                                                            </DataTemplate>
+                                                                        </ComboBox.ItemTemplate>
+                                                                    </ComboBox>
+                                                                </StackPanel>
+                                                                <StackPanel Grid.Column="1" Margin="0,0,8,0">
+                                                                    <TextBlock Text="规格" Style="{StaticResource FormLabelStyle}" />
+                                                                    <TextBox Height="32" Tag="例：0.25g*24粒"
+                                                                             Text="{Binding Spec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                             Style="{StaticResource WatermarkTextBoxStyle}" />
+                                                                </StackPanel>
+                                                                <StackPanel Grid.Column="2" Margin="0,0,8,0">
+                                                                    <TextBlock Text="剂型" Style="{StaticResource FormLabelStyle}" />
+                                                                    <TextBox Height="32" Tag="例：胶囊剂"
+                                                                             Text="{Binding Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                             Style="{StaticResource WatermarkTextBoxStyle}" />
+                                                                </StackPanel>
+                                                                <Button Grid.Column="3" Content="删除" Width="56" Height="30"
+                                                                        FontSize="12" Cursor="Hand" VerticalAlignment="Bottom"
                                                                         Style="{StaticResource SecondaryButtonStyle}"
                                                                         Command="{Binding DataContext.RemovePrescriptionItemCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                         CommandParameter="{Binding}" />
                                                             </Grid>
-                                                            <Grid Grid.Row="1" Margin="0,6,0,0">
+
+                                                            <!-- 行2：用法频次 / 单次剂量 / 用药天数 / 总数量 -->
+                                                            <Grid Margin="0,10,0,0">
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="*" />
                                                                     <ColumnDefinition Width="*" />
                                                                     <ColumnDefinition Width="*" />
                                                                     <ColumnDefinition Width="*" />
                                                                 </Grid.ColumnDefinitions>
-                                                                <TextBox Grid.Column="0" Height="32" Padding="6,0" Margin="0,0,6,0"
-                                                                         Text="{Binding Freq, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                         Style="{StaticResource FormTextBoxStyle}" />
-                                                                <TextBox Grid.Column="1" Height="32" Padding="6,0" Margin="0,0,6,0"
-                                                                         Text="{Binding Dosage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                         Style="{StaticResource FormTextBoxStyle}" />
-                                                                <TextBox Grid.Column="2" Height="32" Padding="6,0" Margin="0,0,6,0"
-                                                                         Text="{Binding Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=0}"
-                                                                         Style="{StaticResource FormTextBoxStyle}" />
-                                                                <TextBox Grid.Column="3" Height="32" Padding="6,0"
-                                                                         Text="{Binding Qty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=0}"
-                                                                         Style="{StaticResource FormTextBoxStyle}" />
+                                                                <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                                                    <TextBlock Text="用法频次" Style="{StaticResource FormLabelStyle}" />
+                                                                    <ComboBox Height="32"
+                                                                              ItemsSource="{Binding DataContext.FreqOptions, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                              SelectedItem="{Binding SelectedFreq, Mode=TwoWay}"
+                                                                              Tag="选择用法频次" />
+                                                                </StackPanel>
+                                                                <StackPanel Grid.Column="1" Margin="0,0,8,0">
+                                                                    <TextBlock Text="单次剂量" Style="{StaticResource FormLabelStyle}" />
+                                                                    <TextBox Height="32" Tag="例：1粒 或 0.25g"
+                                                                             Text="{Binding Dosage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                             Style="{StaticResource WatermarkTextBoxStyle}" />
+                                                                </StackPanel>
+                                                                <StackPanel Grid.Column="2" Margin="0,0,8,0">
+                                                                    <TextBlock Text="用药天数" Style="{StaticResource FormLabelStyle}" />
+                                                                    <TextBox Height="32" Tag="例：7"
+                                                                             Text="{Binding Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=0}"
+                                                                             Style="{StaticResource WatermarkTextBoxStyle}" />
+                                                                </StackPanel>
+                                                                <StackPanel Grid.Column="3">
+                                                                    <TextBlock Text="总数量（剂）" Style="{StaticResource FormLabelStyle}" />
+                                                                    <TextBox Height="32" Tag="例：21"
+                                                                             Text="{Binding Qty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=0}"
+                                                                             Style="{StaticResource WatermarkTextBoxStyle}" />
+                                                                </StackPanel>
                                                             </Grid>
-                                                            <Grid Grid.Row="2" Margin="0,4,0,0">
+
+                                                            <!-- 行3：备注 -->
+                                                            <Grid Margin="0,10,0,0">
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="Auto" />
                                                                     <ColumnDefinition Width="*" />
                                                                 </Grid.ColumnDefinitions>
-                                                                <TextBlock Grid.Column="0" Text="备注" FontSize="11"
-                                                                           Foreground="{StaticResource Gray500Brush}"
-                                                                           VerticalAlignment="Center" Margin="0,0,6,0" />
-                                                                <TextBox Grid.Column="1" Height="28" Padding="4,0"
+                                                                <TextBlock Grid.Column="0" Text="备注" FontSize="12"
+                                                                           Foreground="{StaticResource Gray700Brush}"
+                                                                           VerticalAlignment="Center" Margin="0,0,8,0" />
+                                                                <TextBox Grid.Column="1" Height="30" Padding="8,0" Tag="例：饭后服用，多饮水"
                                                                          Text="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                         Style="{StaticResource FormTextBoxStyle}" />
+                                                                         Style="{StaticResource WatermarkTextBoxStyle}" />
                                                             </Grid>
-                                                        </Grid>
+                                                        </StackPanel>
                                                     </Border>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
@@ -517,6 +680,44 @@
                                     <StackPanel>
                                         <TextBlock FontSize="14" FontWeight="SemiBold"
                                                    Foreground="{StaticResource Gray900Brush}" Text="新增检验申请" />
+
+                                        <TextBlock Margin="0,12,0,6" Style="{StaticResource FormLabelStyle}"
+                                                   Text="常用项目快捷开立（点一下即开立）" />
+                                        <WrapPanel>
+                                            <Button Content="血常规" Command="{Binding QuickAddLabCommand}" CommandParameter="CBC"
+                                                    Style="{StaticResource ChipButtonStyle}" Margin="0,0,8,8" />
+                                            <Button Content="尿常规" Command="{Binding QuickAddLabCommand}" CommandParameter="UAN"
+                                                    Style="{StaticResource ChipButtonStyle}" Margin="0,0,8,8" />
+                                            <Button Content="肝功能" Command="{Binding QuickAddLabCommand}" CommandParameter="LIVER_FUNC"
+                                                    Style="{StaticResource ChipButtonStyle}" Margin="0,0,8,8" />
+                                            <Button Content="肾功能" Command="{Binding QuickAddLabCommand}" CommandParameter="RENAL"
+                                                    Style="{StaticResource ChipButtonStyle}" Margin="0,0,8,8" />
+                                            <Button Content="空腹血糖" Command="{Binding QuickAddLabCommand}" CommandParameter="FBS"
+                                                    Style="{StaticResource ChipButtonStyle}" Margin="0,0,8,8" />
+                                            <Button Content="心电图" Command="{Binding QuickAddLabCommand}" CommandParameter="ECG"
+                                                    Style="{StaticResource ChipButtonStyle}" Margin="0,0,8,8" />
+                                            <Button Content="胸部X线检查" Command="{Binding QuickAddLabCommand}" CommandParameter="CHEST_XRAY"
+                                                    Style="{StaticResource ChipButtonStyle}" Margin="0,0,8,8" />
+                                        </WrapPanel>
+
+                                        <TextBlock Margin="0,10,0,6" Style="{StaticResource FormLabelStyle}"
+                                                   Text="或从常用项目中选择（编码与名称自动填入）" />
+                                        <ComboBox Height="36" MinWidth="360" HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding LabItems}"
+                                                  SelectedItem="{Binding SelectedLabItem, Mode=TwoWay}"
+                                                  Tag="选择或输入常用检验项目，编码自动填充">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Code}" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource BluePrimaryBrush}" />
+                                                        <TextBlock Text=" - " Foreground="{StaticResource Gray400Brush}" />
+                                                        <TextBlock Text="{Binding Name}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+
                                         <Grid Margin="0,12,0,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
@@ -529,14 +730,17 @@
                                                        VerticalAlignment="Center" Margin="0,0,8,0" />
                                             <TextBox Grid.Column="1" Height="36" Padding="8,0" Margin="0,0,16,0"
                                                      Text="{Binding NewLabItemCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     Style="{StaticResource FormTextBoxStyle}" />
+                                                     Tag="例：CBC" Style="{StaticResource WatermarkTextBoxStyle}" />
                                             <TextBlock Grid.Column="2" Text="项目名称" FontSize="13"
                                                        Foreground="{StaticResource Gray700Brush}"
                                                        VerticalAlignment="Center" Margin="0,0,8,0" />
                                             <TextBox Grid.Column="3" Height="36" Padding="8,0"
                                                      Text="{Binding NewLabItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     Style="{StaticResource FormTextBoxStyle}" />
+                                                     Tag="例：血常规" Style="{StaticResource WatermarkTextBoxStyle}" />
                                         </Grid>
+                                        <TextBlock Margin="0,6,0,0" FontSize="12"
+                                                   Foreground="{StaticResource Gray500Brush}"
+                                                   Text="也可手动输入编码与名称（编码留空仅填名称亦可）。" />
                                         <Button Content="添加申请" Width="120" Height="34" Margin="0,12,0,0"
                                                 FontSize="13" FontWeight="SemiBold" Cursor="Hand"
                                                 Style="{StaticResource PrimaryButtonStyle}"

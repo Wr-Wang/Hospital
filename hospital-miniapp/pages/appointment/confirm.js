@@ -128,6 +128,23 @@ Page({
       return
     }
 
+    // 实名制：就诊人未登记身份证号时引导补全（后端挂号接口同样强制校验）
+    const patient = this.data.patients.find(p => String(p.id) === String(this.data.selectedPatientId))
+    if (!patient || !patient.idCard) {
+      wx.showModal({
+        title: '就诊人缺少身份证号',
+        content: `${patient?.name || '该就诊人'}未登记身份证号。挂号需实名制，请先补全身份证信息。`,
+        confirmText: '去补全',
+        cancelText: '取消',
+        success: (res) => {
+          if (res.confirm && patient) {
+            wx.navigateTo({ url: `/pages/profile/patients/edit?id=${patient.id}` })
+          }
+        }
+      })
+      return
+    }
+
     this.setData({ submitting: true, errorMsg: '' })
 
     try {

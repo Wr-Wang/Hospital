@@ -50,6 +50,13 @@ public class Patient : AggregateRoot
         AddDomainEvent(new PatientUpdatedEvent(Id));
     }
 
+    /// <summary>登记/补全身份证号（挂号实名制要求；仅补全，不清空既有值由应用层控制）</summary>
+    public void UpdateIdCard(IdCard? idCard)
+    {
+        IdCard = idCard;
+        AddDomainEvent(new PatientUpdatedEvent(Id));
+    }
+
     public void AddIdentifier(string idType, string idValue, bool isPrimary)
     {
         if (_identifiers.Any(i => i.IdType == idType && i.IdValue == idValue))

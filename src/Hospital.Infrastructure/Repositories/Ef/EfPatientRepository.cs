@@ -26,6 +26,10 @@ public sealed class EfPatientRepository : IPatientRepository
         => await _db.Patients
             .FirstOrDefaultAsync(p => p.IdCard != null && p.IdCard.Number == idCard);
 
+    public async Task<Patient?> GetByPhoneAsync(string phone)
+        => await _db.Patients
+            .FirstOrDefaultAsync(p => p.Phone != null && p.Phone.Value == phone);
+
     public async Task<List<Patient>> GetSuspectDuplicatesAsync(string name, string? phone)
     {
         var query = _db.Patients.Where(p => p.Name.Contains(name));

@@ -52,6 +52,10 @@ public sealed class PatientService : IPatientApplicationService
         return result.Id;
     }
 
+    /// <summary>更新患者档案（补全身份证号等）</summary>
+    public async Task UpdateAsync(long id, UpdatePatientDto request)
+        => await _api.PutAsync(ApiRoutes.Patient.Update(id), request);
+
     /// <summary>API 返回的 ID 响应体</summary>
     private sealed record IdResponse(long Id);
 }

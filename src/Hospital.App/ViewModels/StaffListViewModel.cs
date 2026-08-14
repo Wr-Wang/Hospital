@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Hospital.App.Constants;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -16,15 +17,18 @@ public sealed partial class StaffListViewModel : ObservableObject
     private readonly IStaffApplicationService _staffService;
     private readonly IDepartmentApplicationService _deptService;
     private readonly ICampusApplicationService _campusService;
+    private readonly INotificationService _notifications;
 
     public StaffListViewModel(
         IStaffApplicationService staffService,
         IDepartmentApplicationService deptService,
-        ICampusApplicationService campusService)
+        ICampusApplicationService campusService,
+        INotificationService notificationService)
     {
         _staffService = staffService;
         _deptService = deptService;
         _campusService = campusService;
+        _notifications = notificationService;
     }
 
     [ObservableProperty]
@@ -252,6 +256,7 @@ public sealed partial class StaffListViewModel : ObservableObject
                 await _staffService.CreateAsync(dto);
             }
 
+            _notifications.Success("人员已保存");
             ShowForm = false;
             await LoadStaffAsync();
         }
@@ -280,6 +285,7 @@ public sealed partial class StaffListViewModel : ObservableObject
             else
                 await _staffService.ActivateAsync(staff.Id);
 
+            _notifications.Success("人员状态已更新");
             await LoadStaffAsync();
         }
         catch (Exception ex)

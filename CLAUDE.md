@@ -41,9 +41,15 @@ dotnet build
 - DTO 使用 `sealed record`
 - Entity setter 私有化，状态变更通过业务方法
 - 依赖注入通过构造器
+- 登录返回的 `Id` 即 `mdm.Staff` 的人员 Id（App 端 `CurrentUserId` 的语义就是"当前操作人员 Id"），
+  写库时凡需记录操作者一律用 `IAppContext.CurrentUserId`，不要硬编码
+- `doctorId == 0` 表示"全部医生"哨兵（挂号工作台约定），查询时不要按医生过滤
+- 院区 Id 用登录上下文 `IAppContext.CampusId`（缺省回退 1=总院区），不要硬编码
 
 ## 当前状态
 
 - Domain 事件已收集但未派发（待实现事件总线）
-- PatientRepository 为内存模拟实现（待集成 EF Core）
-- 仅实现了 Patient 边界上下文
+- 仓储全部为 EF Core 实现（`Repositories/Ef/`，Program.cs 统一注册）
+- 登录账号为内存硬编码（`ExternalServices/LocalUserStore.cs`），`StaffId/CampusId` 与数据库种子
+  `mdm.Staff` / `mdm.Campuses` 对齐；数据库种子在 `DatabaseInitializationService` 中直接构造业务终态
+  （示例数据为演示链，非真实操作路径）

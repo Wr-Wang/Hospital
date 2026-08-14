@@ -76,10 +76,9 @@
                     <TextBlock Grid.Column="4" Text="日期" FontSize="13" FontWeight="Medium"
                                Foreground="{StaticResource Gray700Brush}"
                                VerticalAlignment="Center" Margin="0,0,8,0" />
-                    <TextBox Grid.Column="5" Height="38" MinWidth="140"
-                             Text="{Binding ScheduleDate, Mode=TwoWay}"
-                             Style="{StaticResource FormTextBoxStyle}"
-                             HorizontalAlignment="Left" />
+                    <DatePicker Grid.Column="5" Height="38" MinWidth="140"
+                                SelectedDate="{Binding ScheduleDate, Mode=TwoWay}"
+                                HorizontalAlignment="Left" />
                 </Grid>
                 <Border.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding LoadSchedulesCommand}" />
@@ -143,10 +142,9 @@
 
                     <TextBlock Grid.Column="0" Text="排班日期 *" FontSize="13" FontWeight="Medium"
                                Style="{StaticResource FormLabelStyle}" />
-                    <TextBox Height="38" MinWidth="200" MaxWidth="200" Margin="0,0,0,16"
-                             Text="{Binding CreateDate, Mode=TwoWay}"
-                             Style="{StaticResource FormTextBoxStyle}"
-                             HorizontalAlignment="Left" />
+                    <DatePicker Height="38" MinWidth="200" MaxWidth="200" Margin="0,0,0,16"
+                                SelectedDate="{Binding CreateDate, Mode=TwoWay}"
+                                HorizontalAlignment="Left" />
 
                     <!-- Slots -->
                     <TextBlock Margin="0,8,0,0" FontSize="14" FontWeight="SemiBold"

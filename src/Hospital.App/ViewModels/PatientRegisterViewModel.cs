@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Hospital.App.Constants;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -15,10 +16,14 @@ namespace Hospital.App.ViewModels;
 public sealed partial class PatientRegisterViewModel : ObservableObject
 {
     private readonly IPatientApplicationService _patientService;
+    private readonly INotificationService _notifications;
 
-    public PatientRegisterViewModel(IPatientApplicationService patientService)
+    public PatientRegisterViewModel(
+        IPatientApplicationService patientService,
+        INotificationService notificationService)
     {
         _patientService = patientService;
+        _notifications = notificationService;
     }
 
     // ===== 患者搜索 =====
@@ -35,6 +40,9 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
     [ObservableProperty]
     private string selectedPatientInfo = string.Empty;
 
+    [ObservableProperty]
+    private string submitButtonText = "提交";
+
     private long _selectedPatientId;
 
     // ===== 表单字段 =====
@@ -49,7 +57,7 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
     private string? selectedGender;
 
     [ObservableProperty]
-    private string? birthDate;
+    private DateTime? birthDatePicker;
 
     [ObservableProperty]
     private string? phone;
@@ -67,9 +75,6 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isBusy;
-
-    [ObservableProperty]
-    private bool isSuccess;
 
     [ObservableProperty]
     private bool showDuplicateWarning;
@@ -98,7 +103,8 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
         try
         {
             var existing = await _patientService.GetByIdCardAsync(IdCard!);
-            if (existing is not null)
+            // 编辑模式查重命中自身不算重复（补全/修改既有患者）
+            if (existing is not null && existing.Id != _selectedPatientId)
             {
                 ShowDuplicateWarning = true;
                 DuplicateMessage = $"⚠️ 身份证号已存在：{existing.Name}（病历号：{existing.PatientNo}）";
@@ -125,7 +131,6 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
     private async Task SearchPatient()
     {
         ErrorMessage = null;
-        IsSuccess = false;
 
         if (string.IsNullOrWhiteSpace(PatientKeyword))
         {
@@ -161,13 +166,16 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
         if (patient is null) return;
 
         _selectedPatientId = patient.Id;
-        SelectedPatientInfo = $"{patient.Name}（病历号: {patient.PatientNo}）";
+        SelectedPatientInfo = string.IsNullOrWhiteSpace(patient.IdCard)
+            ? $"{patient.Name}（病历号: {patient.PatientNo}）⚠️ 未登记身份证，挂号前需补全"
+            : $"{patient.Name}（病历号: {patient.PatientNo}）";
+        SubmitButtonText = "保存修改";
 
         // 自动填入表单
         PatientNo = patient.PatientNo;
         Name = patient.Name;
         SelectedGender = GenderMapper.ToDisplayValue(patient.Gender);
-        BirthDate = patient.BirthDate;
+        BirthDatePicker = ParseBirthDate(patient.BirthDate);
         Phone = patient.Phone;
         IdCard = patient.IdCard;
         AllergiesText = patient.AllergiesText;
@@ -195,7 +203,6 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
     private async Task Submit()
     {
         ErrorMessage = null;
-        IsSuccess = false;
 
         if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(PatientNo))
         {
@@ -207,12 +214,23 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
 
         try
         {
-            var dto = new CreatePatientDto(PatientNo, Name, GenderMapper.ToApiValue(SelectedGender),
-                BirthDate, Phone, AllergiesText, IdCard);
-            var id = await _patientService.CreateAsync(dto);
-            IsSuccess = true;
-            ErrorMessage = $"建档成功！患者 ID: {id}";
-            ClearForm();
+            if (_selectedPatientId != 0)
+            {
+                // 编辑既有患者：补全身份证 / 修改基本资料（表单已由 SelectPatient 填入）
+                var updateDto = new UpdatePatientDto(Name, GenderMapper.ToApiValue(SelectedGender),
+                    BirthDatePicker?.ToString("yyyy-MM-dd"), Phone, AllergiesText, IdCard);
+                await _patientService.UpdateAsync(_selectedPatientId, updateDto);
+                _notifications.Success("患者档案已保存");
+                // 保持选中状态与表单内容，便于确认已补全的信息
+            }
+            else
+            {
+                var dto = new CreatePatientDto(PatientNo, Name, GenderMapper.ToApiValue(SelectedGender),
+                    BirthDatePicker?.ToString("yyyy-MM-dd"), Phone, AllergiesText, IdCard);
+                var id = await _patientService.CreateAsync(dto);
+                _notifications.Success($"建档成功！患者 ID: {id}");
+                ClearForm();
+            }
         }
         catch (HttpRequestException ex)
         {
@@ -233,13 +251,21 @@ public sealed partial class PatientRegisterViewModel : ObservableObject
     {
         _selectedPatientId = 0;
         SelectedPatientInfo = string.Empty;
+        SubmitButtonText = "提交";
         PatientNo = string.Empty;
         Name = string.Empty;
         SelectedGender = null;
-        BirthDate = null;
+        BirthDatePicker = null;
         Phone = null;
         IdCard = null;
         AllergiesText = null;
         ShowDuplicateWarning = false;
+    }
+
+    /// <summary>将后端返回的出生日期字符串解析为可绑定日期（API 返回 yyyy-MM-dd）</summary>
+    private static DateTime? ParseBirthDate(string? s)
+    {
+        if (string.IsNullOrWhiteSpace(s)) return null;
+        return DateTime.TryParse(s, out var d) ? d : null;
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Hospital.App.Services;
 using Hospital.Application.Constants;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
@@ -15,10 +16,14 @@ namespace Hospital.App.ViewModels;
 public sealed partial class UserRoleViewModel : ObservableObject
 {
     private readonly IUserRoleApplicationService _userRoleService;
+    private readonly INotificationService _notifications;
 
-    public UserRoleViewModel(IUserRoleApplicationService userRoleService)
+    public UserRoleViewModel(
+        IUserRoleApplicationService userRoleService,
+        INotificationService notificationService)
     {
         _userRoleService = userRoleService;
+        _notifications = notificationService;
     }
 
     // ===== 页面状态 =====
@@ -28,9 +33,6 @@ public sealed partial class UserRoleViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isBusy;
-
-    [ObservableProperty]
-    private bool isSuccess;
 
     [ObservableProperty]
     private int selectedTabIndex;
@@ -200,6 +202,7 @@ public sealed partial class UserRoleViewModel : ObservableObject
             var roles = string.IsNullOrWhiteSpace(NewUserRole) ? new List<string>() : new List<string> { NewUserRole };
             var dto = new CreateUserDto(NewLoginName, NewPassword, NewDisplayName, NewCampusName, roles);
             await _userRoleService.CreateUserAsync(dto);
+            _notifications.Success("用户创建成功");
             ShowCreateUser = false;
             ClearCreateUserForm();
             await LoadUsersAsync();
@@ -232,6 +235,7 @@ public sealed partial class UserRoleViewModel : ObservableObject
         {
             var dto = new UpdateUserDto(null, null, !user.IsActive, null);
             await _userRoleService.UpdateUserAsync(user.Id, dto);
+            _notifications.Success("用户状态已更新");
             await LoadUsersAsync();
         }
         catch (Exception ex)
@@ -253,6 +257,13 @@ public sealed partial class UserRoleViewModel : ObservableObject
     private void ToggleRolePermission(string? permission)
     {
         if (permission is null) return;
+
+        // 同步权限项的选中态，供界面"✓"勾选显示
+        var option = AllPermissions
+            .SelectMany(g => g.Permissions)
+            .FirstOrDefault(o => o.Value == permission);
+        if (option is not null)
+            option.IsSelected = !option.IsSelected;
 
         if (NewRolePermissions.Contains(permission))
             NewRolePermissions.Remove(permission);
@@ -277,6 +288,7 @@ public sealed partial class UserRoleViewModel : ObservableObject
         {
             var dto = new CreateRoleDto(NewRoleName, NewRoleDesc, NewRolePermissions.ToList());
             await _userRoleService.CreateRoleAsync(dto);
+            _notifications.Success("角色创建成功");
             ShowCreateRole = false;
             NewRoleName = string.Empty;
             NewRoleDesc = string.Empty;
@@ -301,6 +313,7 @@ public sealed partial class UserRoleViewModel : ObservableObject
         try
         {
             await _userRoleService.DeleteRoleAsync(role.Id);
+            _notifications.Success("角色已删除");
             await LoadRolesAsync();
         }
         catch (Exception ex)
@@ -317,5 +330,18 @@ public sealed partial class UserRoleViewModel : ObservableObject
 /// <summary>权限分组展示</summary>
 public sealed record PermissionGroup(string GroupName, List<PermissionOption> Permissions);
 
-/// <summary>权限选项</summary>
-public sealed record PermissionOption(string Value, string Label);
+/// <summary>权限选项，IsSelected 支持界面勾选态通知</summary>
+public sealed partial class PermissionOption : ObservableObject
+{
+    public PermissionOption(string value, string label)
+    {
+        Value = value;
+        Label = label;
+    }
+
+    public string Value { get; }
+    public string Label { get; }
+
+    [ObservableProperty]
+    private bool isSelected;
+}

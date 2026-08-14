@@ -49,6 +49,7 @@ public static class ApiRoutes
         public static string Search(string? keyword, int page, int size) =>
             $"patient/search?keyword={keyword}&page={page}&size={size}";
         public static string Profile(long id) => $"patient/{id}/profile";
+        public static string Update(long id) => $"patient/{id}";
     }
 
     public static class Schedule

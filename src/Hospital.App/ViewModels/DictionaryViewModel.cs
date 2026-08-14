@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -13,10 +14,14 @@ namespace Hospital.App.ViewModels;
 public sealed partial class DictionaryViewModel : ObservableObject
 {
     private readonly IDictionaryApplicationService _dictService;
+    private readonly INotificationService _notifications;
 
-    public DictionaryViewModel(IDictionaryApplicationService dictService)
+    public DictionaryViewModel(
+        IDictionaryApplicationService dictService,
+        INotificationService notificationService)
     {
         _dictService = dictService;
+        _notifications = notificationService;
     }
 
     [ObservableProperty]
@@ -125,6 +130,14 @@ public sealed partial class DictionaryViewModel : ObservableObject
 
     // ===== 类型操作 =====
 
+    /// <summary>选中字典类型，触发 OnSelectedTypeChanged 加载右侧字典项</summary>
+    [RelayCommand]
+    private void SelectType(DictionaryTypeDto? type)
+    {
+        if (type is not null)
+            SelectedType = type;
+    }
+
     [RelayCommand]
     private void ShowCreateTypeForm()
     {
@@ -182,6 +195,7 @@ public sealed partial class DictionaryViewModel : ObservableObject
                 await _dictService.CreateTypeAsync(dto);
             }
 
+            _notifications.Success("字典类型已保存");
             ShowTypeForm = false;
             await LoadTypesAsync();
         }
@@ -207,6 +221,7 @@ public sealed partial class DictionaryViewModel : ObservableObject
             else
                 await _dictService.ActivateTypeAsync(type.Id);
 
+            _notifications.Success("字典类型状态已更新");
             await LoadTypesAsync();
         }
         catch (Exception ex)
@@ -280,6 +295,7 @@ public sealed partial class DictionaryViewModel : ObservableObject
                 await _dictService.CreateItemAsync(dto);
             }
 
+            _notifications.Success("字典项已保存");
             ShowItemForm = false;
             await LoadItemsAsync();
         }
@@ -305,6 +321,7 @@ public sealed partial class DictionaryViewModel : ObservableObject
             else
                 await _dictService.ActivateItemAsync(item.Id);
 
+            _notifications.Success("字典项状态已更新");
             await LoadItemsAsync();
         }
         catch (Exception ex)

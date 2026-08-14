@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Hospital.App.Constants;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -16,13 +17,16 @@ public sealed partial class DispenseWorkbenchViewModel : ObservableObject
 {
     private readonly IDispenseApplicationService _dispenseService;
     private readonly IPatientApplicationService _patientService;
+    private readonly INotificationService _notifications;
 
     public DispenseWorkbenchViewModel(
         IDispenseApplicationService dispenseService,
-        IPatientApplicationService patientService)
+        IPatientApplicationService patientService,
+        INotificationService notificationService)
     {
         _dispenseService = dispenseService;
         _patientService = patientService;
+        _notifications = notificationService;
     }
 
     // ===== 页面状态 =====
@@ -32,9 +36,6 @@ public sealed partial class DispenseWorkbenchViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isBusy;
-
-    [ObservableProperty]
-    private bool isSuccess;
 
     public string TodayDate => DateTime.Today.ToString("yyyy-MM-dd");
 
@@ -99,7 +100,6 @@ public sealed partial class DispenseWorkbenchViewModel : ObservableObject
         if (patient is null) return;
         _selectedPatientId = patient.Id;
         SelectedPatientInfo = $"{patient.Name}（病历号: {patient.PatientNo}）";
-        IsSuccess = false;
 
         await LoadPrescriptionsAsync();
     }
@@ -130,7 +130,7 @@ public sealed partial class DispenseWorkbenchViewModel : ObservableObject
         try
         {
             await _dispenseService.DispenseAsync(id);
-            IsSuccess = true;
+            _notifications.Success("发药成功");
             await LoadPrescriptionsAsync();
         }
         catch (Exception ex)
@@ -154,7 +154,7 @@ public sealed partial class DispenseWorkbenchViewModel : ObservableObject
         try
         {
             await _dispenseService.ReturnAsync(id);
-            IsSuccess = true;
+            _notifications.Success("退药成功");
             await LoadPrescriptionsAsync();
         }
         catch (Exception ex)

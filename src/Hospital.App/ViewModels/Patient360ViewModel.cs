@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -72,6 +73,30 @@ public sealed partial class Patient360ViewModel : ObservableObject
     [ObservableProperty]
     private string visitHistoryText = AppConstants.NoVisitHistory;
 
+    [ObservableProperty]
+    private ObservableCollection<VisitSummaryDto> visitHistory = new();
+
+    public bool HasVisits => VisitHistory.Count > 0;
+
+    // ===== Tab3：处方记录 =====
+
+    [ObservableProperty]
+    private ObservableCollection<PrescriptionDto> prescriptions = new();
+
+    public bool HasPrescriptions => Prescriptions.Count > 0;
+
+    // ===== Tab4：检查报告（检验 + 放射） =====
+
+    [ObservableProperty]
+    private ObservableCollection<LabOrderDto> labOrders = new();
+
+    public bool HasLabOrders => LabOrders.Count > 0;
+
+    [ObservableProperty]
+    private ObservableCollection<RadOrderDto> radOrders = new();
+
+    public bool HasRadOrders => RadOrders.Count > 0;
+
     /// <summary>根据患者 ID 加载完整 360 视图数据</summary>
     public async Task LoadPatientAsync(long patientId)
     {
@@ -104,9 +129,23 @@ public sealed partial class Patient360ViewModel : ObservableObject
             AllergiesText = profile.AllergiesText;
 
             // 就诊历史
-            VisitHistoryText = profile.RecentVisits.Count > 0
+            VisitHistory = new ObservableCollection<VisitSummaryDto>(profile.RecentVisits ?? new());
+            VisitHistoryText = profile.RecentVisits is { Count: > 0 }
                 ? $"共 {profile.RecentVisits.Count} 条就诊记录"
                 : AppConstants.NoVisitHistory;
+
+            // 处方记录
+            Prescriptions = new ObservableCollection<PrescriptionDto>(profile.Prescriptions ?? new());
+
+            // 检查报告
+            LabOrders = new ObservableCollection<LabOrderDto>(profile.LabOrders ?? new());
+            RadOrders = new ObservableCollection<RadOrderDto>(profile.RadOrders ?? new());
+
+            // 集合赋值不会自动刷新计算属性，手动通知
+            OnPropertyChanged(nameof(HasVisits));
+            OnPropertyChanged(nameof(HasPrescriptions));
+            OnPropertyChanged(nameof(HasLabOrders));
+            OnPropertyChanged(nameof(HasRadOrders));
 
             HasPatient = true;
             SelectedTab = 0;

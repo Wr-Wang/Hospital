@@ -8,6 +8,7 @@ public interface ILabOrderRepository
 {
     Task<LabOrder?> GetByIdAsync(long id);
     Task<List<LabOrder>> GetByEncounterIdAsync(long encounterId);
+    Task<List<LabOrder>> GetByPatientAsync(long patientId);
     Task AddAsync(LabOrder order);
     Task UpdateAsync(LabOrder order);
 }

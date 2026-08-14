@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -13,10 +14,14 @@ namespace Hospital.App.ViewModels;
 public sealed partial class CampusViewModel : ObservableObject
 {
     private readonly ICampusApplicationService _campusService;
+    private readonly INotificationService _notifications;
 
-    public CampusViewModel(ICampusApplicationService campusService)
+    public CampusViewModel(
+        ICampusApplicationService campusService,
+        INotificationService notificationService)
     {
         _campusService = campusService;
+        _notifications = notificationService;
     }
 
     [ObservableProperty]
@@ -136,6 +141,7 @@ public sealed partial class CampusViewModel : ObservableObject
                 await _campusService.CreateAsync(dto);
             }
 
+            _notifications.Success("院区已保存");
             ShowForm = false;
             await LoadCampusesAsync();
         }
@@ -164,6 +170,7 @@ public sealed partial class CampusViewModel : ObservableObject
             else
                 await _campusService.ActivateAsync(campus.Id);
 
+            _notifications.Success("院区状态已更新");
             await LoadCampusesAsync();
         }
         catch (Exception ex)

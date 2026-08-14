@@ -16,6 +16,11 @@ public sealed class EfRadOrderRepository : IRadOrderRepository
     public async Task<List<RadOrder>> GetByEncounterIdAsync(long encounterId)
         => await _db.RadOrders.Where(o => o.EncounterId == encounterId).ToListAsync();
 
+    public async Task<List<RadOrder>> GetByPatientAsync(long patientId)
+        => await _db.RadOrders
+            .Where(o => _db.Encounters.Any(e => e.Id == o.EncounterId && e.PatientId == patientId))
+            .ToListAsync();
+
     public async Task AddAsync(RadOrder order)
     {
         await _db.RadOrders.AddAsync(order);

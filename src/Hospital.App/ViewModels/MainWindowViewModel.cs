@@ -35,6 +35,26 @@ public partial class MainWindowViewModel : ObservableObject
         _navigation = navigation;
         AppContext = appContext;
 
+        RefreshMenuPermissions();
+    }
+
+    public IAppContext AppContext { get; }
+
+    public ObservableCollection<NavMenuItem> MenuItems { get; } = new();
+
+    [ObservableProperty]
+    private NavMenuItem? selectedMenuItem;
+
+    public event EventHandler? LogoutRequested;
+
+    /// <summary>
+    /// 每次登录后重建菜单并按当前用户权限过滤。
+    /// MainWindow 是单例，其 ViewModel 不会随登录重建，若只在构造函数过滤一次，
+    /// 先以非管理员登录再退出换管理员登录时，菜单会停留在首次登录的过滤结果上。
+    /// </summary>
+    public void RefreshMenuPermissions()
+    {
+        MenuItems.Clear();
         MenuItems.Add(new NavMenuItem("首 页", RouteKeys.Home, "🏠"));
         MenuItems.Add(new NavMenuItem("患者建档", RouteKeys.PatientRegister, "👤"));
         MenuItems.Add(new NavMenuItem("患者检索", RouteKeys.PatientSearch, "🔍"));
@@ -52,18 +72,9 @@ public partial class MainWindowViewModel : ObservableObject
 
         ApplyPermissionFilter();
 
-        // 默认选中首页
-        SelectedMenuItem = MenuItems[0];
+        // 默认选中首页（触发导航到首页）
+        SelectedMenuItem = MenuItems.FirstOrDefault();
     }
-
-    public IAppContext AppContext { get; }
-
-    public ObservableCollection<NavMenuItem> MenuItems { get; } = new();
-
-    [ObservableProperty]
-    private NavMenuItem? selectedMenuItem;
-
-    public event EventHandler? LogoutRequested;
 
     /// <summary>根据当前用户权限移除无权限的菜单项</summary>
     private void ApplyPermissionFilter()

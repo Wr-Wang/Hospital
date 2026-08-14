@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -15,13 +16,16 @@ public sealed partial class DepartmentViewModel : ObservableObject
 {
     private readonly IDepartmentApplicationService _deptService;
     private readonly ICampusApplicationService _campusService;
+    private readonly INotificationService _notifications;
 
     public DepartmentViewModel(
         IDepartmentApplicationService deptService,
-        ICampusApplicationService campusService)
+        ICampusApplicationService campusService,
+        INotificationService notificationService)
     {
         _deptService = deptService;
         _campusService = campusService;
+        _notifications = notificationService;
     }
 
     [ObservableProperty]
@@ -200,6 +204,7 @@ public sealed partial class DepartmentViewModel : ObservableObject
                 await _deptService.CreateAsync(dto);
             }
 
+            _notifications.Success("科室已保存");
             ShowForm = false;
             await LoadDepartmentsAsync();
         }
@@ -228,6 +233,7 @@ public sealed partial class DepartmentViewModel : ObservableObject
             else
                 await _deptService.ActivateAsync(dept.Id);
 
+            _notifications.Success("科室状态已更新");
             await LoadDepartmentsAsync();
         }
         catch (Exception ex)

@@ -80,7 +80,27 @@ Page({
     // 从身份证提取出生日期
     const birthDate = `${idCard.substring(6, 10)}-${idCard.substring(10, 12)}-${idCard.substring(12, 14)}`
 
+    // 与后端 CreatePatientRequest / UpdatePatientRequest 对齐的负载
+    const payload = {
+      name,
+      gender: gender === 1 ? 'Male' : 'Female',
+      idCard,
+      phone,
+      birthDate
+    }
+
     if (this.data.isEdit) {
+      // 已分配后端 ID 时同步更新后端（补全身份证等需落库，否则挂号实名校验仍会拦截）；
+      // 临时 ID（pat_ 开头）只做本地维护，后端无对应患者
+      if (/^\d+$/.test(this.data.editId)) {
+        try {
+          await PatientService.update(this.data.editId, payload)
+          console.log('后端患者已更新', this.data.editId)
+        } catch (err) {
+          console.warn('后端更新患者失败，仅更新本地', err?.message || err)
+        }
+      }
+
       // 本地更新
       const patients = (Storage.get('patients') || []).map(p => {
         if (String(p.id) === this.data.editId) {
@@ -104,15 +124,7 @@ Page({
 
       // 尝试在后端创建患者
       try {
-        const payload = {
-          patientNo: '',
-          name,
-          gender: gender === 1 ? 'Male' : 'Female',
-          idCard,
-          phone,
-          birthDate
-        }
-        const result = await PatientService.create(payload)
+        const result = await PatientService.create({ patientNo: '', ...payload })
         // 使用后端返回的真实 ID 替换临时 ID
         if (result && result.id) {
           newPatient.id = result.id

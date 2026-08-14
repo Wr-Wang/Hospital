@@ -70,12 +70,8 @@
                                 <Border Padding="12,10" Margin="0,0,0,6"
                                         CornerRadius="6"
                                         Background="{StaticResource Gray50Brush}"
-                                        Cursor="Hand">
-                                    <Border.InputBindings>
-                                        <MouseBinding Gesture="LeftClick"
-                                                      Command="{Binding DataContext.SelectPatientCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                      CommandParameter="{Binding}" />
-                                    </Border.InputBindings>
+                                        Cursor="Hand"
+                                        MouseLeftButtonUp="OnPatientItemClick">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />

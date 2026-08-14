@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Hospital.App.Constants;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -17,13 +18,16 @@ public sealed partial class CashierWorkbenchViewModel : ObservableObject
 {
     private readonly ICashierApplicationService _cashierService;
     private readonly IPatientApplicationService _patientService;
+    private readonly INotificationService _notifications;
 
     public CashierWorkbenchViewModel(
         ICashierApplicationService cashierService,
-        IPatientApplicationService patientService)
+        IPatientApplicationService patientService,
+        INotificationService notificationService)
     {
         _cashierService = cashierService;
         _patientService = patientService;
+        _notifications = notificationService;
     }
 
     // ===== 页面状态 =====
@@ -33,9 +37,6 @@ public sealed partial class CashierWorkbenchViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isBusy;
-
-    [ObservableProperty]
-    private bool isSuccess;
 
     public string TodayDate => DateTime.Today.ToString("yyyy-MM-dd");
 
@@ -104,7 +105,6 @@ public sealed partial class CashierWorkbenchViewModel : ObservableObject
         if (patient is null) return;
         _selectedPatientId = patient.Id;
         SelectedPatientInfo = $"{patient.Name}（病历号: {patient.PatientNo}）";
-        IsSuccess = false;
 
         await LoadPendingItemsAsync();
     }
@@ -151,7 +151,6 @@ public sealed partial class CashierWorkbenchViewModel : ObservableObject
     private async Task Pay()
     {
         ErrorMessage = null;
-        IsSuccess = false;
 
         var selected = PendingItems.Where(i => i.IsSelected).ToList();
         if (selected.Count == 0)
@@ -167,7 +166,7 @@ public sealed partial class CashierWorkbenchViewModel : ObservableObject
             var items = selected.Select(i => new PayItemDto(i.Id, i.ItemType)).ToList();
             var dto = new PayRequestDto(items);
             await _cashierService.PayAsync(dto);
-            IsSuccess = true;
+            _notifications.Success("缴费成功");
             await LoadPendingItemsAsync();
         }
         catch (Exception ex)

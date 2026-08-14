@@ -14,6 +14,9 @@ public sealed partial class ApplicationContext : ObservableObject, IAppContext
     private string? campusName = "演示院区";
 
     [ObservableProperty]
+    private long? campusId;
+
+    [ObservableProperty]
     private string? accessToken;
 
     [ObservableProperty]

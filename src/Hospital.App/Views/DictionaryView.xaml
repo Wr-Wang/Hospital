@@ -67,12 +67,8 @@
                                 <DataTemplate>
                                     <Border Padding="12,8" Margin="8,0,8,2" CornerRadius="6"
                                             Background="{StaticResource Gray50Brush}"
-                                            Cursor="Hand">
-                                        <Border.InputBindings>
-                                            <MouseBinding Gesture="LeftClick"
-                                                          Command="{Binding DataContext.SelectTypeCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                          CommandParameter="{Binding}" />
-                                        </Border.InputBindings>
+                                            Cursor="Hand"
+                                            MouseLeftButtonUp="OnTypeClick">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />

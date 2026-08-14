@@ -54,6 +54,7 @@ public sealed partial class LoginViewModel : ObservableObject
                 _appContext.CurrentUserId = result.UserInfo.Id;
                 _appContext.CurrentUserDisplayName = result.UserInfo.DisplayName;
                 _appContext.CampusName = result.UserInfo.CampusName;
+                _appContext.CampusId = result.UserInfo.CampusId;
                 _appContext.Roles = result.UserInfo.Roles;
                 _appContext.Permissions = result.UserInfo.Permissions;
             }

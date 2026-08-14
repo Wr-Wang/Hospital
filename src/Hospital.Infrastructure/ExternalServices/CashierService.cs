@@ -17,5 +17,5 @@ public sealed class CashierService : ICashierApplicationService
         => await _api.GetAsync<List<ChargeItemDto>>(ApiRoutes.Cashier.PendingItems(patientId));
 
     public async Task PayAsync(PayRequestDto dto)
-        => await _api.PostAsync<object>(ApiRoutes.Cashier.Pay, dto);
+        => await _api.PostAsync(ApiRoutes.Cashier.Pay, dto);
 }

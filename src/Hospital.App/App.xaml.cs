@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 using Hospital.App.Services;
 using Hospital.App.ViewModels;
@@ -14,6 +16,14 @@ public partial class App : System.Windows.Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        // 统一日期显示格式：App 内所有日期控件（DatePicker 等）一律显示为 yyyy/MM/dd。
+        // WPF DatePicker 文本框用当前线程文化的 ShortDatePattern 格式化选中日期，
+        // 因此克隆 zh-CN 文化并覆盖短日期模式即可全局生效。
+        var culture = (CultureInfo)CultureInfo.GetCultureInfo("zh-CN").Clone();
+        culture.DateTimeFormat.ShortDatePattern = "yyyy/MM/dd";
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
+
         base.OnStartup(e);
 
         // 全局未处理异常处理
@@ -93,6 +103,8 @@ public partial class App : System.Windows.Application
         if (mainWindow.DataContext is MainWindowViewModel mainVm)
         {
             mainVm.LogoutRequested += OnLogoutRequested;
+            // MainWindow 是单例，退出后重新登录会复用同一实例；每次登录按当前用户权限重建菜单
+            mainVm.RefreshMenuPermissions();
         }
 
         // 不要在 LoginSucceeded 事件中关闭登录窗口——

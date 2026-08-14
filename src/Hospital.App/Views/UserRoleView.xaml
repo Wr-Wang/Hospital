@@ -314,19 +314,16 @@
                                                                                 Background="{StaticResource WhiteBrush}"
                                                                                 BorderBrush="{StaticResource Gray200Brush}"
                                                                                 BorderThickness="1"
-                                                                                Cursor="Hand">
-                                                                            <Border.InputBindings>
-                                                                                <MouseBinding Gesture="LeftClick"
-                                                                                              Command="{Binding DataContext.ToggleRolePermissionCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                                                              CommandParameter="{Binding Value}" />
-                                                                            </Border.InputBindings>
+                                                                                Cursor="Hand"
+                                                                                MouseLeftButtonUp="OnPermissionClick">
                                                                             <StackPanel Orientation="Horizontal">
                                                                                 <Border Width="16" Height="16" CornerRadius="3"
                                                                                         BorderBrush="{StaticResource Gray300Brush}" BorderThickness="1"
                                                                                         Background="{StaticResource WhiteBrush}" Margin="0,0,8,0">
                                                                                     <TextBlock Text="✓" FontSize="10"
                                                                                                Foreground="{StaticResource Green600Brush}"
-                                                                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                                               Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}" />
                                                                                 </Border>
                                                                                 <TextBlock FontSize="12"
                                                                                            Foreground="{StaticResource Gray700Brush}"

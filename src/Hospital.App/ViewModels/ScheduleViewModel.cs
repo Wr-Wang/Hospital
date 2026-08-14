@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -17,15 +18,21 @@ public sealed partial class ScheduleViewModel : ObservableObject
     private readonly IScheduleApplicationService _scheduleService;
     private readonly IDepartmentApplicationService _departmentService;
     private readonly IStaffApplicationService _staffService;
+    private readonly INotificationService _notifications;
+    private readonly IAppContext _appContext;
 
     public ScheduleViewModel(
         IScheduleApplicationService scheduleService,
         IDepartmentApplicationService departmentService,
-        IStaffApplicationService staffService)
+        IStaffApplicationService staffService,
+        INotificationService notificationService,
+        IAppContext appContext)
     {
         _scheduleService = scheduleService;
         _departmentService = departmentService;
         _staffService = staffService;
+        _notifications = notificationService;
+        _appContext = appContext;
     }
 
     // ===== 筛选条件 =====
@@ -43,7 +50,7 @@ public sealed partial class ScheduleViewModel : ObservableObject
     private StaffDto? selectedDoctor;
 
     [ObservableProperty]
-    private string scheduleDate = DateTime.Today.ToString("yyyy-MM-dd");
+    private DateTime? scheduleDate = DateTime.Today;
 
     // ===== 排班列表 =====
 
@@ -70,7 +77,7 @@ public sealed partial class ScheduleViewModel : ObservableObject
     private StaffDto? createDoctor;
 
     [ObservableProperty]
-    private string createDate = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
+    private DateTime? createDate = DateTime.Today.AddDays(1);
 
     public ObservableCollection<ScheduleSlotEntry> CreateSlots { get; } = new()
     {
@@ -156,7 +163,7 @@ public sealed partial class ScheduleViewModel : ObservableObject
         {
             if (SelectedDept is not null)
             {
-                Schedules = await _scheduleService.GetByDeptAsync(SelectedDept.Id, ScheduleDate);
+                Schedules = await _scheduleService.GetByDeptAsync(SelectedDept.Id, ScheduleDate?.ToString("yyyy-MM-dd") ?? string.Empty);
             }
             else
             {
@@ -223,10 +230,13 @@ public sealed partial class ScheduleViewModel : ObservableObject
             var slotDtos = CreateSlots.Select(s => new CreateScheduleSlotDto(
                 s.SlotName, s.StartTime, s.EndTime, s.TotalQuota)).ToList();
 
+            // 排班归属当前登录人的院区（登录上下文 CampusId，缺省回退总院区 1）
             var dto = new CreateScheduleDto(
-                CreateDoctor.Id, CreateDept.Id, 1L, CreateDate, slotDtos);
+                CreateDoctor.Id, CreateDept.Id, _appContext.CampusId ?? 1L,
+                CreateDate?.ToString("yyyy-MM-dd") ?? string.Empty, slotDtos);
 
             await _scheduleService.CreateAsync(dto);
+            _notifications.Success("排班创建成功");
             ShowCreateForm = false;
             await LoadSchedules();
         }
@@ -252,6 +262,7 @@ public sealed partial class ScheduleViewModel : ObservableObject
         try
         {
             await _scheduleService.PublishAsync(id);
+            _notifications.Success("排班已发布");
             await LoadSchedules();
         }
         catch (Exception ex)
@@ -266,6 +277,7 @@ public sealed partial class ScheduleViewModel : ObservableObject
         try
         {
             await _scheduleService.DeactivateAsync(id);
+            _notifications.Success("排班已停用");
             await LoadSchedules();
         }
         catch (Exception ex)

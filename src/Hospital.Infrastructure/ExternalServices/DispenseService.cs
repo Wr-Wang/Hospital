@@ -17,8 +17,8 @@ public sealed class DispenseService : IDispenseApplicationService
         => await _api.GetAsync<List<PrescriptionDto>>(ApiRoutes.Dispense.PaidPrescriptions(patientId));
 
     public async Task DispenseAsync(long id)
-        => await _api.PostAsync<object>(ApiRoutes.Dispense.DispenseItem(id), new { });
+        => await _api.PostAsync(ApiRoutes.Dispense.DispenseItem(id), new { });
 
     public async Task ReturnAsync(long id)
-        => await _api.PostAsync<object>(ApiRoutes.Dispense.ReturnItem(id), new { });
+        => await _api.PostAsync(ApiRoutes.Dispense.ReturnItem(id), new { });
 }

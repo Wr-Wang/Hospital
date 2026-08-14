@@ -7,6 +7,7 @@ public interface IAppContext : INotifyPropertyChanged
     long CurrentUserId { get; set; }
     string? CurrentUserDisplayName { get; set; }
     string? CampusName { get; set; }
+    long? CampusId { get; set; }
     string? AccessToken { get; set; }
     string[]? Roles { get; set; }
     string[]? Permissions { get; set; }

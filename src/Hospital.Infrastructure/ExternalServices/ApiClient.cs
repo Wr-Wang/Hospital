@@ -38,6 +38,13 @@ public sealed class ApiClient : IApiClient
         return await response.Content.ReadFromJsonAsync<TResponse>() ?? throw new InvalidOperationException("Response body was null.");
     }
 
+    /// <summary>POST 但忽略响应体（用于 API 返回 NoContent / 空 body 的写操作）</summary>
+    public async Task PostAsync(string route, object payload)
+    {
+        var response = await _httpClient.PostAsJsonAsync(route, payload);
+        response.EnsureSuccessStatusCode();
+    }
+
     public async Task PutAsync(string route, object payload)
     {
         var response = await _httpClient.PutAsJsonAsync(route, payload);

@@ -16,6 +16,11 @@ public sealed class EfLabOrderRepository : ILabOrderRepository
     public async Task<List<LabOrder>> GetByEncounterIdAsync(long encounterId)
         => await _db.LabOrders.Where(o => o.EncounterId == encounterId).ToListAsync();
 
+    public async Task<List<LabOrder>> GetByPatientAsync(long patientId)
+        => await _db.LabOrders
+            .Where(o => _db.Encounters.Any(e => e.Id == o.EncounterId && e.PatientId == patientId))
+            .ToListAsync();
+
     public async Task AddAsync(LabOrder order)
     {
         await _db.LabOrders.AddAsync(order);

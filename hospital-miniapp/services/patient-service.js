@@ -30,6 +30,11 @@ const PatientService = {
   // 新建患者
   create(data) {
     return api.post('/api/patient', data)
+  },
+
+  // 更新患者档案（补全身份证号等）
+  update(id, data) {
+    return api.put(`/api/patient/${id}`, data)
   }
 }
 

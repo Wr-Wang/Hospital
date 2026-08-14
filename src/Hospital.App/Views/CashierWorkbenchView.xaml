@@ -37,15 +37,6 @@
                            TextWrapping="Wrap" />
             </Border>
 
-            <!-- ===== Success Banner ===== -->
-            <Border Margin="0,8,0,0" Padding="10,8" CornerRadius="6"
-                    Background="{StaticResource Green50Brush}"
-                    BorderBrush="{StaticResource Green200Brush}" BorderThickness="1"
-                    Visibility="{Binding IsSuccess, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
-                <TextBlock Text="缴费成功！" FontSize="13"
-                           Foreground="{StaticResource Green800Brush}" FontWeight="SemiBold" />
-            </Border>
-
             <!-- ===== Step 1: Patient Search ===== -->
             <Border Margin="0,16,0,0" Padding="24,20" CornerRadius="10"
                     Background="{StaticResource WhiteBrush}">

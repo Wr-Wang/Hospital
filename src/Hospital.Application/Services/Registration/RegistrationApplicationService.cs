@@ -67,9 +67,15 @@ public sealed class RegistrationApplicationService : IRegistrationApplicationSer
         return dtos;
     }
 
-    /// <summary>挂号流程：校验号源 → 扣减号源 → 创建挂号记录 → 创建就诊记录</summary>
+    /// <summary>挂号流程：实名校验 → 校验号源 → 扣减号源 → 创建挂号记录 → 创建就诊记录</summary>
     public async Task<long> RegisterAsync(CreateRegistrationDto dto)
     {
+        // 0. 实名制校验：患者未登记身份证号时拒绝挂号，须先补全（微信建档不采集身份证，可能为空）
+        var patient = await _patientRepository.GetByIdAsync(dto.PatientId)
+            ?? throw new InvalidOperationException("患者不存在");
+        if (patient.IdCard is null || string.IsNullOrWhiteSpace(patient.IdCard.Number))
+            throw new InvalidOperationException("该患者未登记身份证号，请先在患者档案中补全身份证后再挂号");
+
         // 1. 加载排班并校验号源
         var schedule = await _scheduleRepository.GetByIdAsync(dto.ScheduleId)
             ?? throw new InvalidOperationException($"排班不存在 (Id={dto.ScheduleId})");
@@ -85,13 +91,13 @@ public sealed class RegistrationApplicationService : IRegistrationApplicationSer
             dto.PatientId, dto.ScheduleId, dto.DoctorId, dto.DeptId,
             dto.CampusId, queueNumber, dto.SlotName);
 
-        // 4. 创建就诊记录
-        var encounter = new Encounter(
-            dto.PatientId, dto.DoctorId, dto.DeptId, dto.CampusId, registration.Id);
-
-        // 5. 持久化
+        // 4. 持久化挂号记录，先生成自增 Id，再创建就诊记录（否则 Encounter.RegistrationId 恒为 0）
         await _scheduleRepository.UpdateAsync(schedule);
         await _registrationRepository.AddAsync(registration);
+
+        // 5. 创建就诊记录，关联正确的挂号 Id
+        var encounter = new Encounter(
+            dto.PatientId, dto.DoctorId, dto.DeptId, dto.CampusId, registration.Id);
         await _encounterRepository.AddAsync(encounter);
 
         return registration.Id;

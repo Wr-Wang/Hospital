@@ -19,6 +19,14 @@ public sealed record CreatePatientDto(
     string? AllergiesText,
     string? IdCard);
 
+public sealed record UpdatePatientDto(
+    string Name,
+    string? Gender,
+    string? BirthDate,
+    string? Phone,
+    string? AllergiesText,
+    string? IdCard);
+
 public sealed record PatientSearchResultDto(
     List<PatientDto> Items,
     int TotalCount,
@@ -34,7 +42,10 @@ public sealed record PatientProfileDto(
     string? Phone,
     string? AllergiesText,
     string? IdCard,
-    List<VisitSummaryDto> RecentVisits);
+    List<VisitSummaryDto> RecentVisits,
+    List<PrescriptionDto> Prescriptions,
+    List<LabOrderDto> LabOrders,
+    List<RadOrderDto> RadOrders);
 
 public sealed record VisitSummaryDto(
     long Id,

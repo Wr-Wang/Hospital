@@ -11,4 +11,5 @@ public interface IPatientApplicationService
     Task<PatientSearchResultDto> SearchAsync(string? keyword, int page, int size);
     Task<PatientProfileDto?> GetProfileAsync(long id);
     Task<long> CreateAsync(CreatePatientDto request);
+    Task UpdateAsync(long id, UpdatePatientDto request);
 }

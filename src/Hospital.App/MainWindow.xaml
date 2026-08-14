@@ -200,5 +200,53 @@
             <ContentControl x:Name="ShellContentHost"
                             Grid.Row="1" />
         </Grid>
+
+        <!-- ==================== Global Toast ==================== -->
+        <Border x:Name="ToastHost"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,28"
+                Panel.ZIndex="2000"
+                IsHitTestVisible="False"
+                CornerRadius="8"
+                Padding="18,12"
+                Background="{Binding Background}"
+                Effect="{StaticResource CardShadowEffect}">
+            <Border.RenderTransform>
+                <TranslateTransform Y="16" />
+            </Border.RenderTransform>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Setter Property="Opacity" Value="0" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsVisible}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.18" />
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                                         To="0" Duration="0:0:0.18" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Icon}"
+                           FontSize="15" FontWeight="Bold"
+                           Foreground="{Binding Foreground}"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Message}"
+                           FontSize="13" FontWeight="SemiBold"
+                           Foreground="{Binding Foreground}"
+                           Margin="8,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Hospital.App.Constants;
+using Hospital.App.Services;
 using Hospital.Application.DTOs;
 using Hospital.Application.Services;
 
@@ -20,19 +21,22 @@ public sealed partial class RegisterWorkbenchViewModel : ObservableObject
     private readonly IDepartmentApplicationService _departmentService;
     private readonly IStaffApplicationService _staffService;
     private readonly IPatientApplicationService _patientService;
+    private readonly INotificationService _notifications;
 
     public RegisterWorkbenchViewModel(
         IRegistrationApplicationService registrationService,
         IScheduleApplicationService scheduleService,
         IDepartmentApplicationService departmentService,
         IStaffApplicationService staffService,
-        IPatientApplicationService patientService)
+        IPatientApplicationService patientService,
+        INotificationService notificationService)
     {
         _registrationService = registrationService;
         _scheduleService = scheduleService;
         _departmentService = departmentService;
         _staffService = staffService;
         _patientService = patientService;
+        _notifications = notificationService;
     }
 
     // ===== 科室与医生 =====
@@ -80,9 +84,6 @@ public sealed partial class RegisterWorkbenchViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isBusy;
-
-    [ObservableProperty]
-    private bool isSuccess;
 
     [ObservableProperty]
     private bool isRegistered;
@@ -149,6 +150,22 @@ public sealed partial class RegisterWorkbenchViewModel : ObservableObject
         IsRegistered = false;
     }
 
+    /// <summary>选中可用排班</summary>
+    [RelayCommand]
+    private void SelectSlot(ScheduleDto? schedule)
+    {
+        if (schedule is not null)
+            SelectedSchedule = schedule;
+    }
+
+    /// <summary>选中排班下的时段</summary>
+    [RelayCommand]
+    private void SelectSlotName(string? slotName)
+    {
+        if (!string.IsNullOrWhiteSpace(slotName))
+            SelectedSlotName = slotName;
+    }
+
     private async Task LoadDoctorsAsync(long deptId)
     {
         try
@@ -206,7 +223,9 @@ public sealed partial class RegisterWorkbenchViewModel : ObservableObject
     {
         if (patient is null) return;
         _selectedPatientId = patient.Id;
-        SelectedPatientInfo = $"{patient.Name}（病历号: {patient.PatientNo}）";
+        SelectedPatientInfo = string.IsNullOrWhiteSpace(patient.IdCard)
+            ? $"{patient.Name}（病历号: {patient.PatientNo}）⚠️ 未登记身份证，挂号前需补全"
+            : $"{patient.Name}（病历号: {patient.PatientNo}）";
         IsRegistered = false;
     }
 
@@ -216,7 +235,6 @@ public sealed partial class RegisterWorkbenchViewModel : ObservableObject
     private async Task Register()
     {
         ErrorMessage = null;
-        IsSuccess = false;
 
         if (SelectedDept is null || SelectedDoctor is null || SelectedSchedule is null)
         {
@@ -245,7 +263,7 @@ public sealed partial class RegisterWorkbenchViewModel : ObservableObject
                 SelectedDept.Id, SelectedSchedule.CampusId, SelectedSlotName);
 
             await _registrationService.RegisterAsync(dto);
-            IsSuccess = true;
+            _notifications.Success("挂号成功");
             IsRegistered = true;
 
             await LoadTodayRegistrations();
@@ -274,6 +292,7 @@ public sealed partial class RegisterWorkbenchViewModel : ObservableObject
         try
         {
             await _registrationService.VoidAsync(id);
+            _notifications.Success("退号成功");
             await LoadTodayRegistrations();
         }
         catch (Exception ex)

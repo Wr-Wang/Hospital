@@ -11,10 +11,11 @@ namespace Hospital.App.Services;
 
 public sealed class NavigationService : INavigationService
 {
-    private readonly Dictionary<string, Func<UIElement>> _routes = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, Func<object?, UIElement>> _routes = new(StringComparer.OrdinalIgnoreCase);
     private readonly IServiceProvider _services;
     private ContentControl? _host;
     private string? _pendingRoute;
+    private object? _pendingParameter;
 
     public NavigationService(IServiceProvider services)
     {
@@ -26,7 +27,17 @@ public sealed class NavigationService : INavigationService
         // M2 患者
         Register(RouteKeys.PatientRegister, () => CreateView<PatientRegisterView, PatientRegisterViewModel>());
         Register(RouteKeys.PatientSearch, () => CreateView<PatientSearchView, PatientSearchViewModel>());
-        Register(RouteKeys.Patient360, () => CreateView<Patient360View, Patient360ViewModel>());
+        Register(RouteKeys.Patient360, parameter =>
+        {
+            var view = CreateView<Patient360View, Patient360ViewModel>();
+            if (parameter is long patientId
+                && view is FrameworkElement fe
+                && fe.DataContext is Patient360ViewModel vm)
+            {
+                _ = vm.LoadPatientAsync(patientId); // VM 内部有 try/catch，异常自行处理
+            }
+            return view;
+        });
 
         // M1 主数据
         Register(RouteKeys.Campus, () => CreateView<CampusView, CampusViewModel>());
@@ -56,16 +67,20 @@ public sealed class NavigationService : INavigationService
         _host = host;
         if (_pendingRoute is not null)
         {
-            Navigate(_pendingRoute);
+            Navigate(_pendingRoute, _pendingParameter);
             _pendingRoute = null;
+            _pendingParameter = null;
         }
     }
 
-    public void Navigate(string routeKey)
+    public void Navigate(string routeKey) => Navigate(routeKey, null);
+
+    public void Navigate(string routeKey, object? parameter)
     {
         if (_host is null)
         {
             _pendingRoute = routeKey;
+            _pendingParameter = parameter;
             return;
         }
 
@@ -80,10 +95,13 @@ public sealed class NavigationService : INavigationService
             return;
         }
 
-        _host.Content = factory();
+        _host.Content = factory(parameter);
     }
 
-    public void Register(string routeKey, Func<UIElement> factory) => _routes[routeKey] = factory;
+    public void Register(string routeKey, Func<UIElement> factory) => _routes[routeKey] = _ => factory();
+
+    /// <summary>注册支持带参的页面工厂</summary>
+    public void Register(string routeKey, Func<object?, UIElement> factory) => _routes[routeKey] = factory;
 
     private UIElement CreateView<TView, TViewModel>()
         where TView : UserControl

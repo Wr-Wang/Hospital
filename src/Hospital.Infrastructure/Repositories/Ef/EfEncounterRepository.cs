@@ -24,19 +24,28 @@ public sealed class EfEncounterRepository : IEncounterRepository
 
     public async Task<List<Encounter>> GetByDateAsync(long doctorId, DateOnly date)
     {
+        // 与 GetQueueAsync 一致：按挂号时间（RegisterTime）过滤当天，包含待诊记录
         var from = date.ToDateTime(TimeOnly.MinValue);
-        var to = date.ToDateTime(TimeOnly.MaxValue);
+        var to = from.AddDays(1);
         return await _db.Encounters
-            .Where(e => e.DoctorId == doctorId && e.StartTime >= from && e.StartTime <= to)
+            .Where(e => e.DoctorId == doctorId
+                && _db.Registrations.Any(r => r.Id == e.RegistrationId
+                    && r.RegisterTime >= from
+                    && r.RegisterTime < to))
             .ToListAsync();
     }
 
     public async Task<List<Encounter>> GetQueueAsync(long doctorId, DateOnly date)
     {
+        // 队列按挂号时间（RegisterTime）过滤当天，而非 StartTime：
+        // 待诊记录尚未开始就诊，StartTime 为 null，按 StartTime 过滤会漏掉待诊患者。
         var from = date.ToDateTime(TimeOnly.MinValue);
-        var to = date.ToDateTime(TimeOnly.MaxValue);
+        var to = from.AddDays(1);
         return await _db.Encounters
-            .Where(e => e.DoctorId == doctorId && e.StartTime >= from && e.StartTime <= to)
+            .Where(e => e.DoctorId == doctorId
+                && _db.Registrations.Any(r => r.Id == e.RegistrationId
+                    && r.RegisterTime >= from
+                    && r.RegisterTime < to))
             .OrderBy(e => e.Id)
             .ToListAsync();
     }

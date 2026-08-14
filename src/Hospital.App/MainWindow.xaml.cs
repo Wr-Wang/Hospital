@@ -6,10 +6,11 @@ namespace Hospital.App;
 
 public partial class MainWindow : Window
 {
-    public MainWindow(MainWindowViewModel viewModel, INavigationService navigation)
+    public MainWindow(MainWindowViewModel viewModel, INavigationService navigation, INotificationService notifications)
     {
         InitializeComponent();
         DataContext = viewModel;
         navigation.Attach(ShellContentHost);
+        ToastHost.DataContext = notifications;
     }
 }

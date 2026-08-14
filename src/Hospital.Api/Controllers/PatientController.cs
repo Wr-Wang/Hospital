@@ -76,6 +76,36 @@ public class PatientController : ControllerBase
         return Ok(profile);
     }
 
+    /// <summary>更新患者档案（补全身份证号等）</summary>
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(long id, [FromBody] UpdatePatientRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Name))
+            return BadRequest(new { error = "姓名不能为空", type = "validation_error" });
+
+        try
+        {
+            var updateDto = new UpdatePatientDto(
+                request.Name,
+                request.Gender,
+                request.BirthDate,
+                request.Phone,
+                request.AllergiesText,
+                request.IdCard);
+
+            await _patientService.UpdateAsync(id, updateDto);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message, type = "validation_error" });
+        }
+        catch (FormatException ex)
+        {
+            return BadRequest(new { error = "数据格式错误：" + ex.Message, type = "validation_error" });
+        }
+    }
+
     /// <summary>新建患者</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePatientRequest request)
@@ -115,6 +145,16 @@ public class PatientController : ControllerBase
 public class CreatePatientRequest
 {
     public string PatientNo { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string? Gender { get; set; }
+    public string? BirthDate { get; set; }
+    public string? Phone { get; set; }
+    public string? AllergiesText { get; set; }
+    public string? IdCard { get; set; }
+}
+
+public class UpdatePatientRequest
+{
     public string Name { get; set; } = string.Empty;
     public string? Gender { get; set; }
     public string? BirthDate { get; set; }

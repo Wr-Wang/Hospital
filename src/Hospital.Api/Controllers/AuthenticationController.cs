@@ -28,9 +28,11 @@ public class AuthenticationController : ControllerBase
 
         return Ok(new
         {
+            id = result.UserInfo?.Id,
             token = result.Token,
             displayName = result.UserInfo?.DisplayName,
             campusName = result.UserInfo?.CampusName,
+            campusId = result.UserInfo?.CampusId,
             roles = result.UserInfo?.Roles,
             permissions = result.UserInfo?.Permissions
         });

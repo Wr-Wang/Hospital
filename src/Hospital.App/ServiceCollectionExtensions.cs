@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<IAppContext, ApplicationContext>();
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<INotificationService, NotificationService>();
 
         var apiBaseUrl = configuration["Api:BaseUrl"] ?? "http://192.168.31.19:8080/api/";
 

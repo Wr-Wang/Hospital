@@ -176,6 +176,157 @@ IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDeptType AN
 IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDeptType AND Code = N'Pharmacy')
     INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDeptType, N'Pharmacy', N'药剂科室', 5, 1);
 
+-- ==================== 门诊医生站参考字典 ====================
+-- 供医生站在诊断/处方/检验 Tab 提供快捷选择、自动填充与占位示例
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryTypes WHERE Code = N'ICD_10')
+    INSERT INTO mdm.DictionaryTypes (Code, Name, Description, IsActive) VALUES (N'ICD_10', N'ICD-10 诊断', N'门诊诊断常用 ICD-10 编码', 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryTypes WHERE Code = N'DRUG')
+    INSERT INTO mdm.DictionaryTypes (Code, Name, Description, IsActive) VALUES (N'DRUG', N'常用药品', N'门诊常用药品（名称 | 规格 | 剂型）', 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryTypes WHERE Code = N'LAB_ITEM')
+    INSERT INTO mdm.DictionaryTypes (Code, Name, Description, IsActive) VALUES (N'LAB_ITEM', N'检验检查项目', N'常用检验检查项目', 1);
+
+DECLARE @TypeIcd BIGINT = (SELECT Id FROM mdm.DictionaryTypes WHERE Code = N'ICD_10');
+DECLARE @TypeDrug BIGINT = (SELECT Id FROM mdm.DictionaryTypes WHERE Code = N'DRUG');
+DECLARE @TypeLab BIGINT = (SELECT Id FROM mdm.DictionaryTypes WHERE Code = N'LAB_ITEM');
+
+-- ICD-10 诊断项
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'I10')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'I10', N'高血压病', 1, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'I10.x05')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'I10.x05', N'高血压病2级', 2, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'I11')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'I11', N'高血压性心脏病', 3, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'I63.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'I63.9', N'脑梗死', 4, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'I25.1')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'I25.1', N'冠状动脉粥样硬化性心脏病', 5, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'I20.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'I20.9', N'心绞痛', 6, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'I48')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'I48', N'心房颤动', 7, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'E11.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'E11.9', N'2型糖尿病', 8, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'E14.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'E14.9', N'糖尿病', 9, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'J06.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'J06.9', N'急性上呼吸道感染', 10, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'J20.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'J20.9', N'急性支气管炎', 11, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'J18.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'J18.9', N'肺炎', 12, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'J45.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'J45.9', N'支气管哮喘', 13, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'J02.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'J02.9', N'急性咽炎', 14, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'J03.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'J03.9', N'急性扁桃体炎', 15, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'J32.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'J32.9', N'慢性鼻窦炎', 16, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'J40')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'J40', N'慢性支气管炎', 17, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'K35.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'K35.9', N'急性阑尾炎', 18, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'K29.5')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'K29.5', N'慢性胃炎', 19, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'K21.0')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'K21.0', N'胃食管反流病', 20, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'K52.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'K52.9', N'急性胃肠炎', 21, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'N39.0')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'N39.0', N'泌尿道感染', 22, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'N20.0')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'N20.0', N'肾结石', 23, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'M54.5')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'M54.5', N'腰痛', 24, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'M17.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'M17.9', N'膝骨关节炎', 25, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'M10.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'M10.9', N'痛风', 26, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'B18.1')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'B18.1', N'乙型病毒性肝炎', 27, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'A09')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'A09', N'感染性腹泻', 28, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'F32.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'F32.9', N'抑郁症', 29, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'G43.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'G43.9', N'偏头痛', 30, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'G40.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'G40.9', N'癫痫', 31, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'H10.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'H10.9', N'结膜炎', 32, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'R05')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'R05', N'咳嗽', 33, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'R50.9')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'R50.9', N'发热', 34, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'R42')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'R42', N'头晕', 35, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeIcd AND Code = N'Z00.0')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeIcd, N'Z00.0', N'健康体检', 36, 1);
+
+-- 常用药品项（Name 约定：药品名 | 规格 | 剂型 | 频次 | 每次剂量 | 天数 | 总量）
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'AMOXIL')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'AMOXIL', N'阿莫西林胶囊 | 0.25g*24粒 | 胶囊剂 | BID | 1粒 | 7 | 14', 1, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'CEFIXIME')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'CEFIXIME', N'头孢克肟片 | 50mg*12片 | 片剂 | BID | 1片 | 5 | 10', 2, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'IBUPROFEN')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'IBUPROFEN', N'布洛芬缓释胶囊 | 0.3g*20粒 | 缓释胶囊 | TID | 1粒 | 3 | 9', 3, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'NIFEDIPINE')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'NIFEDIPINE', N'硝苯地平片 | 10mg*100片 | 片剂 | QD | 10mg | 30 | 30', 4, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'PARACETAMOL')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'PARACETAMOL', N'对乙酰氨基酚片 | 0.5g*20片 | 片剂 | PRN | 1片 | 3 | 6', 5, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'METFORMIN')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'METFORMIN', N'二甲双胍片 | 0.5g*20片 | 片剂 | BID | 1片 | 30 | 60', 6, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'OMEPRAZOLE')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'OMEPRAZOLE', N'奥美拉唑肠溶胶囊 | 20mg*14粒 | 肠溶胶囊 | QD | 1粒 | 14 | 14', 7, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'LOSARTAN')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'LOSARTAN', N'氯沙坦钾片 | 50mg*7片 | 片剂 | QD | 1片 | 30 | 30', 8, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'ATORVASTATIN')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'ATORVASTATIN', N'阿托伐他汀钙片 | 10mg*7片 | 片剂 | QN | 1片 | 30 | 30', 9, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'ASPIRIN')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'ASPIRIN', N'阿司匹林肠溶片 | 0.1g*30片 | 肠溶片 | QD | 1片 | 30 | 30', 10, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'CLARITHROMYCIN')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'CLARITHROMYCIN', N'克拉霉素片 | 0.25g*6片 | 片剂 | BID | 2片 | 7 | 28', 11, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'AMBROXOL')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'AMBROXOL', N'盐酸氨溴索片 | 30mg*20片 | 片剂 | TID | 1片 | 5 | 15', 12, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'LORATADINE')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'LORATADINE', N'氯雷他定片 | 10mg*12片 | 片剂 | QD | 1片 | 7 | 7', 13, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'VITAMIN_C')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'VITAMIN_C', N'维生素C片 | 0.1g*100片 | 片剂 | QD | 1片 | 30 | 30', 14, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeDrug AND Code = N'AMPICILLIN')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeDrug, N'AMPICILLIN', N'氨苄西林胶囊 | 0.25g*24粒 | 胶囊剂 | QID | 2粒 | 7 | 56', 15, 1);
+
+-- 检验检查项目项
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'CBC')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'CBC', N'血常规', 1, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'UAN')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'UAN', N'尿常规', 2, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'FOB')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'FOB', N'便常规', 3, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'LIVER_FUNC')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'LIVER_FUNC', N'肝功能', 4, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'RENAL')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'RENAL', N'肾功能', 5, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'FBS')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'FBS', N'空腹血糖', 6, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'LIPID')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'LIPID', N'血脂四项', 7, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'CRP')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'CRP', N'C反应蛋白', 8, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'HBA1C')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'HBA1C', N'糖化血红蛋白', 9, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'T3')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'T3', N'甲状腺功能三项', 10, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'ECG')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'ECG', N'心电图', 11, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'CHEST_XRAY')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'CHEST_XRAY', N'胸部X线检查', 12, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'ABDOMEN_US')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'ABDOMEN_US', N'腹部彩超', 13, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'CARDIAC_US')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'CARDIAC_US', N'心脏彩超', 14, 1);
+IF NOT EXISTS (SELECT 1 FROM mdm.DictionaryItems WHERE TypeId = @TypeLab AND Code = N'HEPATITIS_B')
+    INSERT INTO mdm.DictionaryItems (TypeId, Code, Name, SortOrder, IsActive) VALUES (@TypeLab, N'HEPATITIS_B', N'乙肝两对半', 15, 1);
+
 -- ==================== 患者（12 人） ====================
 -- 基础患者（来自 900）
 IF NOT EXISTS (SELECT 1 FROM pat.Patients WHERE PatientNo = N'P00000001')
@@ -430,20 +581,21 @@ WHERE p.OutpatientEncounterId IN (SELECT Id FROM enc.OutpatientEncounters WHERE 
   AND NOT EXISTS (SELECT 1 FROM pha.PrescriptionLines l WHERE l.PrescriptionId = p.Id AND l.DrugName = N'阿莫西林胶囊');
 
 -- ==================== 检验检查 ====================
+-- 注意：Status 需与领域枚举 OrderStatus 的值一致（已开立），否则 EF 反序列化抛异常
 INSERT INTO lab.LabOrders (OutpatientEncounterId, ItemCode, ItemName, Status)
-SELECT e.Id, N'CBC', N'血常规', N'已开单'
+SELECT e.Id, N'CBC', N'血常规', N'已开立'
 FROM enc.OutpatientEncounters e
 WHERE e.Status = N'已完成'
   AND NOT EXISTS (SELECT 1 FROM lab.LabOrders o WHERE o.OutpatientEncounterId = e.Id AND o.ItemCode = N'CBC');
 
 INSERT INTO lab.LabOrders (OutpatientEncounterId, ItemCode, ItemName, Status)
-SELECT e.Id, N'LIVER_FUNC', N'肝功能', N'已开单'
+SELECT e.Id, N'LIVER_FUNC', N'肝功能', N'已开立'
 FROM enc.OutpatientEncounters e
 WHERE e.Status = N'已完成' AND e.StaffId = @StaffDoctor
   AND NOT EXISTS (SELECT 1 FROM lab.LabOrders o WHERE o.OutpatientEncounterId = e.Id AND o.ItemCode = N'LIVER_FUNC');
 
 INSERT INTO rad.ImagingOrders (OutpatientEncounterId, ItemCode, ItemName, Status)
-SELECT e.Id, N'CHEST_XRAY', N'胸部X线检查', N'已开单'
+SELECT e.Id, N'CHEST_XRAY', N'胸部X线检查', N'已开立'
 FROM enc.OutpatientEncounters e
 WHERE e.Status = N'已完成'
   AND NOT EXISTS (SELECT 1 FROM rad.ImagingOrders o WHERE o.OutpatientEncounterId = e.Id AND o.ItemCode = N'CHEST_XRAY');

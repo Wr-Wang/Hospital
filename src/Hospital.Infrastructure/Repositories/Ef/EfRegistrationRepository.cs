@@ -21,7 +21,10 @@ public sealed class EfRegistrationRepository : IRegistrationRepository
 
     public async Task<List<Registration>> GetByDoctorAsync(long doctorId, DateOnly? date)
     {
-        var query = _db.Registrations.Where(r => r.DoctorId == doctorId);
+        // doctorId == 0 表示"全部医生"（挂号工作台约定），不按医生过滤
+        IQueryable<Registration> query = _db.Registrations;
+        if (doctorId != 0)
+            query = query.Where(r => r.DoctorId == doctorId);
         if (date.HasValue)
         {
             var from = date.Value.ToDateTime(TimeOnly.MinValue);

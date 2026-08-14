@@ -21,9 +21,9 @@ public class AuthenticationService : IAuthenticationService
         {
             var response = await _apiClient.PostAsync<AuthenticationResponse>(ApiRoutes.AuthenticationLogin, apiRequest);
 
-            // HTTP 200: 登录成功，API 返回 {token, displayName, campusName, roles, permissions}
+            // HTTP 200: 登录成功，API 返回 {id, token, displayName, campusName, roles, permissions}
             return new AuthenticationResult(true, null,
-                new UserInfo(1, response.DisplayName ?? string.Empty, response.CampusName ?? string.Empty, response.Roles, response.Permissions),
+                new UserInfo(response.Id ?? 0, response.DisplayName ?? string.Empty, response.CampusName ?? string.Empty, response.Roles, response.Permissions, response.CampusId),
                 response.Token);
         }
         catch (HttpRequestException ex) when (ex.StatusCode is null)
